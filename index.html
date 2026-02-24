@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
+<html lang="he" dir="rtl" class="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#080910">
+<meta name="theme-color" content="#080910" id="theme-meta">
 <title>The Investor – בקשת פגישה</title>
-<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;700;900&family=Heebo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 <style>
 /* ════════════════════════════════════════════════════
    RESET
@@ -15,42 +14,26 @@
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 
 /* ════════════════════════════════════════════════════
-   DESIGN TOKENS
-   Contrast ratios (against --bg #080910):
-   --text        #F0EDE6  → 16.8:1  ✅ AAA
-   --text-soft   #C8C4BC  → 9.1:1   ✅ AAA
-   --text-muted  #8E8B85  → 4.6:1   ✅ AA
-   --text-dim    #52504C  → 2.8:1   for decorative only
-   --gold        #D4A843  → 5.8:1   ✅ AA (large text)
-   --gold-bright #F0C85A  → 9.4:1   ✅ AAA
+   DARK TOKENS  (default)
 ════════════════════════════════════════════════════ */
 :root {
-  /* Background layers */
   --bg:          #080910;
   --bg-card:     #0E1119;
   --bg-input:    #13161F;
   --bg-input-f:  #181C28;
   --bg-elevated: #1A1E2C;
-
-  /* Borders */
   --bdr:         rgba(212,168,67,0.16);
   --bdr-hover:   rgba(212,168,67,0.38);
   --bdr-focus:   rgba(212,168,67,0.70);
   --bdr-subtle:  rgba(255,255,255,0.07);
-
-  /* Gold accent */
   --gold:        #D4A843;
   --gold-bright: #F0C85A;
   --gold-dim:    rgba(212,168,67,0.10);
   --gold-glow:   rgba(212,168,67,0.22);
-
-  /* Text */
   --text:        #F0EDE6;
   --text-soft:   #C8C4BC;
   --text-muted:  #8E8B85;
   --text-dim:    #4A4844;
-
-  /* Semantic */
   --error:       #FF6B6B;
   --error-bg:    rgba(255,107,107,0.10);
   --error-bdr:   rgba(255,107,107,0.35);
@@ -60,720 +43,414 @@ html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
   --info-bg:     rgba(96,165,250,0.08);
   --info-bdr:    rgba(96,165,250,0.25);
   --info-text:   #93C5FD;
-
-  /* Spacing scale */
-  --sp-xs: 8px;
-  --sp-sm: 12px;
-  --sp-md: 20px;
-  --sp-lg: 28px;
-  --sp-xl: 40px;
-
-  /* Radius */
-  --r-sm:  8px;
-  --r-md:  12px;
-  --r-lg:  18px;
-  --r-xl:  24px;
-  --r-pill:100px;
-
-  /* Transitions */
-  --t-fast: 0.15s ease;
-  --t-base: 0.22s cubic-bezier(0.4,0,0.2,1);
-  --t-slow: 0.35s cubic-bezier(0.4,0,0.2,1);
-
-  /* Shadows */
-  --shadow-card: 0 0 0 1px rgba(255,255,255,0.04),
-                 0 20px 60px rgba(0,0,0,0.70),
-                 0 4px 16px rgba(0,0,0,0.50);
+  --r-sm:8px; --r-md:12px; --r-lg:18px; --r-xl:24px; --r-pill:100px;
+  --t-fast:0.15s ease; --t-base:0.22s cubic-bezier(0.4,0,0.2,1); --t-slow:0.35s cubic-bezier(0.4,0,0.2,1);
+  --shadow-card: 0 0 0 1px rgba(255,255,255,0.04), 0 20px 60px rgba(0,0,0,0.70), 0 4px 16px rgba(0,0,0,0.50);
   --shadow-input-focus: 0 0 0 3px rgba(212,168,67,0.18);
-  --shadow-btn-primary: 0 4px 20px rgba(212,168,67,0.30),
-                        0 2px 8px rgba(0,0,0,0.40);
-  --shadow-btn-hover:   0 8px 32px rgba(212,168,67,0.42),
-                        0 4px 12px rgba(0,0,0,0.40);
+  --shadow-btn-p: 0 4px 20px rgba(212,168,67,0.30), 0 2px 8px rgba(0,0,0,0.40);
+  --shadow-btn-h: 0 8px 32px rgba(212,168,67,0.42), 0 4px 12px rgba(0,0,0,0.40);
+  --btn-p-bg:    linear-gradient(135deg,#D4A843 0%,#B88B2C 50%,#C99E3A 100%);
+  --btn-p-hover: linear-gradient(135deg,#F0C85A 0%,#D4A843 100%);
+  --btn-p-text:  #060710;
+  --cf-bg:       rgba(0,0,0,0.25);
+  --h1-grad:     linear-gradient(130deg,var(--gold) 0%,var(--gold-bright) 55%,var(--gold) 100%);
+  --orb1:        rgba(212,168,67,0.12);
+  --orb2:        rgba(60,80,200,0.12);
+  --grid:        rgba(255,255,255,0.018);
+  --scroll:      rgba(255,255,255,0.10);
+  --modal-line:  rgba(255,107,107,0.50);
+  --toast-err:   rgba(220,40,40,0.94);
+  --toast-ok:    rgba(30,140,80,0.94);
+  --ev-stripe:   #D4A843;
+}
+
+/* ════════════════════════════════════════════════════
+   LIGHT TOKENS
+════════════════════════════════════════════════════ */
+html.light {
+  --bg:          #F4F1EC;
+  --bg-card:     #FFFFFF;
+  --bg-input:    #F9F7F4;
+  --bg-input-f:  #FFFFFF;
+  --bg-elevated: #EEE9E1;
+  --bdr:         rgba(180,140,60,0.28);
+  --bdr-hover:   rgba(180,140,60,0.50);
+  --bdr-focus:   rgba(180,140,60,0.80);
+  --bdr-subtle:  rgba(0,0,0,0.08);
+  --gold:        #B8892A;
+  --gold-bright: #9A7020;
+  --gold-dim:    rgba(180,140,60,0.10);
+  --gold-glow:   rgba(180,140,60,0.18);
+  --text:        #1A1710;
+  --text-soft:   #3D3828;
+  --text-muted:  #6B6452;
+  --text-dim:    #A89E88;
+  --error:       #C0392B;
+  --error-bg:    rgba(192,57,43,0.07);
+  --error-bdr:   rgba(192,57,43,0.28);
+  --success:     #1A7A42;
+  --success-bg:  rgba(26,122,66,0.08);
+  --success-bdr: rgba(26,122,66,0.28);
+  --info-bg:     rgba(30,100,200,0.06);
+  --info-bdr:    rgba(30,100,200,0.20);
+  --info-text:   #1E5CB8;
+  --shadow-card: 0 0 0 1px rgba(0,0,0,0.06), 0 20px 60px rgba(0,0,0,0.10), 0 4px 16px rgba(0,0,0,0.07);
+  --shadow-input-focus: 0 0 0 3px rgba(180,140,60,0.15);
+  --shadow-btn-p: 0 4px 20px rgba(180,140,60,0.22), 0 2px 8px rgba(0,0,0,0.15);
+  --shadow-btn-h: 0 8px 32px rgba(180,140,60,0.32), 0 4px 12px rgba(0,0,0,0.15);
+  --btn-p-bg:    linear-gradient(135deg,#B8892A 0%,#9A7020 50%,#B08028 100%);
+  --btn-p-hover: linear-gradient(135deg,#C8920A 0%,#B8892A 100%);
+  --btn-p-text:  #ffffff;
+  --cf-bg:       rgba(0,0,0,0.03);
+  --h1-grad:     linear-gradient(130deg,#9A7020 0%,#C8920A 55%,#9A7020 100%);
+  --orb1:        rgba(180,140,60,0.18);
+  --orb2:        rgba(100,130,220,0.10);
+  --grid:        rgba(0,0,0,0.04);
+  --scroll:      rgba(0,0,0,0.15);
+  --modal-line:  rgba(192,57,43,0.40);
+  --toast-err:   rgba(180,30,30,0.94);
+  --toast-ok:    rgba(20,120,60,0.94);
+  --ev-stripe:   #B8892A;
 }
 
 /* ════════════════════════════════════════════════════
    BASE
 ════════════════════════════════════════════════════ */
 body {
-  font-family: 'Heebo', sans-serif;
-  direction: rtl;
-  text-align: right;
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100vh;
-  min-height: 100dvh;
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
+  font-family: 'Open Sans', sans-serif;
+  direction: rtl; text-align: right;
+  background: var(--bg); color: var(--text);
+  min-height: 100vh; min-height: 100dvh;
+  overflow-x: hidden; -webkit-font-smoothing: antialiased;
+  transition: background 0.35s ease, color 0.35s ease;
 }
+
+/* ════════════════════════════════════════════════════
+   THEME TOGGLE
+════════════════════════════════════════════════════ */
+.theme-toggle {
+  position: fixed; top: 16px; left: 16px; z-index: 9000;
+  width: 42px; height: 42px; border-radius: 50%;
+  background: var(--bg-elevated); border: 1.5px solid var(--bdr-subtle);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; color: var(--text-muted);
+  transition: var(--t-base); box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+}
+.theme-toggle:hover { border-color: var(--gold); color: var(--gold); transform: scale(1.08); }
+.ico-moon { display: block; }
+.ico-sun  { display: none; }
+html.light .ico-moon { display: none; }
+html.light .ico-sun  { display: block; }
 
 /* ════════════════════════════════════════════════════
    BACKGROUND
 ════════════════════════════════════════════════════ */
-.bg-layer {
-  position: fixed; inset: 0; z-index: 0; pointer-events: none;
-  overflow: hidden;
-}
-.bg-orb {
-  position: absolute; border-radius: 50%;
-  filter: blur(80px); opacity: 0.55;
-}
-.bg-orb-1 {
-  width: 600px; height: 600px;
-  top: -200px; right: -100px;
-  background: radial-gradient(circle, rgba(212,168,67,0.12) 0%, transparent 70%);
-}
-.bg-orb-2 {
-  width: 500px; height: 500px;
-  bottom: -150px; left: -100px;
-  background: radial-gradient(circle, rgba(60,80,200,0.12) 0%, transparent 70%);
-}
-.bg-orb-3 {
-  width: 350px; height: 350px;
-  top: 40%; left: 50%; transform: translate(-50%,-50%);
-  background: radial-gradient(circle, rgba(212,168,67,0.04) 0%, transparent 70%);
-}
-/* Subtle grid overlay */
-.bg-grid {
-  position: absolute; inset: 0;
-  background-image:
-    linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
-  background-size: 60px 60px;
-  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 0%, transparent 100%);
-}
+.bg-layer { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.bg-orb   { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.55; }
+html.light .bg-orb { opacity: 0.45; }
+.bg-orb-1 { width:600px; height:600px; top:-200px; right:-100px; background:radial-gradient(circle,var(--orb1) 0%,transparent 70%); }
+.bg-orb-2 { width:500px; height:500px; bottom:-150px; left:-100px; background:radial-gradient(circle,var(--orb2) 0%,transparent 70%); }
+.bg-orb-3 { width:350px; height:350px; top:40%; left:50%; transform:translate(-50%,-50%); background:radial-gradient(circle,rgba(212,168,67,0.04) 0%,transparent 70%); }
+.bg-grid  { position:absolute; inset:0; background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px); background-size:60px 60px; mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 0%,transparent 100%); }
 
 /* ════════════════════════════════════════════════════
-   PAGE WRAPPER
+   PAGE
 ════════════════════════════════════════════════════ */
-.page {
-  position: relative; z-index: 1;
-  min-height: 100vh; min-height: 100dvh;
-  display: flex; flex-direction: column; align-items: center;
-  padding: 0 clamp(16px, 4vw, 32px) clamp(60px, 10vw, 100px);
-}
+.page { position:relative; z-index:1; min-height:100vh; min-height:100dvh; display:flex; flex-direction:column; align-items:center; padding:0 clamp(16px,4vw,32px) clamp(60px,10vw,100px); }
 
 /* ════════════════════════════════════════════════════
    HEADER
 ════════════════════════════════════════════════════ */
-.hdr {
-  width: 100%; max-width: 640px;
-  padding: clamp(36px,6vw,64px) 0 clamp(28px,4vw,44px);
-  display: flex; flex-direction: column; align-items: center;
-  gap: clamp(12px,2vw,18px);
-  animation: fadeDown 0.7s ease both;
-}
-
-.brand-pill {
-  display: inline-flex; align-items: center; gap: 9px;
-  padding: 6px 18px; border-radius: var(--r-pill);
-  border: 1px solid var(--bdr);
-  background: rgba(212,168,67,0.07);
-  font-size: 11px; font-weight: 800;
-  letter-spacing: 0.20em; text-transform: uppercase;
-  color: var(--gold);
-}
-.brand-pill .sep { color: var(--text-dim); letter-spacing: 0; }
-.brand-pill svg { flex-shrink: 0; }
-
-h1 {
-  font-family: 'Frank Ruhl Libre', serif;
-  font-size: clamp(1.75rem, 5.5vw, 3rem);
-  font-weight: 900; color: var(--text);
-  letter-spacing: -0.025em; line-height: 1.12;
-  text-align: center;
-}
-h1 .grad {
-  background: linear-gradient(130deg, var(--gold) 0%, var(--gold-bright) 55%, var(--gold) 100%);
-  background-size: 200% 100%;
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-  animation: shimmer-text 4s ease infinite;
-}
-.hdr-sub {
-  font-size: clamp(13px, 2.2vw, 15px);
-  color: var(--text-muted); text-align: center;
-  max-width: 400px; line-height: 1.75;
-}
+.hdr { width:100%; max-width:640px; padding:clamp(36px,6vw,64px) 0 clamp(28px,4vw,44px); display:flex; flex-direction:column; align-items:center; gap:clamp(12px,2vw,18px); animation:fadeDown 0.7s ease both; }
+.brand-pill { display:inline-flex; align-items:center; gap:9px; padding:6px 18px; border-radius:var(--r-pill); border:1px solid var(--bdr); background:rgba(212,168,67,0.07); font-size:11px; font-weight:800; letter-spacing:0.20em; text-transform:uppercase; color:var(--gold); }
+.brand-pill svg { flex-shrink:0; }
+h1 { font-family:'Open Sans',sans-serif; font-size:clamp(1.75rem,5.5vw,3rem); font-weight:900; color:var(--text); letter-spacing:-0.025em; line-height:1.12; text-align:center; }
+h1 .grad { background:var(--h1-grad); background-size:200% 100%; -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; animation:shimmer-text 4s ease infinite; }
+.hdr-sub { font-size:clamp(13px,2.2vw,15px); color:var(--text-muted); text-align:center; max-width:400px; line-height:1.75; }
 
 /* ════════════════════════════════════════════════════
    CARD
 ════════════════════════════════════════════════════ */
-.card {
-  width: 100%; max-width: 600px;
-  background: var(--bg-card);
-  border: 1px solid var(--bdr-subtle);
-  border-radius: var(--r-xl);
-  overflow: hidden;
-  box-shadow: var(--shadow-card);
-  animation: fadeUp 0.65s 0.18s ease both;
-  /* thin gold top line */
-  position: relative;
-}
-.card::before {
-  content: '';
-  position: absolute; top: 0; left: 10%; right: 10%; height: 1px;
-  background: linear-gradient(90deg, transparent, var(--gold), transparent);
-  opacity: 0.5;
-}
+.card { width:100%; max-width:600px; background:var(--bg-card); border:1px solid var(--bdr-subtle); border-radius:var(--r-xl); overflow:hidden; box-shadow:var(--shadow-card); animation:fadeUp 0.65s 0.18s ease both; position:relative; }
+.card::before { content:''; position:absolute; top:0; left:10%; right:10%; height:1px; background:linear-gradient(90deg,transparent,var(--gold),transparent); opacity:0.5; }
 
 /* ════════════════════════════════════════════════════
-   PROGRESS BAR
+   PROGRESS
 ════════════════════════════════════════════════════ */
-.prog {
-  padding: clamp(20px,4vw,28px) clamp(20px,5vw,36px) 0;
-  display: flex; align-items: center; gap: 10px;
-}
-.p-dot {
-  width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 13px; font-weight: 800;
-  border: 2px solid var(--bdr); color: var(--text-dim);
-  background: var(--bg-elevated); transition: var(--t-slow);
-  position: relative; z-index: 1;
-}
-.p-dot.active {
-  border-color: var(--gold); color: var(--gold-bright);
-  background: rgba(212,168,67,0.08);
-  box-shadow: 0 0 0 5px rgba(212,168,67,0.10), 0 0 20px rgba(212,168,67,0.18);
-}
-.p-dot.done {
-  background: var(--gold); border-color: var(--gold); color: #060710;
-  box-shadow: 0 2px 12px rgba(212,168,67,0.40);
-}
-.p-line {
-  flex: 1; height: 2px;
-  background: var(--bdr-subtle); border-radius: 2px;
-  transition: var(--t-slow);
-  overflow: hidden; position: relative;
-}
-.p-line::after {
-  content: ''; position: absolute; inset: 0;
-  background: linear-gradient(90deg, var(--gold), var(--gold-bright));
-  transform: scaleX(0); transform-origin: right;
-  transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
-  border-radius: 2px;
-}
-.p-line.done::after { transform: scaleX(1); }
-.p-label {
-  font-size: 11px; font-weight: 700; color: var(--text-muted);
-  letter-spacing: 0.06em; white-space: nowrap;
-  margin-right: 4px;
-}
+.prog { padding:clamp(20px,4vw,28px) clamp(20px,5vw,36px) 0; display:flex; align-items:center; gap:10px; }
+.p-dot { width:32px; height:32px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:800; border:2px solid var(--bdr); color:var(--text-dim); background:var(--bg-elevated); transition:var(--t-slow); position:relative; z-index:1; }
+.p-dot.active { border-color:var(--gold); color:var(--gold-bright); background:rgba(212,168,67,0.08); box-shadow:0 0 0 5px rgba(212,168,67,0.10),0 0 20px rgba(212,168,67,0.18); }
+.p-dot.done   { background:var(--gold); border-color:var(--gold); color:#060710; box-shadow:0 2px 12px rgba(212,168,67,0.40); }
+.p-line { flex:1; height:2px; background:var(--bdr-subtle); border-radius:2px; transition:var(--t-slow); overflow:hidden; position:relative; }
+.p-line::after { content:''; position:absolute; inset:0; background:linear-gradient(90deg,var(--gold),var(--gold-bright)); transform:scaleX(0); transform-origin:right; transition:transform 0.5s cubic-bezier(0.4,0,0.2,1); border-radius:2px; }
+.p-line.done::after { transform:scaleX(1); }
+.p-label { font-size:11px; font-weight:700; color:var(--text-muted); letter-spacing:0.06em; white-space:nowrap; margin-right:4px; }
 
 /* ════════════════════════════════════════════════════
    FORM BODY
 ════════════════════════════════════════════════════ */
-.fb {
-  padding: clamp(20px,4vw,28px) clamp(20px,5vw,36px) clamp(24px,5vw,36px);
-}
-
-.sec-hd { margin-bottom: 24px; }
-.sec-title {
-  font-family: 'Frank Ruhl Libre', serif;
-  font-size: clamp(16px,3vw,20px); font-weight: 700;
-  color: var(--text); line-height: 1.2;
-  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
-}
-.sec-sub {
-  font-size: clamp(12px,2vw,13.5px); color: var(--text-muted);
-  margin-top: 6px; line-height: 1.70;
-}
-
-.fields { display: flex; flex-direction: column; gap: clamp(14px,3vw,20px); }
-.frow   { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(10px,2vw,16px); }
-
-.field  { display: flex; flex-direction: column; gap: 6px; }
-
-/* ─── LABEL ─── */
-label {
-  font-size: 12px; font-weight: 700;
-  color: var(--text-soft);           /* ↑ was text-muted, now higher contrast */
-  letter-spacing: 0.07em;
-  display: flex; align-items: center; gap: 6px;
-  direction: rtl; text-align: right;
-  line-height: 1;
-}
-label .req  { color: var(--gold-bright); font-size: 14px; line-height: 0.8; }
-label .auto {
-  font-size: 9.5px; padding: 2px 8px; border-radius: var(--r-pill);
-  background: rgba(212,168,67,0.12); color: var(--gold-bright);
-  font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
-  border: 1px solid rgba(212,168,67,0.25);
-}
-
-/* ─── INPUTS ─── */
-input[type="text"],
-input[type="email"],
-input[type="tel"],
-textarea {
-  width: 100%;
-  padding: clamp(11px,2vw,14px) clamp(13px,2vw,16px);
-  background: var(--bg-input);
-  border: 1.5px solid rgba(255,255,255,0.09);
-  border-radius: var(--r-sm);
-  color: var(--text);                /* #F0EDE6 – max contrast */
-  font-family: 'Heebo', sans-serif;
-  font-size: clamp(14px,2.5vw,15px);
-  font-weight: 400;
-  direction: rtl; text-align: right;
-  outline: none;
-  transition: border-color var(--t-base), background var(--t-base), box-shadow var(--t-base);
-  -webkit-appearance: none; appearance: none;
-  /* Minimum tap target */
-  min-height: 48px;
-}
-input::placeholder, textarea::placeholder {
-  color: var(--text-dim);
-  direction: rtl; text-align: right;
-}
-input:hover:not(:disabled),
-textarea:hover:not(:disabled) {
-  border-color: rgba(255,255,255,0.16);
-  background: var(--bg-input-f);
-}
-input:focus, textarea:focus {
-  border-color: var(--gold);
-  background: var(--bg-input-f);
-  box-shadow: var(--shadow-input-focus);
-  color: var(--text);
-}
-input:disabled { opacity: 0.55; cursor: not-allowed; }
-input.prefilled {
-  color: var(--gold-bright);
-  background: rgba(212,168,67,0.05);
-  border-color: rgba(212,168,67,0.28);
-}
-input.is-err, textarea.is-err {
-  border-color: var(--error) !important;
-  box-shadow: 0 0 0 3px rgba(255,107,107,0.12) !important;
-}
-textarea { resize: vertical; min-height: 88px; line-height: 1.65; }
-
-/* Input + icon */
-.iw { position: relative; }
-.iw .ico {
-  position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
-  color: var(--text-muted); pointer-events: none; display: flex;
-}
-.iw input { padding-left: 40px; }
-
-/* Field error text */
-.ferr {
-  font-size: 11.5px; color: var(--error); direction: rtl;
-  min-height: 16px; line-height: 1.3;
-  display: flex; align-items: center; gap: 4px;
-}
+.fb { padding:clamp(20px,4vw,28px) clamp(20px,5vw,36px) clamp(24px,5vw,36px); }
+.sec-hd { margin-bottom:24px; }
+.sec-title { font-family:'Open Sans',sans-serif; font-size:clamp(16px,3vw,20px); font-weight:700; color:var(--text); line-height:1.2; display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+.sec-sub   { font-size:clamp(12px,2vw,13.5px); color:var(--text-muted); margin-top:6px; line-height:1.70; }
+.fields    { display:flex; flex-direction:column; gap:clamp(14px,3vw,20px); }
+.frow      { display:grid; grid-template-columns:1fr 1fr; gap:clamp(10px,2vw,16px); }
+.field     { display:flex; flex-direction:column; gap:6px; }
+label { font-size:12px; font-weight:700; color:var(--text-soft); letter-spacing:0.07em; display:flex; align-items:center; gap:6px; direction:rtl; text-align:right; line-height:1; }
+label .req  { color:var(--gold-bright); font-size:14px; line-height:0.8; }
+label .auto { font-size:9.5px; padding:2px 8px; border-radius:var(--r-pill); background:rgba(212,168,67,0.12); color:var(--gold-bright); font-weight:800; letter-spacing:0.08em; text-transform:uppercase; border:1px solid rgba(212,168,67,0.25); }
+input[type="text"], input[type="email"], input[type="tel"], textarea { width:100%; padding:clamp(11px,2vw,14px) clamp(13px,2vw,16px); background:var(--bg-input); border:1.5px solid rgba(255,255,255,0.09); border-radius:var(--r-sm); color:var(--text); font-family:'Open Sans',sans-serif; font-size:clamp(14px,2.5vw,15px); outline:none; transition:border-color var(--t-base),background var(--t-base),box-shadow var(--t-base); -webkit-appearance:none; appearance:none; min-height:48px; direction:rtl; text-align:right; }
+html.light input[type="text"],
+html.light input[type="email"],
+html.light input[type="tel"],
+html.light textarea { border-color:rgba(0,0,0,0.10); }
+input::placeholder, textarea::placeholder { color:var(--text-dim); direction:rtl; text-align:right; }
+input:hover:not(:disabled), textarea:hover:not(:disabled) { border-color:rgba(255,255,255,0.16); background:var(--bg-input-f); }
+html.light input:hover:not(:disabled), html.light textarea:hover:not(:disabled) { border-color:rgba(0,0,0,0.18); }
+input:focus, textarea:focus { border-color:var(--gold); background:var(--bg-input-f); box-shadow:var(--shadow-input-focus); color:var(--text); }
+input:disabled { opacity:0.55; cursor:not-allowed; }
+input.prefilled { color:var(--gold-bright); background:rgba(212,168,67,0.05); border-color:rgba(212,168,67,0.28); }
+input.is-err, textarea.is-err { border-color:var(--error) !important; box-shadow:0 0 0 3px rgba(255,107,107,0.12) !important; }
+textarea { resize:vertical; min-height:88px; line-height:1.65; }
+.iw { position:relative; }
+.iw .ico { position:absolute; left:14px; top:50%; transform:translateY(-50%); color:var(--text-muted); pointer-events:none; display:flex; }
+.iw input { padding-left:40px; }
+.ferr { font-size:11.5px; color:var(--error); direction:rtl; min-height:16px; line-height:1.3; display:flex; align-items:center; gap:4px; }
+.email-row { display:flex; gap:10px; align-items:flex-end; }
+.email-row .field { flex:1; }
+.dvd { height:1px; background:linear-gradient(90deg,transparent,var(--bdr-subtle) 30%,var(--bdr-subtle) 70%,transparent); margin:clamp(20px,4vw,28px) 0; }
 
 /* ════════════════════════════════════════════════════
-   EMAIL ROW
+   OTP
 ════════════════════════════════════════════════════ */
-.email-row { display: flex; gap: 10px; align-items: flex-end; }
-.email-row .field { flex: 1; }
+.otp-wrap { display:flex; gap:clamp(6px,1.5vw,10px); direction:ltr; justify-content:flex-start; margin-bottom:2px; }
+.otp-cell { flex:1; max-width:58px; height:clamp(52px,10vw,62px); border-radius:var(--r-sm); text-align:center; font-size:clamp(20px,5vw,26px); font-weight:800; font-family:'Open Sans',sans-serif; background:var(--bg-input); border:2px solid rgba(255,255,255,0.09); color:var(--gold-bright); outline:none; direction:ltr; transition:var(--t-base); -webkit-appearance:none; appearance:none; min-width:40px; }
+html.light .otp-cell { border-color:rgba(0,0,0,0.10); }
+.otp-cell:hover  { border-color:rgba(255,255,255,0.18); }
+.otp-cell:focus  { border-color:var(--gold); background:var(--bg-input-f); box-shadow:var(--shadow-input-focus); }
+.otp-cell.filled { border-color:rgba(212,168,67,0.40); }
+.otp-cell.err    { border-color:var(--error); animation:shake 0.42s ease; }
+.resend-row { display:flex; align-items:center; justify-content:space-between; margin-top:10px; gap:8px; flex-wrap:wrap; }
+.resend-info { font-size:12px; color:var(--text-muted); }
+.resend-info strong { color:var(--text-soft); }
+.resend-btn { background:none; border:none; cursor:pointer; font-family:'Open Sans',sans-serif; font-size:12.5px; font-weight:700; color:var(--gold); text-decoration:underline; text-underline-offset:2px; transition:var(--t-fast); padding:4px 0; }
+.resend-btn:hover:not(:disabled) { color:var(--gold-bright); }
+.resend-btn:disabled { color:var(--text-dim); text-decoration:none; cursor:default; }
 
 /* ════════════════════════════════════════════════════
-   OTP CELLS
+   MEETING TYPE + PURPOSE PILLS
 ════════════════════════════════════════════════════ */
-.otp-wrap {
-  display: flex; gap: clamp(6px,1.5vw,10px);
-  direction: ltr; justify-content: flex-start;
-  margin-bottom: 2px;
-}
-.otp-cell {
-  flex: 1; max-width: 58px;
-  height: clamp(52px,10vw,62px);
-  border-radius: var(--r-sm);
-  text-align: center;
-  font-size: clamp(20px,5vw,26px); font-weight: 800;
-  font-family: 'Frank Ruhl Libre', serif;
-  background: var(--bg-input);
-  border: 2px solid rgba(255,255,255,0.09);
-  color: var(--gold-bright);
-  outline: none; direction: ltr;
-  transition: var(--t-base);
-  -webkit-appearance: none; appearance: none;
-  /* touch-friendly */
-  min-width: 40px;
-}
-.otp-cell:hover  { border-color: rgba(255,255,255,0.18); }
-.otp-cell:focus  { border-color: var(--gold); background: var(--bg-input-f); box-shadow: var(--shadow-input-focus); }
-.otp-cell.filled { border-color: rgba(212,168,67,0.40); }
-.otp-cell.err    { border-color: var(--error); animation: shake 0.42s ease; }
-
-.resend-row {
-  display: flex; align-items: center; justify-content: space-between;
-  margin-top: 10px; gap: 8px; flex-wrap: wrap;
-}
-.resend-info { font-size: 12px; color: var(--text-muted); }
-.resend-info strong { color: var(--text-soft); }
-.resend-btn {
-  background: none; border: none; cursor: pointer;
-  font-family: 'Heebo', sans-serif; font-size: 12.5px; font-weight: 700;
-  color: var(--gold); text-decoration: underline;
-  text-underline-offset: 2px; transition: var(--t-fast); padding: 4px 0;
-}
-.resend-btn:hover:not(:disabled) { color: var(--gold-bright); }
-.resend-btn:disabled { color: var(--text-dim); text-decoration: none; cursor: default; }
+.mt-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(8px,2vw,12px); }
+.mt-card { padding:clamp(14px,3vw,20px) clamp(8px,2vw,14px); border-radius:var(--r-md); background:var(--bg-elevated); border:2px solid rgba(255,255,255,0.07); cursor:pointer; transition:var(--t-base); display:flex; flex-direction:column; align-items:center; gap:8px; text-align:center; user-select:none; min-height:80px; }
+html.light .mt-card { border-color:rgba(0,0,0,0.08); }
+.mt-card:hover { border-color:rgba(212,168,67,0.28); background:rgba(212,168,67,0.04); }
+.mt-card.sel   { border-color:var(--gold); background:rgba(212,168,67,0.08); box-shadow:0 0 0 4px rgba(212,168,67,0.10),inset 0 1px 0 rgba(212,168,67,0.15); }
+.mt-icon { font-size:clamp(20px,4vw,26px); line-height:1; }
+.mt-lbl  { font-size:clamp(11px,2vw,13px); font-weight:700; color:var(--text-muted); transition:var(--t-fast); line-height:1.2; }
+.mt-card.sel .mt-lbl { color:var(--gold-bright); }
+.pp-wrap { display:flex; gap:8px; flex-wrap:wrap; }
+.pp { padding:clamp(8px,2vw,11px) clamp(14px,3vw,20px); border-radius:var(--r-pill); border:1.5px solid rgba(255,255,255,0.09); background:var(--bg-elevated); color:var(--text-soft); font-size:clamp(12px,2vw,13.5px); font-weight:600; cursor:pointer; transition:var(--t-base); font-family:'Open Sans',sans-serif; min-height:40px; display:flex; align-items:center; }
+html.light .pp { border-color:rgba(0,0,0,0.10); }
+.pp:hover { border-color:rgba(212,168,67,0.30); color:var(--text); }
+.pp.sel   { background:rgba(212,168,67,0.12); border-color:var(--gold); color:var(--gold-bright); box-shadow:0 0 0 3px rgba(212,168,67,0.08); }
 
 /* ════════════════════════════════════════════════════
-   MEETING TYPE CARDS
+   CUSTOM SELECT (COMPANY)
 ════════════════════════════════════════════════════ */
-.mt-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: clamp(8px,2vw,12px); }
-.mt-card {
-  padding: clamp(14px,3vw,20px) clamp(8px,2vw,14px);
-  border-radius: var(--r-md);
-  background: var(--bg-elevated);
-  border: 2px solid rgba(255,255,255,0.07);
-  cursor: pointer; transition: var(--t-base);
-  display: flex; flex-direction: column; align-items: center; gap: 8px;
-  text-align: center; user-select: none;
-  /* min tap target */
-  min-height: 80px;
-}
-.mt-card:hover { border-color: rgba(212,168,67,0.28); background: rgba(212,168,67,0.04); }
-.mt-card.sel {
-  border-color: var(--gold);
-  background: rgba(212,168,67,0.08);
-  box-shadow: 0 0 0 4px rgba(212,168,67,0.10), inset 0 1px 0 rgba(212,168,67,0.15);
-}
-.mt-icon { font-size: clamp(20px,4vw,26px); line-height: 1; }
-.mt-lbl  {
-  font-size: clamp(11px,2vw,13px); font-weight: 700;
-  color: var(--text-muted); transition: var(--t-fast); line-height: 1.2;
-}
-.mt-card.sel .mt-lbl { color: var(--gold-bright); }
-
-/* ════════════════════════════════════════════════════
-   PURPOSE PILLS
-════════════════════════════════════════════════════ */
-.pp-wrap { display: flex; gap: 8px; flex-wrap: wrap; }
-.pp {
-  padding: clamp(8px,2vw,11px) clamp(14px,3vw,20px);
-  border-radius: var(--r-pill);
-  border: 1.5px solid rgba(255,255,255,0.09);
-  background: var(--bg-elevated);
-  color: var(--text-soft);             /* ↑ higher contrast */
-  font-size: clamp(12px,2vw,13.5px); font-weight: 600;
-  cursor: pointer; transition: var(--t-base);
-  font-family: 'Heebo', sans-serif;
-  min-height: 40px;
-  display: flex; align-items: center;
-}
-.pp:hover { border-color: rgba(212,168,67,0.30); color: var(--text); }
-.pp.sel {
-  background: rgba(212,168,67,0.12);
-  border-color: var(--gold);
-  color: var(--gold-bright);
-  box-shadow: 0 0 0 3px rgba(212,168,67,0.08);
-}
-
-/* ════════════════════════════════════════════════════
-   CUSTOM SELECT
-════════════════════════════════════════════════════ */
-.cs-w { position: relative; }
-.cs-t {
-  width: 100%; padding: clamp(11px,2vw,14px) clamp(13px,2vw,16px);
-  background: var(--bg-input);
-  border: 1.5px solid rgba(255,255,255,0.09);
-  border-radius: var(--r-sm);
-  color: var(--text-muted);
-  font-family: 'Heebo', sans-serif;
-  font-size: clamp(14px,2.5vw,15px);
-  direction: rtl; text-align: right;
-  cursor: pointer; display: flex; align-items: center; justify-content: space-between;
-  transition: var(--t-base); user-select: none;
-  min-height: 48px; gap: 10px;
-}
-.cs-t:hover { border-color: rgba(255,255,255,0.16); background: var(--bg-input-f); }
-.cs-t.open  {
-  border-color: var(--gold);
-  background: var(--bg-input-f);
-  border-bottom-left-radius: 0; border-bottom-right-radius: 0;
-  box-shadow: var(--shadow-input-focus);
-  color: var(--text);
-}
-.cs-t .cs-ph { color: var(--text-dim); }
-.cs-t .cs-v  { color: var(--text); font-weight: 500; }
-.cs-t .arr   { flex-shrink: 0; color: var(--text-muted); transition: var(--t-base); }
-.cs-t.open .arr { transform: rotate(180deg); color: var(--gold); }
-
-.cs-dd {
-  position: absolute; top: 100%; left: 0; right: 0; z-index: 200;
-  background: var(--bg-input-f);
-  border: 1.5px solid var(--gold);
-  border-top: none;
-  border-bottom-left-radius: var(--r-sm); border-bottom-right-radius: var(--r-sm);
-  max-height: 320px; overflow: hidden;
-  display: flex; flex-direction: column;
-  box-shadow: 0 24px 60px rgba(0,0,0,0.60);
-}
-.cs-sh-w { padding: 10px; border-bottom: 1px solid var(--bdr-subtle); position: relative; }
-.cs-sh {
-  width: 100%; padding: 9px 14px 9px 36px;
-  background: var(--bg-elevated);
-  border: 1.5px solid rgba(255,255,255,0.09);
-  border-radius: 6px;
-  color: var(--text); font-family: 'Heebo', sans-serif; font-size: 14px;
-  direction: rtl; text-align: right; outline: none; transition: var(--t-base);
-}
-.cs-sh:focus { border-color: var(--gold); }
-.cs-sh::placeholder { color: var(--text-dim); }
-.cs-sh-ico { position: absolute; left: 22px; top: 50%; transform: translateY(-50%); color: var(--text-muted); pointer-events: none; }
-
-.sp-row {
-  display: flex; gap: 6px; padding: 8px 10px; flex-wrap: wrap;
-  border-bottom: 1px solid var(--bdr-subtle);
-}
-.sp {
-  padding: 4px 12px; border-radius: var(--r-pill);
-  font-size: 11.5px; font-weight: 700;
-  border: 1px solid rgba(255,255,255,0.08);
-  background: transparent; color: var(--text-muted);
-  cursor: pointer; transition: var(--t-fast);
-  font-family: 'Heebo', sans-serif;
-}
-.sp.act { background: rgba(212,168,67,0.12); border-color: rgba(212,168,67,0.35); color: var(--gold-bright); }
-
-.cs-list { overflow-y: auto; flex: 1; scrollbar-width: thin; scrollbar-color: var(--bdr) transparent; }
-.cs-item {
-  padding: 11px 16px; cursor: pointer; transition: background var(--t-fast);
-  display: flex; align-items: center; justify-content: space-between;
-  font-size: 14px; direction: rtl; gap: 10px; min-height: 44px;
-}
-.cs-item:hover  { background: rgba(212,168,67,0.06); }
-.cs-item.sel    { background: rgba(212,168,67,0.10); color: var(--gold-bright); font-weight: 600; }
-.cs-item .sb    {
-  font-size: 10.5px; color: var(--text-muted); padding: 2px 8px;
-  border-radius: var(--r-pill); background: var(--bg-elevated);
-  border: 1px solid var(--bdr-subtle); white-space: nowrap; flex-shrink: 0;
-}
-.cs-empty { padding: 22px; text-align: center; color: var(--text-dim); font-size: 13px; }
-
-/* ════════════════════════════════════════════════════
-   DIVIDER
-════════════════════════════════════════════════════ */
-.dvd {
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--bdr-subtle) 30%, var(--bdr-subtle) 70%, transparent);
-  margin: clamp(20px,4vw,28px) 0;
-}
+.cs-w { position:relative; }
+.cs-t { width:100%; padding:clamp(11px,2vw,14px) clamp(13px,2vw,16px); background:var(--bg-input); border:1.5px solid rgba(255,255,255,0.09); border-radius:var(--r-sm); color:var(--text-muted); font-family:'Open Sans',sans-serif; font-size:clamp(14px,2.5vw,15px); direction:rtl; text-align:right; cursor:pointer; display:flex; align-items:center; justify-content:space-between; transition:var(--t-base); user-select:none; min-height:48px; gap:10px; }
+html.light .cs-t { border-color:rgba(0,0,0,0.10); }
+.cs-t:hover { border-color:rgba(255,255,255,0.16); background:var(--bg-input-f); }
+.cs-t.open  { border-color:var(--gold); background:var(--bg-input-f); border-bottom-left-radius:0; border-bottom-right-radius:0; box-shadow:var(--shadow-input-focus); color:var(--text); }
+.cs-t .cs-ph { color:var(--text-dim); }
+.cs-t .cs-v  { color:var(--text); font-weight:500; }
+.cs-t .arr   { flex-shrink:0; color:var(--text-muted); transition:var(--t-base); }
+.cs-t.open .arr { transform:rotate(180deg); color:var(--gold); }
+.cs-dd { position:absolute; top:100%; left:0; right:0; z-index:200; background:var(--bg-input-f); border:1.5px solid var(--gold); border-top:none; border-bottom-left-radius:var(--r-sm); border-bottom-right-radius:var(--r-sm); max-height:320px; overflow:hidden; display:flex; flex-direction:column; box-shadow:0 24px 60px rgba(0,0,0,0.60); }
+.cs-sh-w { padding:10px; border-bottom:1px solid var(--bdr-subtle); position:relative; }
+.cs-sh { width:100%; padding:9px 14px 9px 36px; background:var(--bg-elevated); border:1.5px solid rgba(255,255,255,0.09); border-radius:6px; color:var(--text); font-family:'Open Sans',sans-serif; font-size:14px; direction:rtl; text-align:right; outline:none; transition:var(--t-base); }
+.cs-sh:focus { border-color:var(--gold); }
+.cs-sh::placeholder { color:var(--text-dim); }
+.cs-sh-ico { position:absolute; left:22px; top:50%; transform:translateY(-50%); color:var(--text-muted); pointer-events:none; }
+.cs-list { overflow-y:auto; flex:1; scrollbar-width:thin; scrollbar-color:var(--bdr) transparent; }
+.cs-item { padding:11px 16px; cursor:pointer; transition:background var(--t-fast); display:flex; align-items:center; justify-content:space-between; font-size:14px; direction:rtl; gap:10px; min-height:44px; }
+.cs-item:hover { background:rgba(212,168,67,0.06); }
+.cs-item.sel   { background:rgba(212,168,67,0.10); color:var(--gold-bright); font-weight:600; }
+.cs-empty { padding:22px; text-align:center; color:var(--text-dim); font-size:13px; }
+.cnf-field { margin-top:14px; padding:14px 16px; background:rgba(212,168,67,0.04); border:1.5px dashed rgba(212,168,67,0.22); border-radius:var(--r-md); }
+.cnf-label { font-size:12px; font-weight:700; color:var(--text-muted); letter-spacing:0.06em; margin-bottom:8px; display:flex; align-items:center; gap:6px; }
+.cnf-label svg { color:var(--gold); flex-shrink:0; }
+.cnf-desc { font-size:11.5px; color:var(--text-dim); margin-bottom:10px; line-height:1.65; }
 
 /* ════════════════════════════════════════════════════
    BUTTONS
 ════════════════════════════════════════════════════ */
-.btn {
-  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-  padding: clamp(11px,2vw,14px) clamp(18px,3vw,26px);
-  border-radius: var(--r-sm);
-  font-family: 'Heebo', sans-serif;
-  font-size: clamp(13px,2.5vw,15px); font-weight: 800;
-  cursor: pointer; border: none; transition: var(--t-base);
-  white-space: nowrap; user-select: none;
-  min-height: 48px;    /* WCAG touch target */
-}
-
-/* Primary – gold CTA */
-.btn-p {
-  background: linear-gradient(135deg, #D4A843 0%, #B88B2C 50%, #C99E3A 100%);
-  color: #060710;
-  box-shadow: var(--shadow-btn-primary);
-  letter-spacing: 0.02em;
-}
-.btn-p:hover:not(:disabled) {
-  background: linear-gradient(135deg, var(--gold-bright) 0%, #D4A843 100%);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-btn-hover);
-}
-.btn-p:active:not(:disabled) { transform: translateY(0); }
-.btn-p:disabled { opacity: 0.40; cursor: not-allowed; transform: none !important; box-shadow: none; }
-
-/* Ghost */
-.btn-g {
-  background: var(--bg-elevated);
-  border: 1.5px solid rgba(255,255,255,0.10);
-  color: var(--text-soft);
-  padding-inline: 16px;
-}
-.btn-g:hover:not(:disabled) { border-color: var(--gold); color: var(--gold-bright); background: rgba(212,168,67,0.06); }
-.btn-g:disabled { opacity: 0.35; cursor: not-allowed; }
-
-/* Outline */
-.btn-o {
-  background: transparent;
-  border: 1.5px solid rgba(255,255,255,0.12);
-  color: var(--text-soft);
-}
-.btn-o:hover { border-color: var(--gold); color: var(--gold-bright); background: var(--gold-dim); }
-
-.btn-full { width: 100%; }
-.btn-lg   { padding: clamp(13px,2.5vw,16px) clamp(24px,4vw,36px); font-size: clamp(14px,2.5vw,16px); }
-
-/* Spinner */
-.spin {
-  width: 17px; height: 17px;
-  border: 2px solid rgba(0,0,0,0.20); border-top-color: currentColor;
-  border-radius: 50%; animation: rotate 0.65s linear infinite;
-}
+.btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:clamp(11px,2vw,14px) clamp(18px,3vw,26px); border-radius:var(--r-sm); font-family:'Open Sans',sans-serif; font-size:clamp(13px,2.5vw,15px); font-weight:800; cursor:pointer; border:none; transition:var(--t-base); white-space:nowrap; user-select:none; min-height:48px; }
+.btn-p { background:var(--btn-p-bg); color:var(--btn-p-text); box-shadow:var(--shadow-btn-p); letter-spacing:0.02em; }
+.btn-p:hover:not(:disabled) { background:var(--btn-p-hover); transform:translateY(-2px); box-shadow:var(--shadow-btn-h); }
+.btn-p:active:not(:disabled) { transform:translateY(0); }
+.btn-p:disabled { opacity:0.40; cursor:not-allowed; transform:none !important; box-shadow:none; }
+.btn-g { background:var(--bg-elevated); border:1.5px solid rgba(255,255,255,0.10); color:var(--text-soft); padding-inline:16px; }
+html.light .btn-g { border-color:rgba(0,0,0,0.12); }
+.btn-g:hover:not(:disabled) { border-color:var(--gold); color:var(--gold-bright); background:rgba(212,168,67,0.06); }
+.btn-g:disabled { opacity:0.35; cursor:not-allowed; }
+.btn-o { background:transparent; border:1.5px solid rgba(255,255,255,0.12); color:var(--text-soft); }
+html.light .btn-o { border-color:rgba(0,0,0,0.14); }
+.btn-o:hover { border-color:var(--gold); color:var(--gold-bright); background:var(--gold-dim); }
+.btn-full { width:100%; }
+.btn-lg   { padding:clamp(13px,2.5vw,16px) clamp(24px,4vw,36px); font-size:clamp(14px,2.5vw,16px); }
+.spin { width:17px; height:17px; border:2px solid rgba(0,0,0,0.20); border-top-color:currentColor; border-radius:50%; animation:rotate 0.65s linear infinite; }
 
 /* ════════════════════════════════════════════════════
    CARD FOOTER
 ════════════════════════════════════════════════════ */
-.cf {
-  padding: clamp(14px,3vw,20px) clamp(20px,5vw,36px);
-  border-top: 1px solid var(--bdr-subtle);
-  background: rgba(0,0,0,0.25);
-  display: flex; align-items: center;
-  justify-content: space-between; gap: 14px;
-  flex-wrap: wrap;
-}
-.cf-note {
-  font-size: 12px; color: var(--text-muted);
-  display: flex; align-items: center; gap: 7px;
-  line-height: 1.4;
-}
-.cf-note svg { flex-shrink: 0; color: var(--text-dim); }
+.cf { padding:clamp(14px,3vw,20px) clamp(20px,5vw,36px); border-top:1px solid var(--bdr-subtle); background:var(--cf-bg); display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap; }
+.cf-note { font-size:12px; color:var(--text-muted); display:flex; align-items:center; gap:7px; line-height:1.4; }
+.cf-note svg { flex-shrink:0; color:var(--text-dim); }
 
 /* ════════════════════════════════════════════════════
    NOTIFICATIONS
 ════════════════════════════════════════════════════ */
-.ntf {
-  padding: 12px 15px; border-radius: var(--r-sm);
-  font-size: 13px; line-height: 1.60;
-  display: flex; align-items: flex-start; gap: 10px;
-  animation: fadeIn 0.25s ease;
-  direction: rtl;
-}
-.ntf svg { flex-shrink: 0; margin-top: 1px; }
-.ntf-info    { background: var(--info-bg);    border: 1px solid var(--info-bdr);    color: var(--info-text); }
-.ntf-success { background: var(--success-bg); border: 1px solid var(--success-bdr); color: var(--success); }
-.ntf-error   { background: var(--error-bg);   border: 1px solid var(--error-bdr);   color: var(--error); }
+.ntf { padding:12px 15px; border-radius:var(--r-sm); font-size:13px; line-height:1.60; display:flex; align-items:flex-start; gap:10px; animation:fadeIn 0.25s ease; direction:rtl; }
+.ntf svg { flex-shrink:0; margin-top:1px; }
+.ntf-info    { background:var(--info-bg);    border:1px solid var(--info-bdr);    color:var(--info-text); }
+.ntf-success { background:var(--success-bg); border:1px solid var(--success-bdr); color:var(--success); }
+.ntf-error   { background:var(--error-bg);   border:1px solid var(--error-bdr);   color:var(--error); }
 
 /* ════════════════════════════════════════════════════
    TOAST
 ════════════════════════════════════════════════════ */
-#toast {
-  position: fixed; top: 20px; left: 50%;
-  transform: translateX(-50%) translateY(-12px);
-  z-index: 9999; opacity: 0; pointer-events: none;
-  transition: all 0.30s cubic-bezier(0.34,1.56,0.64,1);
-}
-#toast.show { opacity: 1; transform: translateX(-50%) translateY(0); pointer-events: auto; }
-.ti {
-  padding: 13px 22px; border-radius: var(--r-pill);
-  font-family: 'Heebo', sans-serif; font-size: 14px; font-weight: 700;
-  display: flex; align-items: center; gap: 9px;
-  box-shadow: 0 12px 40px rgba(0,0,0,0.50);
-  backdrop-filter: blur(16px);
-  white-space: nowrap;
-}
-.ti-err { background: rgba(220,40,40,0.94); color: #fff; border: 1px solid rgba(255,100,100,0.30); }
-.ti-ok  { background: rgba(30,140,80,0.94);  color: #fff; border: 1px solid rgba(74,222,128,0.30); }
+#toast { position:fixed; top:20px; left:50%; transform:translateX(-50%) translateY(-12px); z-index:9999; opacity:0; pointer-events:none; transition:all 0.30s cubic-bezier(0.34,1.56,0.64,1); }
+#toast.show { opacity:1; transform:translateX(-50%) translateY(0); pointer-events:auto; }
+.ti { padding:13px 22px; border-radius:var(--r-pill); font-family:'Open Sans',sans-serif; font-size:14px; font-weight:700; display:flex; align-items:center; gap:9px; box-shadow:0 12px 40px rgba(0,0,0,0.50); backdrop-filter:blur(16px); white-space:nowrap; }
+.ti-err { background:var(--toast-err); color:#fff; border:1px solid rgba(255,100,100,0.30); }
+.ti-ok  { background:var(--toast-ok);  color:#fff; border:1px solid rgba(74,222,128,0.30); }
 
 /* ════════════════════════════════════════════════════
    VERIFIED BADGE
 ════════════════════════════════════════════════════ */
-.vbadge {
-  display: inline-flex; align-items: center; gap: 4px;
-  font-size: 10.5px; font-weight: 800; color: var(--success);
-  padding: 3px 9px; border-radius: var(--r-pill);
-  background: var(--success-bg); border: 1px solid var(--success-bdr);
-  letter-spacing: 0.04em;
-}
+.vbadge { display:inline-flex; align-items:center; gap:4px; font-size:10.5px; font-weight:800; color:var(--success); padding:3px 9px; border-radius:var(--r-pill); background:var(--success-bg); border:1px solid var(--success-bdr); letter-spacing:0.04em; }
 
 /* ════════════════════════════════════════════════════
-   SUCCESS SCREEN
+   MEETING SUCCESS SCREEN  (Step 3)
 ════════════════════════════════════════════════════ */
-.suc {
-  padding: clamp(48px,8vw,72px) clamp(20px,5vw,40px);
-  display: flex; flex-direction: column; align-items: center; gap: 20px;
-  text-align: center; animation: fadeIn 0.5s ease both;
-}
-.suc-ring {
-  width: 76px; height: 76px; border-radius: 50%;
-  background: var(--success-bg); border: 2px solid var(--success-bdr);
-  display: flex; align-items: center; justify-content: center;
-  animation: scaleIn 0.55s 0.1s cubic-bezier(0.34,1.56,0.64,1) both;
-  position: relative;
-}
-.suc-ring::after {
-  content: ''; position: absolute; inset: -8px; border-radius: 50%;
-  border: 1px solid var(--success-bdr); opacity: 0.4;
-  animation: pulseRing 2s ease infinite;
-}
-.suc-ring svg { color: var(--success); }
-.suc-title {
-  font-family: 'Frank Ruhl Libre', serif;
-  font-size: clamp(20px,4vw,26px); font-weight: 900; color: var(--text);
-}
-.suc-sub {
-  font-size: clamp(13px,2.5vw,15px); color: var(--text-muted);
-  line-height: 1.75; max-width: 380px;
-}
+.meet-suc { padding:clamp(36px,6vw,52px) clamp(20px,5vw,40px) clamp(24px,4vw,32px); display:flex; flex-direction:column; align-items:center; gap:14px; text-align:center; border-bottom:1px solid var(--bdr-subtle); animation:fadeIn 0.5s ease both; }
+.suc-ring { width:76px; height:76px; border-radius:50%; background:var(--success-bg); border:2px solid var(--success-bdr); display:flex; align-items:center; justify-content:center; animation:scaleIn 0.55s 0.1s cubic-bezier(0.34,1.56,0.64,1) both; position:relative; }
+.suc-ring::after { content:''; position:absolute; inset:-8px; border-radius:50%; border:1px solid var(--success-bdr); opacity:0.4; animation:pulseRing 2s ease infinite; }
+.suc-ring svg { color:var(--success); }
+.suc-title { font-family:'Open Sans',sans-serif; font-size:clamp(20px,4vw,26px); font-weight:900; color:var(--text); }
+.suc-sub   { font-size:clamp(13px,2.5vw,15px); color:var(--text-muted); line-height:1.75; max-width:380px; }
 
 /* ════════════════════════════════════════════════════
-   RESPONSIVE BREAKPOINTS
+   EVENTS SECTION  (Step 3 – below meeting success)
 ════════════════════════════════════════════════════ */
+.events-section { padding:0 clamp(20px,5vw,36px) clamp(28px,5vw,40px); animation:fadeUp 0.5s 0.25s ease both; }
+.events-hdr { padding:clamp(22px,4vw,30px) 0 18px; text-align:center; }
+.events-hdr-title { font-size:clamp(14px,3vw,17px); font-weight:700; color:var(--text); margin-bottom:6px; display:flex; align-items:center; justify-content:center; gap:8px; }
+.events-hdr-sub   { font-size:13px; color:var(--text-muted); line-height:1.6; }
+.events-grid { display:flex; flex-direction:column; gap:10px; }
 
-/* ── Tablet / Small desktop: 540–900px ── */
-@media (max-width: 900px) {
-  .card { border-radius: var(--r-lg); }
+/* Event card */
+.ev-card { background:var(--bg-elevated); border:1.5px solid var(--bdr-subtle); border-radius:var(--r-md); padding:clamp(14px,3vw,18px) clamp(14px,3vw,20px); cursor:pointer; transition:var(--t-base); display:flex; align-items:center; gap:16px; position:relative; overflow:hidden; user-select:none; }
+.ev-card::after { content:''; position:absolute; right:0; top:0; bottom:0; width:3px; background:var(--ev-stripe); opacity:0; transition:var(--t-base); border-radius:0 var(--r-md) var(--r-md) 0; }
+.ev-card:hover   { border-color:var(--bdr-hover); transform:translateX(-3px); }
+.ev-card:hover::after { opacity:1; }
+.ev-card.sel     { border-color:var(--gold); background:rgba(212,168,67,0.07); box-shadow:0 0 0 4px rgba(212,168,67,0.08); }
+.ev-card.sel::after { opacity:1; }
+.ev-card.ev-full { opacity:0.46; cursor:not-allowed; pointer-events:none; }
+
+.ev-date { flex-shrink:0; width:54px; text-align:center; background:var(--bg-input); border:1px solid var(--bdr); border-radius:var(--r-sm); padding:9px 4px; }
+.ev-day  { font-size:22px; font-weight:800; color:var(--gold); line-height:1; }
+.ev-mon  { font-size:10px; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.05em; margin-top:3px; }
+
+.ev-info { flex:1; min-width:0; }
+.ev-name { font-size:clamp(13px,2.5vw,15px); font-weight:700; color:var(--text); margin-bottom:5px; line-height:1.3; }
+.ev-meta { font-size:12px; color:var(--text-muted); display:flex; flex-wrap:wrap; gap:10px; }
+.ev-meta span { display:flex; align-items:center; gap:4px; }
+
+.ev-badge-open { flex-shrink:0; font-size:10.5px; font-weight:800; padding:4px 11px; border-radius:var(--r-pill); background:var(--success-bg); color:var(--success); border:1px solid var(--success-bdr); white-space:nowrap; }
+.ev-badge-full { flex-shrink:0; font-size:10.5px; font-weight:800; padding:4px 11px; border-radius:var(--r-pill); background:var(--error-bg);   color:var(--error);   border:1px solid var(--error-bdr);   white-space:nowrap; }
+
+.ev-check { flex-shrink:0; width:22px; height:22px; border-radius:50%; border:2px solid var(--bdr-subtle); display:flex; align-items:center; justify-content:center; transition:var(--t-base); }
+.ev-card.sel .ev-check { background:var(--gold); border-color:var(--gold); color:#060710; }
+
+.ev-cta { display:flex; flex-direction:column; gap:10px; align-items:stretch; margin-top:20px; }
+
+/* ════════════════════════════════════════════════════
+   EVENT REGISTRATION FORM  (Step 4)
+════════════════════════════════════════════════════ */
+.sel-ev-banner { margin-bottom:24px; padding:14px 18px; background:rgba(212,168,67,0.07); border:1px solid rgba(212,168,67,0.22); border-radius:var(--r-md); display:flex; align-items:center; gap:14px; }
+.seb-emoji  { font-size:26px; flex-shrink:0; line-height:1; }
+.seb-info   { flex:1; min-width:0; }
+.seb-name   { font-size:14px; font-weight:700; color:var(--text); line-height:1.3; }
+.seb-meta   { font-size:12px; color:var(--text-muted); margin-top:3px; }
+.seb-change { flex-shrink:0; background:none; border:none; cursor:pointer; font-family:'Open Sans',sans-serif; font-size:12px; font-weight:700; color:var(--gold); text-decoration:underline; text-underline-offset:2px; transition:var(--t-fast); padding:4px 0; }
+.seb-change:hover { color:var(--gold-bright); }
+
+/* ════════════════════════════════════════════════════
+   EVENT SUCCESS  (Step 5)
+════════════════════════════════════════════════════ */
+.ev-suc { padding:clamp(48px,8vw,72px) clamp(20px,5vw,40px); display:flex; flex-direction:column; align-items:center; gap:20px; text-align:center; animation:fadeIn 0.5s ease both; }
+.channels { display:flex; align-items:center; gap:10px; flex-wrap:wrap; justify-content:center; }
+.ch-badge       { display:inline-flex; align-items:center; gap:7px; padding:7px 14px; border-radius:var(--r-pill); font-size:12px; font-weight:700; border:1px solid var(--bdr-subtle); background:var(--bg-elevated); color:var(--text-muted); }
+.ch-badge.email { border-color:rgba(96,165,250,0.3); color:var(--info-text); background:var(--info-bg); }
+.ch-badge.wa    { border-color:rgba(74,222,128,0.3); color:var(--success);    background:var(--success-bg); }
+.ev-suc-card { background:var(--bg-elevated); border:1px solid var(--bdr-subtle); border-radius:var(--r-md); padding:clamp(16px,3vw,22px) clamp(18px,4vw,28px); width:100%; max-width:380px; text-align:right; }
+.ev-suc-card-title { font-size:13px; font-weight:800; color:var(--text-soft); margin-bottom:10px; display:flex; align-items:center; gap:8px; }
+.ev-suc-row  { font-size:13px; color:var(--text-muted); line-height:2.1; display:flex; flex-direction:column; }
+.ev-suc-row strong { color:var(--text); font-weight:700; }
+.ev-suc-chip { display:inline-flex; align-items:center; gap:6px; font-size:12px; font-weight:700; color:var(--gold); padding:5px 14px; border-radius:var(--r-pill); background:rgba(212,168,67,0.08); border:1px solid rgba(212,168,67,0.22); margin-top:4px; width:fit-content; }
+
+/* ════════════════════════════════════════════════════
+   NOT-FOUND MODAL
+════════════════════════════════════════════════════ */
+.modal-backdrop { position:fixed; inset:0; z-index:10000; background:rgba(0,0,0,0.72); backdrop-filter:blur(8px); display:flex; align-items:center; justify-content:center; padding:20px; animation:fadeIn 0.22s ease both; }
+.modal-backdrop.hidden { display:none; }
+.modal-box { background:var(--bg-card); border:1px solid var(--bdr); border-radius:var(--r-xl); padding:clamp(28px,5vw,44px) clamp(24px,5vw,40px); max-width:440px; width:100%; box-shadow:0 0 0 1px rgba(255,255,255,0.04),0 32px 80px rgba(0,0,0,0.80); text-align:center; position:relative; animation:fadeUp 0.3s ease both; }
+.modal-box::before { content:''; position:absolute; top:0; left:10%; right:10%; height:1px; background:linear-gradient(90deg,transparent,var(--modal-line),transparent); }
+.modal-icon  { width:64px; height:64px; border-radius:50%; background:var(--error-bg); border:2px solid var(--error-bdr); display:flex; align-items:center; justify-content:center; margin:0 auto 20px; color:var(--error); }
+.modal-title { font-family:'Open Sans',sans-serif; font-size:clamp(18px,4vw,22px); font-weight:800; color:var(--text); margin-bottom:10px; }
+.modal-sub   { font-size:clamp(12.5px,2.5vw,14px); color:var(--text-muted); line-height:1.75; margin-bottom:28px; }
+.modal-email-chip { display:inline-block; background:var(--bg-elevated); border:1px solid var(--bdr-subtle); border-radius:var(--r-pill); padding:4px 14px; font-size:13px; color:var(--text-soft); direction:ltr; margin-bottom:24px; }
+.modal-actions { display:flex; flex-direction:column; gap:10px; }
+
+/* ════════════════════════════════════════════════════
+   REGISTRATION OVERLAY
+════════════════════════════════════════════════════ */
+#reg-overlay { position:fixed; inset:0; z-index:10001; background:var(--bg); overflow-y:auto; animation:fadeIn 0.28s ease both; }
+#reg-overlay.hidden { display:none; }
+.reg-page { min-height:100vh; min-height:100dvh; display:flex; flex-direction:column; align-items:center; padding:0 clamp(16px,4vw,32px) clamp(60px,10vw,100px); position:relative; z-index:1; }
+.reg-bg { position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
+.reg-hdr { width:100%; max-width:560px; padding:clamp(32px,6vw,56px) 0 clamp(20px,3vw,32px); display:flex; flex-direction:column; align-items:center; gap:12px; animation:fadeDown 0.6s ease both; }
+.reg-back-btn { align-self:flex-start; background:none; border:none; cursor:pointer; color:var(--text-muted); font-family:'Open Sans',sans-serif; font-size:13px; font-weight:600; display:flex; align-items:center; gap:6px; padding:4px 0; transition:var(--t-fast); }
+.reg-back-btn:hover { color:var(--gold); }
+.reg-card { width:100%; max-width:560px; background:var(--bg-card); border:1px solid var(--bdr-subtle); border-radius:var(--r-xl); overflow:hidden; box-shadow:var(--shadow-card); animation:fadeUp 0.55s 0.15s ease both; position:relative; }
+.reg-card::before { content:''; position:absolute; top:0; left:10%; right:10%; height:1px; background:linear-gradient(90deg,transparent,var(--gold),transparent); opacity:0.5; }
+.reg-suc { padding:clamp(48px,8vw,72px) clamp(20px,5vw,40px); display:flex; flex-direction:column; align-items:center; gap:20px; text-align:center; animation:fadeIn 0.5s ease both; }
+
+/* ════════════════════════════════════════════════════
+   RESPONSIVE
+════════════════════════════════════════════════════ */
+@media (max-width:900px) { .card { border-radius:var(--r-lg); } }
+@media (max-width:540px) {
+  .card { border-radius:0; border-left:none; border-right:none; border-top:1px solid var(--bdr-subtle); border-bottom:1px solid var(--bdr-subtle); }
+  .card::before { left:0; right:0; }
+  .frow { grid-template-columns:1fr; }
+  .mt-grid { gap:8px; } .mt-card { padding:14px 6px; min-height:72px; } .mt-icon { font-size:22px; }
+  .otp-wrap { gap:7px; } .otp-cell { max-width:100%; height:56px; font-size:24px; }
+  .cf { flex-direction:column-reverse; align-items:stretch; } .cf-note { justify-content:center; }
+  .btn-full-mob { width:100%; }
+  .pp { font-size:12px; padding:8px 14px; }
+  .email-row { flex-direction:column; gap:10px; } .email-row .btn-g { width:100%; }
+  .page { padding-left:0; padding-right:0; } .hdr { padding-left:16px; padding-right:16px; }
+  .ev-badge-open, .ev-badge-full { display:none; }
+  .events-section { padding-left:16px; padding-right:16px; }
+  .meet-suc { padding-left:16px; padding-right:16px; }
 }
-
-/* ── Mobile: ≤540px ── */
-@media (max-width: 540px) {
-  /* Card fills full width on small screens */
-  .card {
-    border-radius: var(--r-lg);
-    border-left: none; border-right: none;
-    border-radius: 0;
-    border-top: 1px solid var(--bdr-subtle);
-    border-bottom: 1px solid var(--bdr-subtle);
-  }
-  .card::before { left: 0; right: 0; }
-
-  .frow { grid-template-columns: 1fr; }
-
-  .mt-grid { gap: 8px; }
-  .mt-card { padding: 14px 6px; min-height: 72px; }
-  .mt-icon { font-size: 22px; }
-
-  /* OTP: stretch cells evenly */
-  .otp-wrap { gap: 7px; }
-  .otp-cell { max-width: 100%; height: 56px; font-size: 24px; }
-
-  .cf { flex-direction: column-reverse; align-items: stretch; }
-  .cf-note { justify-content: center; }
-  .btn-full-mob { width: 100%; }
-
-  .pp { font-size: 12px; padding: 8px 14px; }
-
-  .email-row { flex-direction: column; gap: 10px; }
-  .email-row .btn-g { width: 100%; }
-
-  .page { padding-left: 0; padding-right: 0; }
-  .hdr  { padding-left: 16px; padding-right: 16px; }
-}
-
-/* ── Very small: ≤360px ── */
-@media (max-width: 360px) {
-  h1 { font-size: 1.5rem; }
-  .mt-grid { grid-template-columns: 1fr; }
-  .otp-cell { height: 50px; font-size: 22px; }
-}
-
-/* ─── Landscape phones ─── */
-@media (max-height: 500px) and (orientation: landscape) {
-  .hdr { padding-top: 20px; padding-bottom: 16px; gap: 8px; }
-  .suc { padding: 28px 20px; }
-}
-
-/* ── High-DPI: sharper borders ── */
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  .p-line { height: 1.5px; }
-}
-
-/* ── Reduced motion ── */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
-}
+@media (max-width:360px) { h1 { font-size:1.5rem; } .mt-grid { grid-template-columns:1fr; } .otp-cell { height:50px; font-size:22px; } }
+@media (max-height:500px) and (orientation:landscape) { .hdr { padding-top:20px; padding-bottom:16px; gap:8px; } }
+@media (-webkit-min-device-pixel-ratio:2),(min-resolution:192dpi) { .p-line { height:1.5px; } }
+@media (prefers-reduced-motion:reduce) { *, *::before, *::after { animation-duration:0.01ms !important; transition-duration:0.01ms !important; } }
 
 /* ════════════════════════════════════════════════════
    KEYFRAMES
@@ -783,34 +460,108 @@ textarea { resize: vertical; min-height: 88px; line-height: 1.65; }
 @keyframes fadeIn    { from { opacity:0; }                              to { opacity:1; } }
 @keyframes rotate    { to { transform:rotate(360deg); } }
 @keyframes scaleIn   { from { opacity:0; transform:scale(0.4); }       to { opacity:1; transform:scale(1); } }
-@keyframes shake {
-  0%,100% { transform:translateX(0); }
-  18%     { transform:translateX(-7px); }
-  36%     { transform:translateX(7px); }
-  54%     { transform:translateX(-5px); }
-  72%     { transform:translateX(5px); }
-}
-@keyframes pulseRing {
-  0%,100% { opacity:0.4; transform:scale(1); }
-  50%     { opacity:0;   transform:scale(1.25); }
-}
-@keyframes shimmer-text {
-  0%,100% { background-position:0% 50%; }
-  50%     { background-position:100% 50%; }
-}
-
-/* Scrollbar */
-::-webkit-scrollbar       { width: 5px; height: 5px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.10); border-radius: 3px; }
+@keyframes shake { 0%,100%{transform:translateX(0)} 18%{transform:translateX(-7px)} 36%{transform:translateX(7px)} 54%{transform:translateX(-5px)} 72%{transform:translateX(5px)} }
+@keyframes pulseRing { 0%,100%{opacity:0.4;transform:scale(1)} 50%{opacity:0;transform:scale(1.25)} }
+@keyframes shimmer-text { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
+::-webkit-scrollbar       { width:5px; height:5px; }
+::-webkit-scrollbar-track { background:transparent; }
+::-webkit-scrollbar-thumb { background:var(--scroll); border-radius:3px; }
 </style>
 </head>
 <body>
 
+<!-- Theme Toggle -->
+<button class="theme-toggle" onclick="toggleTheme()" title="החלף מצב תצוגה" aria-label="החלף מצב תצוגה">
+  <svg class="ico-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  <svg class="ico-sun"  width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+</button>
+
 <!-- Toast -->
 <div id="toast"><div id="ti" class="ti ti-err"></div></div>
 
-<!-- Background -->
+<!-- ══ NOT FOUND MODAL ══ -->
+<div class="modal-backdrop hidden" id="not-found-modal">
+  <div class="modal-box">
+    <div class="modal-icon">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    </div>
+    <div class="modal-title">לקוח לא נמצא במערכת</div>
+    <div class="modal-sub">האימייל שהזנת אינו רשום כלקוח ב-The Investor.<br>ייתכן שטרם השלמת את תהליך ההרשמה.</div>
+    <div class="modal-email-chip" id="modal-email-display"></div>
+    <div class="modal-actions">
+      <button class="btn btn-p btn-full btn-lg" onclick="openRegistration()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+        הרשמה כלקוח חדש
+      </button>
+      <button class="btn btn-g btn-full" onclick="closeNotFoundModal()">חזרה לטופס</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ REGISTRATION OVERLAY ══ -->
+<div id="reg-overlay" class="hidden">
+  <div class="reg-bg">
+    <div class="bg-orb bg-orb-1"></div>
+    <div class="bg-orb bg-orb-2"></div>
+    <div class="bg-grid"></div>
+  </div>
+  <div class="reg-page">
+    <header class="reg-hdr">
+      <button class="reg-back-btn" onclick="closeRegistration()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+        חזרה לטופס הכניסה
+      </button>
+      <div class="brand-pill">
+        <svg width="11" height="11" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1L2 4v4c0 3.31 2.69 6 6 6s6-2.69 6-6V4L8 1z"/></svg>
+        MEETING REQUEST
+      </div>
+      <h1 style="font-size:clamp(1.5rem,4.5vw,2.4rem)">הצטרפות כ<span class="grad">משקיע רשום</span></h1>
+      <p class="hdr-sub">מלאו את הפרטים הבאים ונציג יצור עמכם קשר לאישור ההרשמה.</p>
+    </header>
+    <div class="reg-card">
+      <div id="reg-success" class="reg-suc" style="display:none">
+        <div class="suc-ring"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div class="suc-title">הבקשה התקבלה! 🎉</div>
+        <p class="suc-sub">פרטי ההרשמה שלך נשמרו. נציג יצור איתך קשר בקרוב לאישור ופתיחת הגישה למערכת.</p>
+        <button class="btn btn-o" onclick="closeRegistration()">חזרה לטופס הראשי</button>
+      </div>
+      <div id="reg-form-wrap">
+        <div class="fb">
+          <div class="sec-hd"><div class="sec-title">פרטים אישיים</div><p class="sec-sub">הפרטים ישמשו ליצירת חשבונך במערכת.</p></div>
+          <div class="fields">
+            <div class="frow">
+              <div class="field"><label>שם פרטי <span class="req">*</span></label><input type="text" id="r-first" placeholder="ישראל"></div>
+              <div class="field"><label>שם משפחה <span class="req">*</span></label><input type="text" id="r-last" placeholder="ישראלי"></div>
+            </div>
+            <div class="frow">
+              <div class="field"><label>כתובת אימייל <span class="req">*</span></label>
+                <div class="iw"><span class="ico"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,12 2,6"/></svg></span>
+                <input type="email" id="r-email" placeholder="your@email.com" style="direction:ltr;text-align:left;padding-left:40px;"></div>
+              </div>
+              <div class="field"><label>טלפון נייד <span class="req">*</span></label>
+                <div class="iw"><span class="ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.83a16 16 0 0 0 6.29 6.29l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
+                <input type="tel" id="r-phone" placeholder="050-0000000"></div>
+              </div>
+            </div>
+            <div class="field"><label>שם החברה / ארגון</label><input type="text" id="r-company" placeholder="שם החברה שאתה מייצג"></div>
+            <div class="dvd"></div>
+            <div class="sec-hd" style="margin-bottom:12px;"><div class="sec-title">תחומי עניין</div><p class="sec-sub">אילו חברות ציבוריות מעניינות אותך?</p></div>
+            <div class="field"><label>חברות שמעניינות אותך</label><textarea id="r-interests" placeholder="לדוגמה: חברות טכנולוגיה, ביו-טכנולוגיה, נדל&quot;ן..."></textarea></div>
+            <div id="r-err" class="ntf ntf-error" style="display:none;margin-top:4px;"></div>
+          </div>
+        </div>
+        <div class="cf">
+          <span class="cf-note"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>הפרטים שלכם מוגנים ומאובטחים</span>
+          <button class="btn btn-p btn-lg btn-full-mob" id="reg-submit-btn" onclick="submitRegistration()"><span>שלח בקשת הרשמה</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     MAIN BACKGROUND
+══════════════════════════════════════════════════ -->
 <div class="bg-layer">
   <div class="bg-orb bg-orb-1"></div>
   <div class="bg-orb bg-orb-2"></div>
@@ -824,9 +575,7 @@ textarea { resize: vertical; min-height: 88px; line-height: 1.65; }
   <header class="hdr">
     <div class="brand-pill">
       <svg width="11" height="11" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1L2 4v4c0 3.31 2.69 6 6 6s6-2.69 6-6V4L8 1z"/></svg>
-      THE INVESTOR
-      <span class="sep">|</span>
-      IRM
+      MEETING REQUEST
     </div>
     <h1>בקשה לפגישה עם<br><span class="grad">חברה ציבורית</span></h1>
     <p class="hdr-sub">מלאו את הטופס ונחזור אליכם תוך יום עסקים אחד לתיאום הפגישה.</p>
@@ -835,15 +584,14 @@ textarea { resize: vertical; min-height: 88px; line-height: 1.65; }
   <!-- ══ CARD ══ -->
   <div class="card" id="main-card">
 
-    <!-- ─────────────────────────────
+    <!-- ─────────────────────────────────────────
          STEP 1 – EMAIL VERIFICATION
-    ───────────────────────────────── -->
+    ──────────────────────────────────────────── -->
     <div id="step-verify">
-
       <div class="prog">
         <div class="p-dot active" id="pd1">1</div>
-        <div class="p-line" id="pl1"></div>
-        <div class="p-dot" id="pd2">2</div>
+        <div class="p-line"       id="pl1"></div>
+        <div class="p-dot"        id="pd2">2</div>
         <span class="p-label">אימות זהות</span>
       </div>
 
@@ -852,21 +600,14 @@ textarea { resize: vertical; min-height: 88px; line-height: 1.65; }
           <div class="sec-title">אימות אימייל</div>
           <p class="sec-sub">הזינו את כתובת האימייל הרשומה במערכת – נשלח קוד אימות חד-פעמי.</p>
         </div>
-
         <div class="fields">
-
-          <!-- Email + send OTP -->
           <div class="field" id="field-email">
             <label>כתובת אימייל <span class="req">*</span></label>
             <div class="email-row">
               <div class="field">
                 <div class="iw">
-                  <span class="ico">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,12 2,6"/></svg>
-                  </span>
-                  <input type="email" id="email-input" placeholder="your@email.com"
-                         style="direction:ltr; text-align:left;"
-                         onkeydown="if(event.key==='Enter') sendOTP()">
+                  <span class="ico"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,12 2,6"/></svg></span>
+                  <input type="email" id="email-input" placeholder="your@email.com" style="direction:ltr;text-align:left;" onkeydown="if(event.key==='Enter')sendOTP()">
                 </div>
                 <div class="ferr" id="email-err"></div>
               </div>
@@ -874,12 +615,8 @@ textarea { resize: vertical; min-height: 88px; line-height: 1.65; }
             </div>
           </div>
 
-          <!-- OTP section (revealed after send) -->
           <div id="otp-section" style="display:none">
-            <label style="margin-bottom:10px; display:flex; align-items:center; gap:8px;">
-              קוד האימות
-              <span style="font-size:11px; color:var(--text-dim); font-weight:500; letter-spacing:0;">נשלח לאימייל שלך</span>
-            </label>
+            <label style="margin-bottom:10px;display:flex;align-items:center;gap:8px;">קוד האימות <span style="font-size:11px;color:var(--text-dim);font-weight:500;letter-spacing:0;">נשלח לאימייל שלך</span></label>
             <div class="otp-wrap" dir="ltr">
               <input class="otp-cell" id="otp0" maxlength="1" type="text" inputmode="numeric" autocomplete="one-time-code">
               <input class="otp-cell" id="otp1" maxlength="1" type="text" inputmode="numeric">
@@ -894,80 +631,50 @@ textarea { resize: vertical; min-height: 88px; line-height: 1.65; }
             </div>
             <div id="otp-notif" style="margin-top:12px;"></div>
           </div>
-
         </div>
       </div>
 
       <div class="cf">
-        <span class="cf-note">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-          הפרטים שלכם מוגנים ומאובטחים
-        </span>
+        <span class="cf-note"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>הפרטים שלכם מוגנים ומאובטחים</span>
       </div>
-
     </div>
     <!-- /step-verify -->
 
-
-    <!-- ─────────────────────────────
+    <!-- ─────────────────────────────────────────
          STEP 2 – MEETING DETAILS
-    ───────────────────────────────── -->
+    ──────────────────────────────────────────── -->
     <div id="step-details" style="display:none">
-
       <div class="prog">
-        <div class="p-dot done" id="pd1b">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg>
-        </div>
+        <div class="p-dot done" id="pd1b"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></div>
         <div class="p-line done" id="pl1b"></div>
         <div class="p-dot active" id="pd2b">2</div>
         <span class="p-label">פרטי הבקשה</span>
       </div>
 
       <div class="fb">
-
-        <!-- Personal Info -->
+        <!-- Personal info -->
         <div class="sec-hd">
           <div class="sec-title">
             פרטים אישיים
-            <span class="vbadge" id="vbadge">
-              <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg>
-              מאומת
-            </span>
+            <span class="vbadge"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg>מאומת</span>
           </div>
           <p class="sec-sub">המידע נמשך אוטומטית מהפרופיל שלכם. עדכנו במקרה הצורך.</p>
         </div>
-
         <div class="fields">
           <div class="frow">
-            <div class="field">
-              <label>שם פרטי <span class="auto">אוטומטי</span></label>
-              <input type="text" id="f-first" class="prefilled" readonly placeholder="...">
-            </div>
-            <div class="field">
-              <label>שם משפחה <span class="auto">אוטומטי</span></label>
-              <input type="text" id="f-last" class="prefilled" readonly placeholder="...">
-            </div>
+            <div class="field"><label>שם פרטי <span class="auto">אוטומטי</span></label><input type="text" id="f-first" class="prefilled" readonly placeholder="..."></div>
+            <div class="field"><label>שם משפחה <span class="auto">אוטומטי</span></label><input type="text" id="f-last" class="prefilled" readonly placeholder="..."></div>
           </div>
           <div class="frow">
-            <div class="field">
-              <label>שם החברה <span class="auto">אוטומטי</span></label>
-              <input type="text" id="f-company" class="prefilled" readonly placeholder="...">
-            </div>
-            <div class="field">
-              <label>טלפון נייד</label>
-              <input type="tel" id="f-phone" placeholder="050-0000000">
-            </div>
+            <div class="field"><label>שם החברה <span class="auto">אוטומטי</span></label><input type="text" id="f-company" class="prefilled" readonly placeholder="..."></div>
+            <div class="field"><label>טלפון נייד</label><input type="tel" id="f-phone" placeholder="050-0000000"></div>
           </div>
         </div>
 
         <div class="dvd"></div>
 
-        <!-- Meeting Details -->
-        <div class="sec-hd">
-          <div class="sec-title">פרטי הפגישה</div>
-          <p class="sec-sub">מלאו את פרטי הבקשה ונדאג לשאר.</p>
-        </div>
-
+        <!-- Meeting details -->
+        <div class="sec-hd"><div class="sec-title">פרטי הפגישה</div><p class="sec-sub">מלאו את פרטי הבקשה ונדאג לשאר.</p></div>
         <div class="fields">
 
           <!-- Company select -->
@@ -987,500 +694,755 @@ textarea { resize: vertical; min-height: 88px; line-height: 1.65; }
               </div>
             </div>
             <div class="ferr" id="cs-err"></div>
-          </div>
-
-          <!-- Purpose pills -->
-          <div class="field">
-            <label>מטרת הפגישה <span class="req">*</span></label>
-            <div class="pp-wrap">
-              <div class="pp sel" data-v="היכרות"        onclick="pickPurpose(this)">היכרות</div>
-              <div class="pp"     data-v="עדכון"         onclick="pickPurpose(this)">עדכון</div>
-              <div class="pp"     data-v="דיון אסטרטגי" onclick="pickPurpose(this)">דיון אסטרטגי</div>
-              <div class="pp"     data-v="אחר"           onclick="pickPurpose(this)">אחר</div>
+            <!-- Not found field -->
+            <div class="cnf-field">
+              <div class="cnf-label"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>לא מצאתם את החברה ברשימה?</div>
+              <div class="cnf-desc">אם החברה הציבורית שאתם מחפשים אינה מופיעה ברשימה, הזינו את שמה באופן חופשי.</div>
+              <input type="text" id="cs-custom" placeholder="הזינו את שם החברה הרצויה...">
             </div>
           </div>
 
-          <!-- Meeting type cards -->
+          <!-- Purpose -->
+          <div class="field">
+            <label>מטרת הפגישה <span class="req">*</span></label>
+            <div class="pp-wrap">
+              <div class="pp sel" data-v="היכרות"      onclick="pickPurpose(this)">היכרות</div>
+              <div class="pp"     data-v="עדכון"        onclick="pickPurpose(this)">עדכון</div>
+              <div class="pp"     data-v="דיון אסטרטגי" onclick="pickPurpose(this)">דיון אסטרטגי</div>
+              <div class="pp"     data-v="אחר"          onclick="pickPurpose(this)">אחר</div>
+            </div>
+          </div>
+
+          <!-- Meeting type -->
           <div class="field">
             <label>סוג פגישה מועדף <span class="req">*</span></label>
             <div class="mt-grid">
               <div class="mt-card"     data-v="פרונטלי" onclick="pickMT(this)"><div class="mt-icon">🤝</div><div class="mt-lbl">פרונטלי</div></div>
-              <div class="mt-card sel" data-v="זום"     onclick="pickMT(this)"><div class="mt-icon">💻</div><div class="mt-lbl">זום</div></div>
+              <div class="mt-card sel" data-v="זום"      onclick="pickMT(this)"><div class="mt-icon">💻</div><div class="mt-lbl">זום</div></div>
               <div class="mt-card"     data-v="טלפון"   onclick="pickMT(this)"><div class="mt-icon">📞</div><div class="mt-lbl">שיחת טלפון</div></div>
             </div>
           </div>
 
-          <!-- Coordinator -->
+          <!-- Coordinator phone -->
           <div class="field">
             <label>מול מי מתאמים אצלכם?</label>
             <div class="iw">
-              <span class="ico">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 19.79 19.79 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.83a16 16 0 0 0 6.29 6.29l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-              </span>
+              <span class="ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.83a16 16 0 0 0 6.29 6.29l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
               <input type="tel" id="f-coord" placeholder="מספר טלפון לתיאום">
             </div>
           </div>
 
           <!-- Notes -->
-          <div class="field">
-            <label>הערות נוספות</label>
-            <textarea id="f-notes" placeholder="מידע נוסף שיעזור לנו להתכונן לפגישה..."></textarea>
-          </div>
-
+          <div class="field"><label>הערות נוספות</label><textarea id="f-notes" placeholder="מידע נוסף שיעזור לנו להתכונן לפגישה..."></textarea></div>
         </div>
       </div>
 
       <div class="cf">
-        <span class="cf-note">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-          הבקשה תועבר לצוות תוך 24 שעות
-        </span>
-        <button class="btn btn-p btn-lg btn-full-mob" id="submit-btn" onclick="submitMeeting()">
-          <span id="submit-lbl">שלח בקשה</span>
-        </button>
+        <span class="cf-note"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>הבקשה תועבר לצוות תוך 24 שעות</span>
+        <button class="btn btn-p btn-lg btn-full-mob" id="submit-btn" onclick="submitMeeting()"><span id="submit-lbl">שלח בקשה</span></button>
       </div>
-
     </div>
     <!-- /step-details -->
 
-
-    <!-- ─────────────────────────────
-         SUCCESS
-    ───────────────────────────────── -->
+    <!-- ─────────────────────────────────────────
+         STEP 3 – MEETING SUCCESS + EVENTS PICKER
+         (מוצג לאחר שליחת בקשת הפגישה)
+    ──────────────────────────────────────────── -->
     <div id="step-success" style="display:none">
-      <div class="suc">
+
+      <!-- ✅ אישור בקשת הפגישה -->
+      <div class="meet-suc">
         <div class="suc-ring">
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
         </div>
         <div class="suc-title">הבקשה נשלחה! 🎉</div>
         <p class="suc-sub">קיבלנו את בקשתך לפגישה. צוותנו יחזור אליך תוך יום עסקים אחד לאישור ותיאום המועד.</p>
-        <button class="btn btn-o" onclick="resetForm()">שלח בקשה נוספת</button>
+      </div>
+
+      <!-- 📅 אירועים קרובים -->
+      <div class="events-section">
+        <div class="events-hdr">
+          <div class="events-hdr-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M8 4v4M16 4v4M2 10h20"/></svg>
+            הרשמה לאירועים הקרובים שלנו
+          </div>
+          <p class="events-hdr-sub">בחרו אירוע שמעניין אתכם ונשריין לכם מקום</p>
+        </div>
+
+        <div class="events-grid" id="events-grid">
+          <!-- מרונדר על-ידי JS -->
+        </div>
+
+        <div class="ev-cta">
+          <!-- כפתור מופיע רק לאחר בחירה -->
+          <button class="btn btn-p btn-full btn-lg" id="ev-proceed-btn" onclick="goToEventForm()" style="display:none">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            המשך לרישום לאירוע
+          </button>
+          <div style="text-align:center">
+            <button class="btn btn-o" onclick="resetForm()" style="font-size:13px;min-height:40px;">
+              לא בעת הזו – חזרה לטופס
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!-- /step-success -->
+
+    <!-- ─────────────────────────────────────────
+         STEP 4 – EVENT REGISTRATION FORM
+         (ללא THE INVESTOR|IRM)
+    ──────────────────────────────────────────── -->
+    <div id="step-event" style="display:none">
+
+      <!-- Progress: 3 steps total -->
+      <div class="prog">
+        <div class="p-dot done"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div class="p-line done"></div>
+        <div class="p-dot done"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div class="p-line done"></div>
+        <div class="p-dot active">3</div>
+        <span class="p-label">רישום לאירוע</span>
+      </div>
+
+      <div class="fb">
+
+        <!-- Selected event banner + change button -->
+        <div class="sel-ev-banner">
+          <div class="seb-emoji" id="seb-emoji">📅</div>
+          <div class="seb-info">
+            <div class="seb-name" id="seb-name">—</div>
+            <div class="seb-meta" id="seb-meta">—</div>
+          </div>
+          <button class="seb-change" onclick="backToEvents()">שנה</button>
+        </div>
+
+        <!-- Section: Registrant -->
+        <div class="sec-hd">
+          <div class="sec-title">פרטי הנרשם</div>
+          <p class="sec-sub">הפרטים יופיעו על תג השם שלכם באירוע.</p>
+        </div>
+        <div class="fields">
+          <div class="frow">
+            <div class="field">
+              <label>שם פרטי <span class="req">*</span></label>
+              <input type="text" id="ev-first" placeholder="ישראל">
+              <div class="ferr" id="ev-err-first"></div>
+            </div>
+            <div class="field">
+              <label>שם משפחה <span class="req">*</span></label>
+              <input type="text" id="ev-last" placeholder="ישראלי">
+              <div class="ferr" id="ev-err-last"></div>
+            </div>
+          </div>
+          <div class="frow">
+            <div class="field">
+              <label>שם הארגון / חברה <span class="req">*</span></label>
+              <input type="text" id="ev-org" placeholder="שם הארגון">
+              <div class="ferr" id="ev-err-org"></div>
+            </div>
+            <div class="field">
+              <label>תפקיד <span class="req">*</span></label>
+              <input type="text" id="ev-role" placeholder="מנהל השקעות">
+              <div class="ferr" id="ev-err-role"></div>
+            </div>
+          </div>
+
+          <div class="dvd"></div>
+
+          <div class="sec-hd" style="margin-bottom:16px">
+            <div class="sec-title">פרטי התקשורת</div>
+            <p class="sec-sub">לשליחת אישור הרשמה ו-QR Code לכניסה.</p>
+          </div>
+
+          <div class="frow">
+            <div class="field">
+              <label>אימייל <span class="req">*</span></label>
+              <div class="iw">
+                <span class="ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,12 2,6"/></svg></span>
+                <input type="email" id="ev-email" placeholder="your@email.com" style="direction:ltr;text-align:left;">
+              </div>
+              <div class="ferr" id="ev-err-email"></div>
+            </div>
+            <div class="field">
+              <label>טלפון נייד <span class="req">*</span></label>
+              <div class="iw">
+                <span class="ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.83a16 16 0 0 0 6.29 6.29l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
+                <input type="tel" id="ev-phone" placeholder="050-0000000">
+              </div>
+              <div class="ferr" id="ev-err-phone"></div>
+            </div>
+          </div>
+
+          <!-- Hidden fields – sent in webhook payload -->
+          <input type="hidden" id="ev-activityid"   value="">
+          <input type="hidden" id="ev-event-name"   value="">
+
+          <div class="ntf ntf-info">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <span>לאחר הרישום יישלח אליכם QR Code לכניסה — גם לאימייל וגם לוואטסאפ.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="cf">
+        <span class="cf-note"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>הפרטים שלכם שמורים ומאובטחים</span>
+        <button class="btn btn-p btn-lg btn-full-mob" id="ev-submit-btn" onclick="submitEventForm()"><span id="ev-submit-lbl">אשר רישום לאירוע</span></button>
       </div>
     </div>
+    <!-- /step-event -->
 
-  </div>
-  <!-- /card -->
+    <!-- ─────────────────────────────────────────
+         STEP 5 – EVENT SUCCESS
+    ──────────────────────────────────────────── -->
+    <div id="step-event-success" style="display:none">
+      <div class="ev-suc">
+        <div class="suc-ring">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div class="suc-title">נרשמת בהצלחה! 🎉</div>
+        <p class="suc-sub">הרישום שלך אושר. QR Code לכניסה יישלח אליך בקרוב.</p>
 
-</div>
-<!-- /page -->
+        <div class="channels">
+          <span class="ch-badge email">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,12 2,6"/></svg>
+            נשלח לאימייל
+          </span>
+          <span class="ch-badge wa">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M20.52 3.449C18.24 1.245 15.24 0 12.045 0 5.463 0 .104 5.334.101 11.893c0 2.096.549 4.14 1.595 5.945L0 24l6.335-1.652c1.746.943 3.71 1.444 5.71 1.447h.006c6.585 0 11.946-5.336 11.949-11.896 0-3.176-1.24-6.165-3.48-8.45z"/></svg>
+            נשלח לוואטסאפ
+          </span>
+        </div>
+
+        <div class="ev-suc-card">
+          <div class="ev-suc-card-title">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M8 4v4M16 4v4M2 10h20"/></svg>
+            פרטי הרישום
+          </div>
+          <div class="ev-suc-row">
+            <span><strong id="fin-name">–</strong></span>
+            <span id="fin-org" style="color:var(--text-muted)">–</span>
+            <span class="ev-suc-chip" id="fin-event">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M8 4v4M16 4v4M2 10h20"/></svg>
+            </span>
+          </div>
+        </div>
+
+        <button class="btn btn-o" onclick="resetForm()">חזרה לטופס הראשי</button>
+      </div>
+    </div>
+    <!-- /step-event-success -->
+
+  </div><!-- /card -->
+</div><!-- /page -->
 
 
-<!-- ════════════════════════════════════════════════════
-     JAVASCRIPT – full logic preserved from v2
-════════════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════════════════════ -->
 <script>
-/* ── CONFIG ── */
-const WEBHOOK_URL = 'https://hook.eu1.make.com/z4w11epzi7qcnjvy57csbmbch8l4q7kh';
+/* ═══════════════════════════════════════════════
+   WEBHOOKS
+═══════════════════════════════════════════════ */
+const WH_OTP    = 'https://hook.eu1.make.com/z4w11epzi7qcnjvy57csbmbch8l4q7kh'; // send/verify OTP
+const WH_SUBMIT = 'https://hook.eu1.make.com/wmms7nmdsip5u16sqnvhqhx5eb1rod3o'; // meeting submission
+const WH_REG    = 'https://hook.eu1.make.com/fc3ookg7bg7brg6reg1a3r3eeaqww60n'; // new client registration
+const WH_EVENT  = 'https://hook.eu1.make.com/d6sa3isxfan73h5cmf6ldce2bn8qp1kc'; // event registration
 
-/* ── DATA – נטען דינמית מה-webhook ── */
+/* ═══════════════════════════════════════════════
+   DEFAULT EVENTS
+   (יוחלפו בנתונים מה-webhook response בהמשך)
+═══════════════════════════════════════════════ */
+const DEFAULT_EVENTS = []; // מתמלא אך ורק מה-webhook response
 
-/* ── STATE ── */
+/* ═══════════════════════════════════════════════
+   STATE
+═══════════════════════════════════════════════ */
 const S = {
-  email: '', otpHash: '', verified: false, contact: null,
-  companies: [],   // נטען מה-webhook
-  resendTimer: null,
-  selectedCompany: null, selectedPurpose: 'היכרות', selectedMT: 'זום',
+  email:'', otpHash:'', verified:false, contact:null,
+  companies:[], resendTimer:null,
+  selectedCompany:null, selectedPurpose:'היכרות', selectedMT:'זום',
+  selectedEvent:null, events: DEFAULT_EVENTS,
 };
 
-/* ── SHA-256 via SubtleCrypto ── */
+/* ═══════════════════════════════════════════════
+   THEME
+═══════════════════════════════════════════════ */
+function toggleTheme() {
+  const h = document.documentElement;
+  const isLight = h.classList.toggle('light');
+  h.classList.toggle('dark', !isLight);
+  document.getElementById('theme-meta').content = isLight ? '#F4F1EC' : '#080910';
+}
+
+/* ═══════════════════════════════════════════════
+   UTILS
+═══════════════════════════════════════════════ */
+const isEmail = v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+const isPhone = v => /^[\d\s\-+()]{7,15}$/.test(v);
+
 async function sha256(msg) {
   const buf  = new TextEncoder().encode(msg);
   const hash = await crypto.subtle.digest('SHA-256', buf);
-  return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2,'0')).join('');
+  return Array.from(new Uint8Array(hash)).map(b=>b.toString(16).padStart(2,'0')).join('');
 }
 
-/* ── TOAST ── */
 let _tt;
-function showToast(msg, type = 'err') {
+function showToast(msg, type='err') {
   const el = document.getElementById('toast');
   const ti = document.getElementById('ti');
-  ti.className = `ti ti-${type}`;
+  ti.className   = `ti ti-${type}`;
   ti.textContent = msg;
   el.classList.add('show');
   clearTimeout(_tt);
-  _tt = setTimeout(() => el.classList.remove('show'), 4000);
+  _tt = setTimeout(() => el.classList.remove('show'), 4200);
 }
 
-/* ── INLINE NOTIFICATION ── */
-const NTF_ICONS = {
+const NICONS = {
   info:    '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>',
   success: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>',
   error:   '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>',
 };
 function setNotif(id, type, msg) {
-  const el = document.getElementById(id);
-  if (!el) return;
-  el.innerHTML = msg
-    ? `<div class="ntf ntf-${type}">${NTF_ICONS[type] || ''}<span>${msg}</span></div>`
-    : '';
+  const el = document.getElementById(id); if (!el) return;
+  el.innerHTML = msg ? `<div class="ntf ntf-${type}">${NICONS[type]||''}<span>${msg}</span></div>` : '';
 }
 
-/* ── BUTTON LOADING ── */
-function setBtnLoading(btn, loading, label = '') {
-  if (loading) {
-    btn._orig    = btn.innerHTML;
-    btn.disabled = true;
-    btn.innerHTML = '<div class="spin"></div>';
-  } else {
-    btn.disabled  = false;
-    btn.innerHTML = label ? `<span>${label}</span>` : (btn._orig || btn.innerHTML);
-  }
-}
-
-/* ── EMAIL VALIDATION ── */
-const isEmail = v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
-
-/* ══════════════════════════════════════════════════
-   STEP 1 – SEND OTP
-   POST { action:'send_otp', email }
-   Response A: text "not found"  → show error toast
-   Response B: JSON { hash }     → reveal OTP cells
-══════════════════════════════════════════════════ */
-async function sendOTP() {
-  const val  = document.getElementById('email-input').value.trim();
-  const errEl = document.getElementById('email-err');
-  const btn  = document.getElementById('send-otp-btn');
-
-  if (!val)         { errEl.textContent = 'אנא הזינו כתובת אימייל.';   return; }
-  if (!isEmail(val)){ errEl.textContent = 'כתובת האימייל אינה תקינה.'; return; }
-  errEl.textContent = '';
-
-  setBtnLoading(btn, true);
-
-  try {
-    const res = await fetch(WEBHOOK_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ action: 'send_otp', email: val }),
-    });
-    const raw = await res.text();
-
-    /* Scenario A – contact not found */
-    if (raw.trim().toLowerCase() === 'not found') {
-      showToast('לקוח לא נמצא במערכת', 'err');
-      setBtnLoading(btn, false, 'שלח קוד');
-      return;
-    }
-
-    /* ── פארסינג חכם של Make response ──
-       Make יכול להחזיר:
-       1. JSON ישיר:   { "hash":"...", "companies":[...], "contact":{...} }
-       2. Double-wrap: { "body": "{\"hash\":\"...\"}", "status":200 }
-       3. plain text:  "not found"
-    ── */
-    let j = null;
-    try {
-      const parsed = JSON.parse(raw);
-      // double-wrapped? { body: "...", status: 200 }
-      if (parsed.body && typeof parsed.body === 'string') {
-        j = JSON.parse(parsed.body);
-      } else {
-        j = parsed;
-      }
-    } catch {
-      // לא JSON בכלל → כנראה "not found"
-    }
-
-    /* Scenario A – not found (plain text או JSON עם שגיאה) */
-    if (!j || (typeof raw === 'string' && raw.trim().toLowerCase() === 'not found')) {
-      showToast('לקוח לא נמצא במערכת', 'err');
-      setBtnLoading(btn, false, 'שלח קוד');
-      return;
-    }
-
-    const hash = j.hash || j.otp_hash || j.code_hash || '';
-
-    /* חברות – תמיד מערך של { accountname } */
-    let companies = [];
-    if (Array.isArray(j.companies)) {
-      companies = j.companies;
-    }
-
-    if (!hash) {
-      showToast('שגיאה בתקשורת עם השרת. נסו שוב.', 'err');
-      setBtnLoading(btn, false, 'שלח קוד');
-      return;
-    }
-
-    S.otpHash   = hash;
-    S.email     = val;
-    S.contact   = j.contact || null;
-    S.companies = companies;
-
-    console.log(`✅ hash received, ${companies.length} companies loaded`);
-
-    /* UI feedback */
-    document.getElementById('email-input').disabled = true;
-    btn.disabled = true;
-    btn.innerHTML = '<span style="color:var(--success)">✓ נשלח</span>';
-
-    document.getElementById('otp-section').style.display = 'block';
-    document.getElementById('otp0').focus();
-    setNotif('otp-notif', 'info', `קוד אימות נשלח ל-${val}`);
-    startResendTimer();
-    setupOTPCells();
-
-  } catch (e) {
-    console.error(e);
-    showToast('שגיאת רשת – בדקו את החיבור.', 'err');
-    setBtnLoading(btn, false, 'שלח קוד');
-  }
-}
-
-/* ── OTP CELLS ── */
-function setupOTPCells() {
-  for (let i = 0; i < 6; i++) {
-    const c = document.getElementById('otp' + i);
-    c.addEventListener('input', () => {
-      c.value = c.value.replace(/\D/g,'').slice(-1);
-      c.classList.toggle('filled', !!c.value);
-      if (c.value && i < 5) document.getElementById('otp' + (i+1)).focus();
-      const code = getOTP();
-      if (code.length === 6) verifyOTP(code);
-    });
-    c.addEventListener('keydown', e => {
-      if (e.key === 'Backspace' && !c.value && i > 0) {
-        document.getElementById('otp' + (i-1)).focus();
-      }
-    });
-    c.addEventListener('paste', e => {
-      e.preventDefault();
-      const p = (e.clipboardData||window.clipboardData).getData('text').replace(/\D/g,'').slice(0,6);
-      p.split('').forEach((ch,idx) => {
-        const cell = document.getElementById('otp'+idx);
-        if (cell) { cell.value = ch; cell.classList.add('filled'); }
-      });
-      if (p.length === 6) verifyOTP(p);
-      else document.getElementById('otp'+Math.min(p.length,5))?.focus();
-    });
-  }
-}
-
-const getOTP = () => Array.from({length:6},(_,i) => document.getElementById('otp'+i).value).join('');
-
-/* ══════════════════════════════════════════════════
-   VERIFY OTP – SHA-256 client-side comparison
-══════════════════════════════════════════════════ */
-async function verifyOTP(code) {
-  setNotif('otp-notif','info','מאמת...');
-  const h = await sha256(code);
-
-  if (h === S.otpHash) {
-    S.verified = true;
-    setNotif('otp-notif','success','האימות הצליח!');
-    clearInterval(S.resendTimer);
-    setTimeout(goToStep2, 650);
-  } else {
-    setNotif('otp-notif','error','הקוד שגוי – נסו שנית.');
-    for (let i = 0; i < 6; i++) {
-      const c = document.getElementById('otp'+i);
-      c.classList.add('err'); c.value = ''; c.classList.remove('filled');
-      setTimeout(() => c.classList.remove('err'), 650);
-    }
-    document.getElementById('otp0').focus();
-  }
-}
-
-/* ── RESEND TIMER ── */
-function startResendTimer() {
-  let s = 30;
-  document.getElementById('resend-count').textContent = s;
-  document.getElementById('resend-btn').disabled = true;
-  document.getElementById('resend-info').style.display = '';
-  clearInterval(S.resendTimer);
-  S.resendTimer = setInterval(() => {
-    const el = document.getElementById('resend-count');
-    if (el) el.textContent = --s;
-    if (s <= 0) {
-      clearInterval(S.resendTimer);
-      const rb = document.getElementById('resend-btn');
-      if (rb) rb.disabled = false;
-      const ri = document.getElementById('resend-info');
-      if (ri) ri.style.display = 'none';
-    }
-  }, 1000);
-}
-
-async function resendOTP() {
-  for (let i = 0; i < 6; i++) {
-    const c = document.getElementById('otp'+i);
-    c.value = ''; c.classList.remove('filled');
-  }
-  document.getElementById('resend-btn').disabled = true;
-  setNotif('otp-notif','info','שולח קוד חדש...');
-  try {
-    const res = await fetch(WEBHOOK_URL, {
-      method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ action:'resend_otp', email: S.email }),
-    });
-    const raw = await res.text();
-    let hash = '';
-    try { hash = JSON.parse(raw).hash; } catch { hash = raw.trim(); }
-    if (hash) {
-      S.otpHash = hash;
-      setNotif('otp-notif','info','קוד חדש נשלח!');
-      startResendTimer();
-      document.getElementById('otp0').focus();
-    } else {
-      showToast('שגיאה בשליחת קוד חדש.','err');
-      document.getElementById('resend-btn').disabled = false;
-    }
-  } catch {
-    showToast('שגיאת רשת.','err');
-    document.getElementById('resend-btn').disabled = false;
-  }
-}
-
-/* ══════════════════════════════════════════════════
-   STEP 2 – populate & show
-══════════════════════════════════════════════════ */
-function goToStep2() {
-  document.getElementById('step-verify').style.display = 'none';
-  const s2 = document.getElementById('step-details');
-  s2.style.display   = 'block';
-  s2.style.animation = 'fadeUp 0.45s ease both';
-  renderCSList();
-  /* Fill from webhook contact data */
-  typeIn('f-first',   S.contact?.firstName || '');
-  typeIn('f-last',    S.contact?.lastName  || '');
-  typeIn('f-company', S.contact?.company   || '');
-  if (S.contact?.phone) document.getElementById('f-phone').value = S.contact.phone;
+function setBtnLoading(btn, loading, label='') {
+  if (loading) { btn._orig=btn.innerHTML; btn.disabled=true; btn.innerHTML='<div class="spin"></div>'; }
+  else { btn.disabled=false; btn.innerHTML=label?`<span>${label}</span>`:(btn._orig||btn.innerHTML); }
 }
 
 function typeIn(id, text) {
   if (!text) return;
-  const el = document.getElementById(id); el.value = '';
-  let i = 0;
-  const iv = setInterval(() => { el.value += text[i++]; if (i >= text.length) clearInterval(iv); }, 45);
+  const el=document.getElementById(id); el.value='';
+  let i=0;
+  const iv=setInterval(()=>{el.value+=text[i++];if(i>=text.length)clearInterval(iv);},40);
 }
 
-/* ── COMPANY SELECT – שמות מ-Fireberry דרך ה-webhook ── */
-function renderCSList() {
-  const q    = (document.getElementById('cs-sh')?.value || '').trim();
-  const list = document.getElementById('cs-list');
+function show(id)  { const el=document.getElementById(id); el.style.display='block'; el.style.animation='fadeUp 0.45s ease both'; }
+function hide(id)  { document.getElementById(id).style.display='none'; }
 
-  // מחלץ שמות מהמערך שהגיע מ-Make: [{ accountname: "..." }, ...]
-  let names = (S.companies || [])
-    .map(c => c.accountname)
-    .filter(Boolean);
+/* ═══════════════════════════════════════════════
+   STEP 1 – SEND OTP
+═══════════════════════════════════════════════ */
+async function sendOTP() {
+  const val   = document.getElementById('email-input').value.trim();
+  const errEl = document.getElementById('email-err');
+  const btn   = document.getElementById('send-otp-btn');
+  if (!val)          { errEl.textContent='אנא הזינו כתובת אימייל.';   return; }
+  if (!isEmail(val)) { errEl.textContent='כתובת האימייל אינה תקינה.'; return; }
+  errEl.textContent = '';
+  setBtnLoading(btn, true);
+  try {
+    const res = await fetch(WH_OTP, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({action:'send_otp',email:val}) });
+    const raw = await res.text();
+    if (raw.trim().toLowerCase()==='not found') { showNotFoundModal(val); setBtnLoading(btn,false,'שלח קוד'); return; }
+    let j=null;
+    try { const p=JSON.parse(raw); j=(p.body&&typeof p.body==='string')?JSON.parse(p.body):p; } catch{}
+    if (!j) { showNotFoundModal(val); setBtnLoading(btn,false,'שלח קוד'); return; }
+    const hash = j.hash||j.otp_hash||j.code_hash||'';
+    if (!hash) { showToast('שגיאה בתקשורת עם השרת.','err'); setBtnLoading(btn,false,'שלח קוד'); return; }
+    S.otpHash=hash; S.email=val; S.contact=j.contact||null; S.companies=Array.isArray(j.companies)?j.companies:[];
+    document.getElementById('email-input').disabled=true;
+    btn.disabled=true; btn.innerHTML='<span style="color:var(--success)">✓ נשלח</span>';
+    document.getElementById('otp-section').style.display='block';
+    document.getElementById('otp0').focus();
+    setNotif('otp-notif','info',`קוד אימות נשלח ל-${val}`);
+    startResendTimer(); setupOTPCells();
+  } catch(e) { console.error(e); showToast('שגיאת רשת – בדקו את החיבור.','err'); setBtnLoading(btn,false,'שלח קוד'); }
+}
 
-  if (q) {
-    names = names.filter(n => n.includes(q) || n.toLowerCase().includes(q.toLowerCase()));
+/* ═══════════════════════════════════════════════
+   OTP CELLS
+═══════════════════════════════════════════════ */
+function setupOTPCells() {
+  for (let i=0;i<6;i++) {
+    const c=document.getElementById('otp'+i);
+    c.addEventListener('input',()=>{
+      c.value=c.value.replace(/\D/g,'').slice(-1);
+      c.classList.toggle('filled',!!c.value);
+      if (c.value&&i<5) document.getElementById('otp'+(i+1)).focus();
+      const code=getOTP(); if(code.length===6) verifyOTP(code);
+    });
+    c.addEventListener('keydown',e=>{ if(e.key==='Backspace'&&!c.value&&i>0) document.getElementById('otp'+(i-1)).focus(); });
+    c.addEventListener('paste',e=>{
+      e.preventDefault();
+      const p=(e.clipboardData||window.clipboardData).getData('text').replace(/\D/g,'').slice(0,6);
+      p.split('').forEach((ch,idx)=>{ const cell=document.getElementById('otp'+idx); if(cell){cell.value=ch;cell.classList.add('filled');} });
+      if(p.length===6) verifyOTP(p);
+      else document.getElementById('otp'+Math.min(p.length,5))?.focus();
+    });
   }
+}
+const getOTP = ()=>Array.from({length:6},(_,i)=>document.getElementById('otp'+i).value).join('');
 
-  if (!names.length) {
-    list.innerHTML = '<div class="cs-empty">לא נמצאו חברות</div>';
+async function verifyOTP(code) {
+  setNotif('otp-notif','info','מאמת...');
+  const h=await sha256(code);
+  if (h===S.otpHash) {
+    S.verified=true; setNotif('otp-notif','success','האימות הצליח!'); clearInterval(S.resendTimer);
+    setTimeout(goToStep2, 650);
+  } else {
+    setNotif('otp-notif','error','הקוד שגוי – נסו שנית.');
+    for(let i=0;i<6;i++){const c=document.getElementById('otp'+i);c.classList.add('err');c.value='';c.classList.remove('filled');setTimeout(()=>c.classList.remove('err'),650);}
+    document.getElementById('otp0').focus();
+  }
+}
+
+function startResendTimer() {
+  let s=30;
+  document.getElementById('resend-count').textContent=s;
+  document.getElementById('resend-btn').disabled=true;
+  document.getElementById('resend-info').style.display='';
+  clearInterval(S.resendTimer);
+  S.resendTimer=setInterval(()=>{
+    const el=document.getElementById('resend-count'); if(el)el.textContent=--s;
+    if(s<=0){clearInterval(S.resendTimer);const rb=document.getElementById('resend-btn');if(rb)rb.disabled=false;const ri=document.getElementById('resend-info');if(ri)ri.style.display='none';}
+  },1000);
+}
+
+async function resendOTP() {
+  for(let i=0;i<6;i++){const c=document.getElementById('otp'+i);c.value='';c.classList.remove('filled');}
+  document.getElementById('resend-btn').disabled=true;
+  setNotif('otp-notif','info','שולח קוד חדש...');
+  try {
+    const res=await fetch(WH_OTP,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'resend_otp',email:S.email})});
+    const raw=await res.text();
+    let hash=''; try{hash=JSON.parse(raw).hash;}catch{hash=raw.trim();}
+    if(hash){S.otpHash=hash;setNotif('otp-notif','info','קוד חדש נשלח!');startResendTimer();document.getElementById('otp0').focus();}
+    else{showToast('שגיאה בשליחת קוד חדש.','err');document.getElementById('resend-btn').disabled=false;}
+  } catch{showToast('שגיאת רשת.','err');document.getElementById('resend-btn').disabled=false;}
+}
+
+/* ═══════════════════════════════════════════════
+   STEP 2 – MEETING DETAILS
+═══════════════════════════════════════════════ */
+function goToStep2() {
+  hide('step-verify'); show('step-details');
+  renderCSList();
+  typeIn('f-first',   S.contact?.firstName||'');
+  typeIn('f-last',    S.contact?.lastName ||'');
+  typeIn('f-company', S.contact?.company  ||'');
+  if (S.contact?.phone) document.getElementById('f-phone').value=S.contact.phone;
+  // Pre-fill event form email
+  document.getElementById('ev-email').value=S.email;
+}
+
+/* Company dropdown */
+function renderCSList() {
+  const q=document.getElementById('cs-sh')?.value.trim()||'';
+  const list=document.getElementById('cs-list');
+  let names=(S.companies||[]).map(c=>c.accountname).filter(Boolean);
+  if(q) names=names.filter(n=>n.includes(q)||n.toLowerCase().includes(q.toLowerCase()));
+  if(!names.length){list.innerHTML='<div class="cs-empty">לא נמצאו חברות</div>';return;}
+  list.innerHTML=names.map(name=>{const e=name.replace(/'/g,"\\'");return`<div class="cs-item ${S.selectedCompany===name?'sel':''}" onclick="pickCompany('${e}')">${name}</div>`;}).join('');
+}
+function pickCompany(name){S.selectedCompany=name;const d=document.getElementById('cs-d');d.textContent=name;d.className='cs-v';closeCS();document.getElementById('cs-err').textContent='';}
+function toggleCS(){const t=document.getElementById('cs-t'),dd=document.getElementById('cs-dd');if(t.classList.contains('open')){closeCS();}else{t.classList.add('open');dd.style.display='flex';renderCSList();setTimeout(()=>document.getElementById('cs-sh')?.focus(),50);}}
+function closeCS(){document.getElementById('cs-t')?.classList.remove('open');const dd=document.getElementById('cs-dd');if(dd)dd.style.display='none';}
+document.addEventListener('click',e=>{const w=document.getElementById('cs-w');if(w&&!w.contains(e.target))closeCS();});
+function pickPurpose(el){document.querySelectorAll('.pp').forEach(p=>p.classList.remove('sel'));el.classList.add('sel');S.selectedPurpose=el.dataset.v;}
+function pickMT(el){document.querySelectorAll('.mt-card').forEach(c=>c.classList.remove('sel'));el.classList.add('sel');S.selectedMT=el.dataset.v;}
+
+/* ═══════════════════════════════════════════════
+   STEP 2 → SUBMIT MEETING
+   After success → show events picker (Step 3)
+═══════════════════════════════════════════════ */
+async function submitMeeting() {
+  if (!S.selectedCompany && !document.getElementById('cs-custom').value.trim()) {
+    document.getElementById('cs-err').textContent='אנא בחרו חברה מהרשימה או הזינו שם חברה.'; return;
+  }
+  const btn=document.getElementById('submit-btn');
+  setBtnLoading(btn,true);
+
+  const payload={
+    action:'meeting_request', email:S.email,
+    firstName:        document.getElementById('f-first').value,
+    lastName:         document.getElementById('f-last').value,
+    contactCompany:   document.getElementById('f-company').value,
+    phone:            document.getElementById('f-phone').value,
+    meetingWith:      S.selectedCompany,
+    meetingWithCustom:document.getElementById('cs-custom').value.trim(),
+    purpose:          S.selectedPurpose,
+    meetingType:      S.selectedMT,
+    coordinatorPhone: document.getElementById('f-coord').value,
+    notes:            document.getElementById('f-notes').value,
+    submittedAt:      new Date().toISOString(),
+  };
+
+  console.log('📤 Meeting payload:', payload);
+
+  try {
+    const res = await fetch(WH_SUBMIT, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload) });
+
+    /* ── Parse webhook response for events ──
+       Expected shape (from Make):
+       [{ "body": [{subject, activityid, activitytypecode}, ...], "status": 200 }]
+    ── */
+    try {
+      const raw = await res.text();
+      console.log('📥 Raw webhook response:', raw);
+
+      let eventsArray = null;
+
+      // פונקציה עזר: מנסה לחלץ את מערך האירועים מכל שייפ אפשרי
+      const tryExtract = (val) => {
+        if (Array.isArray(val)) {
+          // האם זה כבר מערך האירועים עצמו? (יש subject/activityid)
+          if (val[0]?.activityid !== undefined) return val;
+          // האם זה ה-wrapper של Make? ([{ body:[...], status:200 }])
+          if (val[0]?.body !== undefined) {
+            const b = val[0].body;
+            return typeof b === 'string' ? JSON.parse(b) : b;
+          }
+        }
+        if (val && typeof val === 'object' && val.body !== undefined) {
+          const b = val.body;
+          return typeof b === 'string' ? JSON.parse(b) : b;
+        }
+        return null;
+      };
+
+      let parsed;
+      try { parsed = JSON.parse(raw); } catch { parsed = raw; }
+      console.log('📥 Parsed JSON:', parsed);
+
+      eventsArray = tryExtract(parsed);
+      console.log('📅 Events array:', eventsArray);
+
+      if (Array.isArray(eventsArray) && eventsArray.length > 0) {
+        S.events = eventsArray.map(ev => ({
+          id:    ev.activityid,
+          name:  ev.subject,
+          type:  ev.activitytypecode,
+          emoji: ev.activitytypecode === 'וובינר' ? '💻' : '🏛️',
+          full:  false,
+        }));
+        console.log('✅ Events loaded:', S.events);
+      } else {
+        console.warn('⚠️ No events found in response – array will be empty');
+        S.events = [];
+      }
+    } catch(parseErr) {
+      console.error('❌ Event parsing failed:', parseErr);
+      S.events = [];
+    }
+
+    // Pre-fill event form with contact data
+    document.getElementById('ev-first').value = document.getElementById('f-first').value;
+    document.getElementById('ev-last').value  = document.getElementById('f-last').value;
+    document.getElementById('ev-org').value   = document.getElementById('f-company').value;
+    document.getElementById('ev-phone').value = document.getElementById('f-phone').value;
+
+    hide('step-details'); show('step-success');
+    renderEvents();
+
+  } catch(e) {
+    console.error(e);
+    showToast('שגיאה בשליחת הבקשה. נסו שוב.','err');
+    setBtnLoading(btn,false,'שלח בקשה');
+  }
+}
+
+/* ═══════════════════════════════════════════════
+   RENDER EVENTS
+═══════════════════════════════════════════════ */
+function renderEvents() {
+  const grid = document.getElementById('events-grid');
+
+  if (!S.events || S.events.length === 0) {
+    grid.innerHTML = `
+      <div style="text-align:center;padding:32px 16px;color:var(--text-dim);font-size:13px;line-height:1.8;">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-bottom:10px;opacity:0.4"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M8 4v4M16 4v4M2 10h20"/></svg>
+        <br>אין אירועים קרובים להצגה כרגע
+      </div>`;
     return;
   }
 
-  list.innerHTML = names.map(name => {
-    const escaped = name.replace(/'/g, "\\'");
-    return `<div class="cs-item ${S.selectedCompany === name ? 'sel' : ''}"
-                 onclick="pickCompany('${escaped}')">${name}</div>`;
-  }).join('');
+  const typeIcon = t => t === 'וובינר'
+    ? `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><polyline points="8 21 12 17 16 21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>`
+    : `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M8 4v4M16 4v4M2 10h20"/></svg>`;
+
+  const typePillColor = t => t === 'וובינר'
+    ? 'background:rgba(96,165,250,0.10);color:var(--info-text);border:1px solid var(--info-bdr);'
+    : 'background:rgba(212,168,67,0.10);color:var(--gold-bright);border:1px solid rgba(212,168,67,0.28);';
+
+  grid.innerHTML = S.events.map(ev => `
+    <div class="ev-card ${ev.full?'ev-full':''} ${S.selectedEvent?.id===ev.id?'sel':''}"
+         id="evc-${ev.id}"
+         onclick="${ev.full ? '' : `selectEvent('${ev.id}')`}">
+      <div class="ev-info" style="padding:2px 0">
+        <div class="ev-name">${ev.emoji} ${ev.name}</div>
+        <div class="ev-meta" style="margin-top:6px">
+          <span style="font-size:11px;font-weight:700;padding:3px 10px;border-radius:var(--r-pill);${typePillColor(ev.type)}">
+            ${typeIcon(ev.type)} ${ev.type}
+          </span>
+        </div>
+      </div>
+      ${ev.full
+        ? `<span class="ev-badge-full">מלא</span>`
+        : `<span class="ev-badge-open">פנוי ✓</span>`}
+      ${!ev.full ? `<div class="ev-check" id="evchk-${ev.id}">${S.selectedEvent?.id===ev.id?'<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg>':''}</div>`:``}
+    </div>
+  `).join('');
 }
 
-function pickCompany(name) {
-  S.selectedCompany = name;
-  const d = document.getElementById('cs-d');
-  d.textContent = name; d.className = 'cs-v';
-  closeCS(); document.getElementById('cs-err').textContent = '';
+function selectEvent(id) {
+  S.selectedEvent=S.events.find(e=>e.id===id)||null;
+  renderEvents();
+  const btn=document.getElementById('ev-proceed-btn');
+  btn.style.display='flex'; btn.style.animation='fadeUp 0.3s ease both';
 }
 
-function toggleCS() {
-  const t = document.getElementById('cs-t'), dd = document.getElementById('cs-dd');
-  if (t.classList.contains('open')) { closeCS(); }
-  else {
-    t.classList.add('open'); dd.style.display = 'flex';
-    renderCSList();
-    setTimeout(() => document.getElementById('cs-sh')?.focus(), 50);
-  }
-}
-function closeCS() {
-  document.getElementById('cs-t')?.classList.remove('open');
-  const dd = document.getElementById('cs-dd'); if (dd) dd.style.display = 'none';
-}
-document.addEventListener('click', e => {
-  const w = document.getElementById('cs-w'); if (w && !w.contains(e.target)) closeCS();
-});
-
-/* ── PICKERS ── */
-function pickPurpose(el) {
-  document.querySelectorAll('.pp').forEach(p => p.classList.remove('sel'));
-  el.classList.add('sel'); S.selectedPurpose = el.dataset.v;
-}
-function pickMT(el) {
-  document.querySelectorAll('.mt-card').forEach(c => c.classList.remove('sel'));
-  el.classList.add('sel'); S.selectedMT = el.dataset.v;
+/* ═══════════════════════════════════════════════
+   STEP 3 → EVENT FORM  (Step 4)
+═══════════════════════════════════════════════ */
+function goToEventForm() {
+  if (!S.selectedEvent) return;
+  const ev=S.selectedEvent;
+  document.getElementById('ev-activityid').value  = ev.id;   // ★ activityid → hidden
+  document.getElementById('ev-event-name').value = ev.name;
+  document.getElementById('seb-emoji').textContent = ev.emoji;
+  document.getElementById('seb-name').textContent  = ev.name;
+  document.getElementById('seb-meta').textContent  = `${ev.date} · ${ev.location}`;
+  hide('step-success'); show('step-event');
+  window.scrollTo({top:0,behavior:'smooth'});
 }
 
-/* ══════════════════════════════════════════════════
-   SUBMIT
-══════════════════════════════════════════════════ */
-async function submitMeeting() {
-  if (!S.selectedCompany) {
-    document.getElementById('cs-err').textContent = 'אנא בחרו חברה מהרשימה.'; return;
-  }
-  const btn = document.getElementById('submit-btn');
-  setBtnLoading(btn, true);
-  const payload = {
-    action: 'meeting_request',
-    email: S.email,
-    firstName: document.getElementById('f-first').value,
-    lastName:  document.getElementById('f-last').value,
-    contactCompany: document.getElementById('f-company').value,
-    phone: document.getElementById('f-phone').value,
-    meetingWith: S.selectedCompany,
-    purpose: S.selectedPurpose,
-    meetingType: S.selectedMT,
-    coordinatorPhone: document.getElementById('f-coord').value,
-    notes: document.getElementById('f-notes').value,
-    submittedAt: new Date().toISOString(),
+function backToEvents() {
+  hide('step-event'); show('step-success');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ═══════════════════════════════════════════════
+   STEP 4 → SUBMIT EVENT REGISTRATION
+═══════════════════════════════════════════════ */
+async function submitEventForm() {
+  const FIELDS=[
+    {id:'ev-first',err:'ev-err-first',msg:'שם פרטי הוא שדה חובה.',          check:v=>v.length>0},
+    {id:'ev-last', err:'ev-err-last', msg:'שם משפחה הוא שדה חובה.',         check:v=>v.length>0},
+    {id:'ev-org',  err:'ev-err-org',  msg:'שם הארגון הוא שדה חובה.',        check:v=>v.length>0},
+    {id:'ev-role', err:'ev-err-role', msg:'תפקיד הוא שדה חובה.',            check:v=>v.length>0},
+    {id:'ev-email',err:'ev-err-email',msg:'אנא הזינו כתובת אימייל תקינה.',   check:isEmail},
+    {id:'ev-phone',err:'ev-err-phone',msg:'אנא הזינו מספר טלפון תקין.',     check:isPhone},
+  ];
+  let valid=true;
+  FIELDS.forEach(f=>{
+    const inp=document.getElementById(f.id), err=document.getElementById(f.err);
+    const ok=f.check(inp.value.trim());
+    if(!ok){err.textContent=f.msg;inp.classList.add('is-err');if(valid){inp.focus();valid=false;}}
+    else{err.textContent='';inp.classList.remove('is-err');}
+    inp.oninput=function(){this.classList.remove('is-err');document.getElementById(f.err).textContent='';};
+  });
+  if (!valid) return;
+
+  const btn=document.getElementById('ev-submit-btn');
+  setBtnLoading(btn,true);
+
+  const firstName=document.getElementById('ev-first').value.trim();
+  const lastName =document.getElementById('ev-last').value.trim();
+
+  const payload={
+    action:       'event_registration',
+    firstName, lastName,
+    fullName:     `${firstName} ${lastName}`,
+    organization: document.getElementById('ev-org').value.trim(),
+    role:         document.getElementById('ev-role').value.trim(),
+    email:        document.getElementById('ev-email').value.trim(),
+    phone:        document.getElementById('ev-phone').value.trim(),
+    activityid:         document.getElementById('ev-activityid').value,        // ★ Fireberry activity ID
+    activitytypecode:   S.selectedEvent?.type  || '',                           // "אירוע" | "וובינר"
+    eventName:          document.getElementById('ev-event-name').value,
+    meetingEmail: S.email, // קישור לבקשת הפגישה המקורית
+    submittedAt:  new Date().toISOString(),
   };
-  console.log('📤 Meeting payload:', payload);
+
+  console.log('📤 Event registration payload:', payload);
+
   try {
-    await fetch(WEBHOOK_URL, {
-      method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify(payload),
-    });
-    document.getElementById('step-details').style.display = 'none';
-    document.getElementById('step-success').style.display = 'block';
-  } catch (e) {
+    await fetch(WH_EVENT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+    document.getElementById('fin-name').textContent  = payload.fullName;
+    document.getElementById('fin-org').textContent   = payload.organization;
+    document.getElementById('fin-event').innerHTML   =
+      `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M8 4v4M16 4v4M2 10h20"/></svg>${S.selectedEvent?.name||payload.eventName}`;
+    hide('step-event'); show('step-event-success');
+    window.scrollTo({top:0,behavior:'smooth'});
+  } catch(e){
     console.error(e);
-    showToast('שגיאה בשליחת הבקשה. נסו שוב.','err');
-    setBtnLoading(btn, false, 'שלח בקשה');
+    showToast('שגיאה בשליחת הרישום. נסו שוב.','err');
+    setBtnLoading(btn,false,'אשר רישום לאירוע');
   }
 }
 
-/* ── RESET ── */
+/* ═══════════════════════════════════════════════
+   NOT FOUND MODAL
+═══════════════════════════════════════════════ */
+function showNotFoundModal(email) { document.getElementById('modal-email-display').textContent=email||''; document.getElementById('not-found-modal').classList.remove('hidden'); document.body.style.overflow='hidden'; }
+function closeNotFoundModal()     { document.getElementById('not-found-modal').classList.add('hidden'); document.body.style.overflow=''; }
+
+/* ═══════════════════════════════════════════════
+   REGISTRATION OVERLAY
+═══════════════════════════════════════════════ */
+function openRegistration() {
+  closeNotFoundModal();
+  const e=document.getElementById('email-input').value.trim();
+  if (e) document.getElementById('r-email').value=e;
+  document.getElementById('reg-overlay').classList.remove('hidden');
+  document.body.style.overflow='hidden';
+  document.getElementById('r-first').focus();
+}
+function closeRegistration() {
+  document.getElementById('reg-overlay').classList.add('hidden');
+  document.body.style.overflow='';
+  document.getElementById('reg-success').style.display='none';
+  document.getElementById('reg-form-wrap').style.display='block';
+  ['r-first','r-last','r-email','r-phone','r-company','r-interests'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  document.getElementById('r-err').style.display='none';
+}
+async function submitRegistration() {
+  const first=document.getElementById('r-first').value.trim(),last=document.getElementById('r-last').value.trim(),
+        email=document.getElementById('r-email').value.trim(),phone=document.getElementById('r-phone').value.trim(),
+        company=document.getElementById('r-company').value.trim(),interests=document.getElementById('r-interests').value.trim();
+  const errEl=document.getElementById('r-err');
+  if(!first||!last||!email||!phone){errEl.textContent='אנא מלאו את כל השדות המסומנים בכוכבית.';errEl.style.display='flex';return;}
+  if(!isEmail(email)){errEl.textContent='כתובת האימייל שהזנתם אינה תקינה.';errEl.style.display='flex';return;}
+  errEl.style.display='none';
+  const btn=document.getElementById('reg-submit-btn');
+  setBtnLoading(btn,true);
+  try {
+    await fetch(WH_REG,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'register_investor',firstName:first,lastName:last,email,phone,company,interests})});
+    setBtnLoading(btn,false,'שלח בקשת הרשמה');
+    document.getElementById('reg-form-wrap').style.display='none';
+    document.getElementById('reg-success').style.display='flex';
+  } catch(e){console.error(e);errEl.textContent='שגיאת רשת – בדקו את החיבור ונסו שוב.';errEl.style.display='flex';setBtnLoading(btn,false,'שלח בקשת הרשמה');}
+}
+
+/* ═══════════════════════════════════════════════
+   RESET
+═══════════════════════════════════════════════ */
 function resetForm() {
-  Object.assign(S, { email:'', otpHash:'', verified:false, contact:null,
-    companies:[], selectedCompany:null,
-    selectedPurpose:'היכרות', selectedMT:'זום' });
+  Object.assign(S,{email:'',otpHash:'',verified:false,contact:null,companies:[],selectedCompany:null,selectedPurpose:'היכרות',selectedMT:'זום',selectedEvent:null,events:DEFAULT_EVENTS});
   clearInterval(S.resendTimer);
 
-  const ei = document.getElementById('email-input');
-  ei.value = ''; ei.disabled = false;
-  document.getElementById('email-err').textContent = '';
-
-  const sb = document.getElementById('send-otp-btn');
-  sb.innerHTML = 'שלח קוד'; sb.disabled = false; sb.style.color = '';
-
-  document.getElementById('otp-section').style.display = 'none';
-  for (let i = 0; i < 6; i++) {
-    const c = document.getElementById('otp'+i);
-    c.value = ''; c.classList.remove('filled','err');
-  }
+  const ei=document.getElementById('email-input'); ei.value=''; ei.disabled=false;
+  document.getElementById('email-err').textContent='';
+  const sb=document.getElementById('send-otp-btn'); sb.innerHTML='שלח קוד'; sb.disabled=false;
+  document.getElementById('otp-section').style.display='none';
+  for(let i=0;i<6;i++){const c=document.getElementById('otp'+i);c.value='';c.classList.remove('filled','err');}
   setNotif('otp-notif','info','');
 
-  document.querySelectorAll('.pp').forEach(p => p.classList.remove('sel'));
+  document.querySelectorAll('.pp').forEach(p=>p.classList.remove('sel'));
   document.querySelector('[data-v="היכרות"]').classList.add('sel');
-  document.querySelectorAll('.mt-card').forEach(c => c.classList.remove('sel'));
+  document.querySelectorAll('.mt-card').forEach(c=>c.classList.remove('sel'));
   document.querySelector('[data-v="זום"]').classList.add('sel');
 
-  document.getElementById('step-success').style.display = 'none';
-  document.getElementById('step-details').style.display  = 'none';
-  document.getElementById('step-verify').style.display   = 'block';
+  const pb=document.getElementById('ev-proceed-btn'); pb.style.display='none';
+
+  ['step-success','step-details','step-event','step-event-success'].forEach(hide);
+  show('step-verify');
+  window.scrollTo({top:0,behavior:'smooth'});
 }
 </script>
 </body>
