@@ -446,6 +446,24 @@ html.light .btn-o { border-color:rgba(0,0,0,0.14); }
 ::-webkit-scrollbar       { width:5px; height:5px; }
 ::-webkit-scrollbar-track { background:transparent; }
 ::-webkit-scrollbar-thumb { background:var(--scroll); border-radius:3px; }
+/* ════════════════════════════════════════════════════
+   CUSTOM SELECT  (role dropdown)
+════════════════════════════════════════════════════ */
+.cs-w { position:relative; }
+.cs-t { width:100%; padding:clamp(11px,2vw,14px) clamp(13px,2vw,16px); background:var(--bg-input); border:1.5px solid rgba(255,255,255,0.09); border-radius:var(--r-sm); color:var(--text-muted); font-family:'Open Sans',sans-serif; font-size:clamp(14px,2.5vw,15px); direction:rtl; text-align:right; cursor:pointer; display:flex; align-items:center; justify-content:space-between; transition:var(--t-base); user-select:none; min-height:48px; gap:10px; }
+html.light .cs-t { border-color:rgba(0,0,0,0.10); }
+.cs-t:hover { border-color:rgba(255,255,255,0.16); background:var(--bg-input-f); }
+.cs-t.open  { border-color:var(--gold); background:var(--bg-input-f); border-bottom-left-radius:0; border-bottom-right-radius:0; box-shadow:var(--shadow-input-focus); }
+.cs-t .cs-ph { color:var(--text-dim); }
+.cs-t .cs-v  { color:var(--text); font-weight:600; }
+.cs-t .arr   { flex-shrink:0; color:var(--text-muted); transition:var(--t-base); }
+.cs-t.open .arr { transform:rotate(180deg); color:var(--gold); }
+.cs-t.is-err { border-color:var(--error) !important; box-shadow:0 0 0 3px rgba(255,107,107,0.12) !important; }
+.cs-dd { position:absolute; top:100%; left:0; right:0; z-index:200; background:var(--bg-input-f); border:1.5px solid var(--gold); border-top:none; border-bottom-left-radius:var(--r-sm); border-bottom-right-radius:var(--r-sm); overflow:hidden; box-shadow:0 16px 48px rgba(0,0,0,0.55); display:flex; flex-direction:column; }
+.cs-item { padding:11px 16px; cursor:pointer; transition:background var(--t-fast); display:flex; align-items:center; justify-content:space-between; font-size:14px; direction:rtl; gap:10px; min-height:44px; color:var(--text-soft); }
+.cs-item:hover { background:rgba(212,168,67,0.06); color:var(--text); }
+.cs-item.sel   { background:rgba(212,168,67,0.10); color:var(--gold-bright); font-weight:700; }
+.cs-item:not(:last-child) { border-bottom:1px solid var(--bdr-subtle); }
 </style>
 </head>
 <body>
@@ -561,7 +579,35 @@ html.light .btn-o { border-color:rgba(0,0,0,0.14); }
             </div>
             <div class="field">
               <label>תפקיד <span class="req">*</span></label>
-              <input type="text" id="ev-role" placeholder="מנהל השקעות">
+              <div class="cs-w" id="rl-w">
+                <div class="cs-t" id="rl-t" onclick="toggleRL()">
+                  <span id="rl-d" class="cs-ph">בחרו תפקיד...</span>
+                  <svg class="arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="cs-dd" id="rl-dd" style="display:none">
+                  <div class="cs-item" onclick="pickRL('אנליסט',1)">
+                    <span>אנליסט</span><span style="font-size:11px;color:var(--text-dim);">1</span>
+                  </div>
+                  <div class="cs-item" onclick="pickRL('מנהל השקעות',2)">
+                    <span>מנהל השקעות</span><span style="font-size:11px;color:var(--text-dim);">2</span>
+                  </div>
+                  <div class="cs-item" onclick="pickRL('מנהל מחקר',3)">
+                    <span>מנהל מחקר</span><span style="font-size:11px;color:var(--text-dim);">3</span>
+                  </div>
+                  <div class="cs-item" onclick="pickRL('מנהל קרנות נאמנות',4)">
+                    <span>מנהל קרנות נאמנות</span><span style="font-size:11px;color:var(--text-dim);">4</span>
+                  </div>
+                  <div class="cs-item" onclick="pickRL('מנהל קופות גמל',5)">
+                    <span>מנהל קופות גמל</span><span style="font-size:11px;color:var(--text-dim);">5</span>
+                  </div>
+                  <div class="cs-item" onclick="pickRL('סוחר',6)">
+                    <span>סוחר</span><span style="font-size:11px;color:var(--text-dim);">6</span>
+                  </div>
+                  <div class="cs-item" onclick="pickRL('מנהל נוסטרו',7)">
+                    <span>מנהל נוסטרו</span><span style="font-size:11px;color:var(--text-dim);">7</span>
+                  </div>
+                </div>
+              </div>
               <div class="ferr" id="ev-err-role"></div>
             </div>
           </div>
@@ -1057,6 +1103,52 @@ function backToEvents() {
 }
 
 /* ═══════════════════════════════════════════════
+   ROLE DROPDOWN  (rl-)
+═══════════════════════════════════════════════ */
+const RL = { value: '', index: 0 };
+
+function toggleRL() {
+  const t  = document.getElementById('rl-t');
+  const dd = document.getElementById('rl-dd');
+  if (t.classList.contains('open')) { closeRL(); return; }
+  t.classList.add('open');
+  dd.style.display = 'flex';
+  dd.style.flexDirection = 'column';
+  renderRLItems();
+}
+function closeRL() {
+  document.getElementById('rl-t')?.classList.remove('open');
+  const dd = document.getElementById('rl-dd');
+  if (dd) dd.style.display = 'none';
+}
+document.addEventListener('click', e => {
+  const w = document.getElementById('rl-w');
+  if (w && !w.contains(e.target)) closeRL();
+});
+function renderRLItems() {
+  const roles = [
+    { label:'אנליסט', idx:1 }, { label:'מנהל השקעות', idx:2 },
+    { label:'מנהל מחקר', idx:3 }, { label:'מנהל קרנות נאמנות', idx:4 },
+    { label:'מנהל קופות גמל', idx:5 }, { label:'סוחר', idx:6 },
+    { label:'מנהל נוסטרו', idx:7 },
+  ];
+  document.getElementById('rl-dd').innerHTML = roles.map(r => {
+    const isSel = RL.value === r.label;
+    return `<div class="cs-item ${isSel ? 'sel' : ''}" onclick="pickRL('${r.label}',${r.idx})">
+      <span>${r.label}</span>
+      <span style="font-size:11px;color:${isSel ? 'var(--gold)' : 'var(--text-dim)'};">${isSel ? '✓' : r.idx}</span>
+    </div>`;
+  }).join('');
+}
+function pickRL(label, idx) {
+  RL.value = label; RL.index = idx;
+  const d = document.getElementById('rl-d'); d.textContent = label; d.className = 'cs-v';
+  document.getElementById('rl-t').classList.remove('is-err');
+  document.getElementById('ev-err-role').textContent = '';
+  closeRL();
+}
+
+/* ═══════════════════════════════════════════════
    SUBMIT EVENT REGISTRATION
 ═══════════════════════════════════════════════ */
 async function submitEventForm() {
@@ -1064,7 +1156,6 @@ async function submitEventForm() {
     { id:'ev-first', err:'ev-err-first', msg:'שם פרטי הוא שדה חובה.',         check: v => v.length > 0 },
     { id:'ev-last',  err:'ev-err-last',  msg:'שם משפחה הוא שדה חובה.',        check: v => v.length > 0 },
     { id:'ev-org',   err:'ev-err-org',   msg:'שם הארגון הוא שדה חובה.',       check: v => v.length > 0 },
-    { id:'ev-role',  err:'ev-err-role',  msg:'תפקיד הוא שדה חובה.',           check: v => v.length > 0 },
     { id:'ev-email', err:'ev-err-email', msg:'אנא הזינו כתובת אימייל תקינה.', check: isEmail },
     { id:'ev-phone', err:'ev-err-phone', msg:'אנא הזינו מספר טלפון תקין.',    check: isPhone },
   ];
@@ -1077,6 +1168,16 @@ async function submitEventForm() {
     else     { err.textContent = ''; inp.classList.remove('is-err'); }
     inp.oninput = function() { this.classList.remove('is-err'); document.getElementById(f.err).textContent = ''; };
   });
+
+  // Validate role (custom dropdown)
+  if (!RL.value) {
+    document.getElementById('ev-err-role').textContent = 'אנא בחרו תפקיד.';
+    document.getElementById('rl-t').classList.add('is-err');
+    if (valid) { document.getElementById('rl-t').scrollIntoView({ behavior:'smooth', block:'center' }); valid = false; }
+  } else {
+    document.getElementById('ev-err-role').textContent = '';
+    document.getElementById('rl-t').classList.remove('is-err');
+  }
   if (!valid) return;
 
   const btn = document.getElementById('ev-submit-btn');
@@ -1091,7 +1192,8 @@ async function submitEventForm() {
     lastName,
     fullName:         `${firstName} ${lastName}`,
     organization:     document.getElementById('ev-org').value.trim(),
-    role:             document.getElementById('ev-role').value.trim(),
+    role:             RL.value,
+    roleIndex:        String(RL.index),
     email:            document.getElementById('ev-email').value.trim(),
     phone:            document.getElementById('ev-phone').value.trim(),
     activityid:       S.selectedEvents.map(e => e.id).join(','),
@@ -1140,14 +1242,18 @@ function resetToEvents() {
   S.activeFilter   = 'all';
 
   // Clear form fields
-  ['ev-first','ev-last','ev-org','ev-role','ev-email','ev-phone'].forEach(id => {
+  ['ev-first','ev-last','ev-org','ev-email','ev-phone'].forEach(id => {
     const el = document.getElementById(id);
     if (el) { el.value = ''; el.classList.remove('is-err'); }
   });
   ['ev-err-first','ev-err-last','ev-err-org','ev-err-role','ev-err-email','ev-err-phone'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.textContent = '';
+    const el = document.getElementById(id); if (el) el.textContent = '';
   });
+  // Reset role dropdown
+  RL.value = ''; RL.index = 0;
+  const rld = document.getElementById('rl-d'); if (rld) { rld.textContent = 'בחרו תפקיד...'; rld.className = 'cs-ph'; }
+  const rlt = document.getElementById('rl-t'); if (rlt) rlt.classList.remove('open','is-err');
+  const rldd = document.getElementById('rl-dd'); if (rldd) rldd.style.display = 'none';
 
   updateProceedBtn();
   hide('step-success'); hide('step-form'); show('step-events');
