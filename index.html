@@ -342,7 +342,7 @@ html.light .btn-o { border-color:rgba(0,0,0,0.14); }
 .suc-sub   { font-size:clamp(13px,2.5vw,15px); color:var(--text-muted); line-height:1.75; max-width:380px; }
 
 /* ════════════════════════════════════════════════════
-   EVENTS SECTION  (Step 3 – below meeting success)
+   EVENTS SECTION  (Step 3)
 ════════════════════════════════════════════════════ */
 .events-section { padding:0 clamp(20px,5vw,36px) clamp(28px,5vw,40px); animation:fadeUp 0.5s 0.25s ease both; }
 .events-hdr { padding:clamp(22px,4vw,30px) 0 18px; text-align:center; }
@@ -350,30 +350,89 @@ html.light .btn-o { border-color:rgba(0,0,0,0.14); }
 .events-hdr-sub   { font-size:13px; color:var(--text-muted); line-height:1.6; }
 .events-grid { display:flex; flex-direction:column; gap:10px; }
 
-/* Event card */
-.ev-card { background:var(--bg-elevated); border:1.5px solid var(--bdr-subtle); border-radius:var(--r-md); padding:clamp(14px,3vw,18px) clamp(14px,3vw,20px); cursor:pointer; transition:var(--t-base); display:flex; align-items:center; gap:16px; position:relative; overflow:hidden; user-select:none; }
-.ev-card::after { content:''; position:absolute; right:0; top:0; bottom:0; width:3px; background:var(--ev-stripe); opacity:0; transition:var(--t-base); border-radius:0 var(--r-md) var(--r-md) 0; }
-.ev-card:hover   { border-color:var(--bdr-hover); transform:translateX(-3px); }
-.ev-card:hover::after { opacity:1; }
-.ev-card.sel     { border-color:var(--gold); background:rgba(212,168,67,0.07); box-shadow:0 0 0 4px rgba(212,168,67,0.08); }
-.ev-card.sel::after { opacity:1; }
-.ev-card.ev-full { opacity:0.46; cursor:not-allowed; pointer-events:none; }
+/* ── Event card ─────────────────────────────────── */
+.ev-card {
+  background: var(--bg-elevated);
+  border: 1.5px solid var(--bdr-subtle);
+  border-radius: var(--r-md);
+  padding: clamp(14px,3vw,18px) clamp(14px,3vw,20px);
+  cursor: pointer;
+  transition: var(--t-base);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+}
+.ev-card::after {
+  content: '';
+  position: absolute;
+  right: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: var(--ev-stripe);
+  opacity: 0;
+  transition: var(--t-base);
+  border-radius: 0 var(--r-md) var(--r-md) 0;
+}
+.ev-card:hover          { border-color: var(--bdr-hover); transform: translateX(-3px); }
+.ev-card:hover::after   { opacity: 1; }
+.ev-card.sel            { border-color: var(--gold); background: rgba(212,168,67,0.07); box-shadow: 0 0 0 4px rgba(212,168,67,0.08); }
+.ev-card.sel::after     { opacity: 1; }
+.ev-card.ev-full        { opacity: 0.46; cursor: not-allowed; pointer-events: none; }
 
-.ev-date { flex-shrink:0; width:54px; text-align:center; background:var(--bg-input); border:1px solid var(--bdr); border-radius:var(--r-sm); padding:9px 4px; }
-.ev-day  { font-size:22px; font-weight:800; color:var(--gold); line-height:1; }
-.ev-mon  { font-size:10px; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.05em; margin-top:3px; }
+/* Date block */
+.ev-date {
+  flex-shrink: 0;
+  width: 52px;
+  text-align: center;
+  background: var(--bg-input);
+  border: 1px solid var(--bdr);
+  border-radius: var(--r-sm);
+  padding: 8px 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+.ev-day  { font-size: 22px; font-weight: 800; color: var(--gold); line-height: 1; }
+.ev-mon  { font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+.ev-wd   { font-size: 9px; font-weight: 600; color: var(--text-dim); margin-top: 2px; }
 
-.ev-info { flex:1; min-width:0; }
-.ev-name { font-size:clamp(13px,2.5vw,15px); font-weight:700; color:var(--text); margin-bottom:5px; line-height:1.3; }
-.ev-meta { font-size:12px; color:var(--text-muted); display:flex; flex-wrap:wrap; gap:10px; }
-.ev-meta span { display:flex; align-items:center; gap:4px; }
+/* Info block */
+.ev-info { flex: 1; min-width: 0; }
+.ev-name { font-size: clamp(13px,2.5vw,15px); font-weight: 700; color: var(--text); margin-bottom: 6px; line-height: 1.35; }
 
+/* Time row */
+.ev-time-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+  direction: ltr;
+  justify-content: flex-end;
+}
+.ev-time-row svg { color: var(--gold); flex-shrink: 0; }
+.ev-time-sep { color: var(--text-dim); font-size: 11px; margin: 0 1px; }
+
+/* Meta row (type pill) */
+.ev-meta { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+
+/* Badges */
 .ev-badge-open { flex-shrink:0; font-size:10.5px; font-weight:800; padding:4px 11px; border-radius:var(--r-pill); background:var(--success-bg); color:var(--success); border:1px solid var(--success-bdr); white-space:nowrap; }
 .ev-badge-full { flex-shrink:0; font-size:10.5px; font-weight:800; padding:4px 11px; border-radius:var(--r-pill); background:var(--error-bg);   color:var(--error);   border:1px solid var(--error-bdr);   white-space:nowrap; }
 
-.ev-check { flex-shrink:0; width:22px; height:22px; border-radius:50%; border:2px solid var(--bdr-subtle); display:flex; align-items:center; justify-content:center; transition:var(--t-base); }
+/* Check circle */
+.ev-check { flex-shrink:0; width:22px; height:22px; border-radius:50%; border:2px solid var(--bdr-subtle); display:flex; align-items:center; justify-content:center; transition:var(--t-base); align-self:flex-start; margin-top:2px; }
 .ev-card.sel .ev-check { background:var(--gold); border-color:var(--gold); color:#060710; }
 
+/* Right side stack */
+.ev-right { display:flex; flex-direction:column; align-items:flex-end; gap:8px; flex-shrink:0; }
+
+/* CTA */
 .ev-cta { display:flex; flex-direction:column; gap:10px; align-items:stretch; margin-top:20px; }
 
 /* ════════════════════════════════════════════════════
@@ -446,6 +505,8 @@ html.light .btn-o { border-color:rgba(0,0,0,0.14); }
   .ev-badge-open, .ev-badge-full { display:none; }
   .events-section { padding-left:16px; padding-right:16px; }
   .meet-suc { padding-left:16px; padding-right:16px; }
+  /* On mobile, stack right-side controls */
+  .ev-right { flex-direction:row; align-self:flex-end; }
 }
 @media (max-width:360px) { h1 { font-size:1.5rem; } .mt-grid { grid-template-columns:1fr; } .otp-cell { height:50px; font-size:22px; } }
 @media (max-height:500px) and (orientation:landscape) { .hdr { padding-top:20px; padding-bottom:16px; gap:8px; } }
@@ -466,6 +527,37 @@ html.light .btn-o { border-color:rgba(0,0,0,0.14); }
 ::-webkit-scrollbar       { width:5px; height:5px; }
 ::-webkit-scrollbar-track { background:transparent; }
 ::-webkit-scrollbar-thumb { background:var(--scroll); border-radius:3px; }
+
+.cs-t.is-err { border-color:var(--error) !important; box-shadow:0 0 0 3px rgba(255,107,107,0.12) !important; }
+
+/* ════════════════════════════════════════════════════
+   ROLE SELECT
+════════════════════════════════════════════════════ */
+.role-sel-w { position:relative; display:flex; align-items:center; }
+.role-sel {
+  width:100%; padding:clamp(11px,2vw,14px) clamp(13px,2vw,16px);
+  padding-left:36px;
+  background:var(--bg-input); border:1.5px solid rgba(255,255,255,0.09);
+  border-radius:var(--r-sm); color:var(--text);
+  font-family:'Open Sans',sans-serif; font-size:clamp(14px,2.5vw,15px);
+  outline:none; cursor:pointer;
+  -webkit-appearance:none; appearance:none;
+  transition:border-color var(--t-base),background var(--t-base),box-shadow var(--t-base);
+  min-height:48px; direction:rtl; text-align:right;
+}
+html.light .role-sel { border-color:rgba(0,0,0,0.10); }
+.role-sel:hover { border-color:rgba(255,255,255,0.16); background:var(--bg-input-f); }
+html.light .role-sel:hover { border-color:rgba(0,0,0,0.18); }
+.role-sel:focus { border-color:var(--gold); background:var(--bg-input-f); box-shadow:var(--shadow-input-focus); }
+.role-sel.is-err { border-color:var(--error) !important; box-shadow:0 0 0 3px rgba(255,107,107,0.12) !important; }
+.role-sel option { background:var(--bg-elevated); color:var(--text); direction:rtl; }
+.role-sel option[value=""] { color:var(--text-dim); }
+.role-sel-arr {
+  position:absolute; left:12px; top:50%; transform:translateY(-50%);
+  color:var(--text-muted); pointer-events:none; display:flex;
+  transition:var(--t-base);
+}
+.role-sel:focus ~ .role-sel-arr { color:var(--gold); }
 </style>
 </head>
 <body>
@@ -485,13 +577,13 @@ html.light .btn-o { border-color:rgba(0,0,0,0.14); }
     <div class="modal-icon">
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
     </div>
-    <div class="modal-title">לקוח לא נמצא במערכת</div>
-    <div class="modal-sub">האימייל שהזנת אינו רשום כלקוח ב-The Investor.<br>ייתכן שטרם השלמת את תהליך ההרשמה.</div>
+    <div class="modal-title">משקיע לא נמצא במערכת</div>
+    <div class="modal-sub">האימייל שהזנת אינו רשום כמשקיע במערכת.<br>ייתכן שטרם השלמת את תהליך ההרשמה.</div>
     <div class="modal-email-chip" id="modal-email-display"></div>
     <div class="modal-actions">
       <button class="btn btn-p btn-full btn-lg" onclick="openRegistration()">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
-        הרשמה כלקוח חדש
+        הרשמה כמשקיע חדש
       </button>
       <button class="btn btn-g btn-full" onclick="closeNotFoundModal()">חזרה לטופס</button>
     </div>
@@ -543,7 +635,44 @@ html.light .btn-o { border-color:rgba(0,0,0,0.14); }
                 <input type="tel" id="r-phone" placeholder="050-0000000"></div>
               </div>
             </div>
-            <div class="field"><label>שם החברה / ארגון</label><input type="text" id="r-company" placeholder="שם החברה שאתה מייצג"></div>
+            <div class="field" id="r-company-field">
+              <label>חברה מקושרת</label>
+              <div class="cs-w" id="rc-w">
+                <div class="cs-t" id="rc-t" onclick="toggleRC()">
+                  <span id="rc-d" class="cs-ph">בחרו גוף / חברה...</span>
+                  <svg class="arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="cs-dd" id="rc-dd" style="display:none">
+                  <div id="rc-loading" style="padding:20px;text-align:center;color:var(--text-muted);font-size:13px;display:flex;align-items:center;justify-content:center;gap:10px;">
+                    <div class="spin" style="width:14px;height:14px;border-color:rgba(212,168,67,0.25);border-top-color:var(--gold);flex-shrink:0;"></div>
+                    <span>טוען חברות...</span>
+                  </div>
+                  <div id="rc-fetch-err" style="display:none;padding:16px;text-align:center;color:var(--error);font-size:13px;line-height:1.6;">
+                    לא ניתן לטעון את הרשימה
+                    <button onclick="loadRegCompanies()" style="display:block;margin:8px auto 0;background:none;border:none;color:var(--gold);font-family:inherit;font-size:12px;font-weight:700;cursor:pointer;text-decoration:underline;text-underline-offset:2px;">נסו שוב</button>
+                  </div>
+                  <div id="rc-content" style="display:none;flex-direction:column;overflow:hidden;">
+                    <div class="cs-sh-w">
+                      <svg class="cs-sh-ico" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                      <input class="cs-sh" id="rc-sh" type="text" placeholder="חיפוש..." oninput="renderRCList()" autocomplete="off">
+                    </div>
+                    <div class="cs-list" id="rc-list"></div>
+                    <div onclick="pickRCOther()"
+                         style="padding:11px 16px;border-top:1px solid var(--bdr-subtle);cursor:pointer;display:flex;align-items:center;gap:9px;font-size:13px;font-weight:600;color:var(--text-muted);transition:var(--t-fast);"
+                         onmouseenter="this.style.color='var(--gold)';this.style.background='rgba(212,168,67,0.05)'"
+                         onmouseleave="this.style.color='var(--text-muted)';this.style.background=''">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="14"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                      אחר (הזנה ידנית)
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- "אחר" text input — shown only when "אחר" is selected -->
+              <div id="rc-other-wrap" style="display:none;margin-top:10px;animation:fadeUp 0.25s ease both;">
+                <input type="text" id="r-company-text" placeholder="הקלידו את שם הגוף / חברה...">
+              </div>
+              <div class="ferr" id="r-company-err"></div>
+            </div>
             <div class="dvd"></div>
             <div class="sec-hd" style="margin-bottom:12px;"><div class="sec-title">תחומי עניין</div><p class="sec-sub">אילו חברות ציבוריות מעניינות אותך?</p></div>
             <div class="field"><label>חברות שמעניינות אותך</label><textarea id="r-interests" placeholder="לדוגמה: חברות טכנולוגיה, ביו-טכנולוגיה, נדל&quot;ן..."></textarea></div>
@@ -666,7 +795,8 @@ html.light .btn-o { border-color:rgba(0,0,0,0.14); }
             <div class="field"><label>שם משפחה <span class="auto">אוטומטי</span></label><input type="text" id="f-last" class="prefilled" readonly placeholder="..."></div>
           </div>
           <div class="frow">
-            <div class="field"><label>שם החברה <span class="auto">אוטומטי</span></label><input type="text" id="f-company" class="prefilled" readonly placeholder="..."></div>
+            <!-- FIX 1: Company field is now editable (removed readonly + prefilled class) -->
+            <div class="field"><label>שם החברה <span class="auto">אוטומטי</span></label><input type="text" id="f-company" placeholder="שם החברה"></div>
             <div class="field"><label>טלפון נייד</label><input type="tel" id="f-phone" placeholder="050-0000000"></div>
           </div>
         </div>
@@ -702,14 +832,13 @@ html.light .btn-o { border-color:rgba(0,0,0,0.14); }
             </div>
           </div>
 
-          <!-- Purpose -->
+          <!-- FIX 2: Purpose – removed "דיון אסטרטגי" -->
           <div class="field">
             <label>מטרת הפגישה <span class="req">*</span></label>
             <div class="pp-wrap">
-              <div class="pp sel" data-v="היכרות"      onclick="pickPurpose(this)">היכרות</div>
-              <div class="pp"     data-v="עדכון"        onclick="pickPurpose(this)">עדכון</div>
-              <div class="pp"     data-v="דיון אסטרטגי" onclick="pickPurpose(this)">דיון אסטרטגי</div>
-              <div class="pp"     data-v="אחר"          onclick="pickPurpose(this)">אחר</div>
+              <div class="pp sel" data-v="היכרות" onclick="pickPurpose(this)">היכרות</div>
+              <div class="pp"     data-v="עדכון"   onclick="pickPurpose(this)">עדכון</div>
+              <div class="pp"     data-v="אחר"      onclick="pickPurpose(this)">אחר</div>
             </div>
           </div>
 
@@ -723,12 +852,19 @@ html.light .btn-o { border-color:rgba(0,0,0,0.14); }
             </div>
           </div>
 
-          <!-- Coordinator phone -->
+          <!-- FIX 3: Coordinator – name + phone -->
           <div class="field">
             <label>מול מי מתאמים אצלכם?</label>
-            <div class="iw">
-              <span class="ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.83a16 16 0 0 0 6.29 6.29l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
-              <input type="tel" id="f-coord" placeholder="מספר טלפון לתיאום">
+            <div class="frow" style="margin-top:0">
+              <div class="field" style="margin:0">
+                <input type="text" id="f-coord-name" placeholder="שם איש הקשר לתיאום">
+              </div>
+              <div class="field" style="margin:0">
+                <div class="iw">
+                  <span class="ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.83a16 16 0 0 0 6.29 6.29l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
+                  <input type="tel" id="f-coord" placeholder="מספר טלפון לתיאום">
+                </div>
+              </div>
             </div>
           </div>
 
@@ -746,20 +882,17 @@ html.light .btn-o { border-color:rgba(0,0,0,0.14); }
 
     <!-- ─────────────────────────────────────────
          STEP 3 – MEETING SUCCESS + EVENTS PICKER
-         (מוצג לאחר שליחת בקשת הפגישה)
     ──────────────────────────────────────────── -->
     <div id="step-success" style="display:none">
 
-      <!-- ✅ אישור בקשת הפגישה -->
       <div class="meet-suc">
         <div class="suc-ring">
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
         </div>
         <div class="suc-title">הבקשה נשלחה! 🎉</div>
-        <p class="suc-sub">קיבלנו את בקשתך לפגישה. צוותנו יחזור אליך תוך יום עסקים אחד לאישור ותיאום המועד.</p>
+        <p class="suc-sub">קיבלנו את בקשתך לפגישה. צוותנו יחזור אליך בהקדם לאישור ותיאום המועד.</p>
       </div>
 
-      <!-- 📅 אירועים קרובים -->
       <div class="events-section">
         <div class="events-hdr">
           <div class="events-hdr-title">
@@ -769,12 +902,9 @@ html.light .btn-o { border-color:rgba(0,0,0,0.14); }
           <p class="events-hdr-sub">בחרו אירוע שמעניין אתכם ונשריין לכם מקום</p>
         </div>
 
-        <div class="events-grid" id="events-grid">
-          <!-- מרונדר על-ידי JS -->
-        </div>
+        <div class="events-grid" id="events-grid"></div>
 
         <div class="ev-cta">
-          <!-- כפתור מופיע רק לאחר בחירה -->
           <button class="btn btn-p btn-full btn-lg" id="ev-proceed-btn" onclick="goToEventForm()" style="display:none">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
             המשך לרישום לאירוע
@@ -792,11 +922,9 @@ html.light .btn-o { border-color:rgba(0,0,0,0.14); }
 
     <!-- ─────────────────────────────────────────
          STEP 4 – EVENT REGISTRATION FORM
-         (ללא THE INVESTOR|IRM)
     ──────────────────────────────────────────── -->
     <div id="step-event" style="display:none">
 
-      <!-- Progress: 3 steps total -->
       <div class="prog">
         <div class="p-dot done"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></div>
         <div class="p-line done"></div>
@@ -808,7 +936,6 @@ html.light .btn-o { border-color:rgba(0,0,0,0.14); }
 
       <div class="fb">
 
-        <!-- Selected event banner + change button -->
         <div class="sel-ev-banner">
           <div class="seb-emoji" id="seb-emoji">📅</div>
           <div class="seb-info">
@@ -818,7 +945,6 @@ html.light .btn-o { border-color:rgba(0,0,0,0.14); }
           <button class="seb-change" onclick="backToEvents()">שנה</button>
         </div>
 
-        <!-- Section: Registrant -->
         <div class="sec-hd">
           <div class="sec-title">פרטי הנרשם</div>
           <p class="sec-sub">הפרטים יופיעו על תג השם שלכם באירוע.</p>
@@ -844,7 +970,23 @@ html.light .btn-o { border-color:rgba(0,0,0,0.14); }
             </div>
             <div class="field">
               <label>תפקיד <span class="req">*</span></label>
-              <input type="text" id="ev-role" placeholder="מנהל השקעות">
+              <div class="cs-w" id="rl-w">
+                <div class="cs-t" id="rl-t" onclick="toggleRL()">
+                  <span id="rl-d" class="cs-ph">בחרו תפקיד...</span>
+                  <svg class="arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="cs-dd" id="rl-dd" style="display:none">
+                  <div class="cs-list" id="rl-list">
+                    <div class="cs-item" onclick="pickRL('אנליסט',1)"><span>אנליסט</span><span style="font-size:11px;color:var(--text-dim);">1</span></div>
+                    <div class="cs-item" onclick="pickRL('מנהל השקעות',2)"><span>מנהל השקעות</span><span style="font-size:11px;color:var(--text-dim);">2</span></div>
+                    <div class="cs-item" onclick="pickRL('מנהל מחקר',3)"><span>מנהל מחקר</span><span style="font-size:11px;color:var(--text-dim);">3</span></div>
+                    <div class="cs-item" onclick="pickRL('מנהל קרנות נאמנות',4)"><span>מנהל קרנות נאמנות</span><span style="font-size:11px;color:var(--text-dim);">4</span></div>
+                    <div class="cs-item" onclick="pickRL('מנהל קופות גמל',5)"><span>מנהל קופות גמל</span><span style="font-size:11px;color:var(--text-dim);">5</span></div>
+                    <div class="cs-item" onclick="pickRL('סוחר',6)"><span>סוחר</span><span style="font-size:11px;color:var(--text-dim);">6</span></div>
+                    <div class="cs-item" onclick="pickRL('מנהל נוסטרו',7)"><span>מנהל נוסטרו</span><span style="font-size:11px;color:var(--text-dim);">7</span></div>
+                  </div>
+                </div>
+              </div>
               <div class="ferr" id="ev-err-role"></div>
             </div>
           </div>
@@ -875,9 +1017,8 @@ html.light .btn-o { border-color:rgba(0,0,0,0.14); }
             </div>
           </div>
 
-          <!-- Hidden fields – sent in webhook payload -->
-          <input type="hidden" id="ev-activityid"   value="">
-          <input type="hidden" id="ev-event-name"   value="">
+          <input type="hidden" id="ev-activityid"  value="">
+          <input type="hidden" id="ev-event-name"  value="">
 
           <div class="ntf ntf-info">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
@@ -945,16 +1086,11 @@ html.light .btn-o { border-color:rgba(0,0,0,0.14); }
 /* ═══════════════════════════════════════════════
    WEBHOOKS
 ═══════════════════════════════════════════════ */
-const WH_OTP    = 'https://hook.eu1.make.com/z4w11epzi7qcnjvy57csbmbch8l4q7kh'; // send/verify OTP
-const WH_SUBMIT = 'https://hook.eu1.make.com/wmms7nmdsip5u16sqnvhqhx5eb1rod3o'; // meeting submission
-const WH_REG    = 'https://hook.eu1.make.com/fc3ookg7bg7brg6reg1a3r3eeaqww60n'; // new client registration
-const WH_EVENT  = 'https://hook.eu1.make.com/d6sa3isxfan73h5cmf6ldce2bn8qp1kc'; // event registration
-
-/* ═══════════════════════════════════════════════
-   DEFAULT EVENTS
-   (יוחלפו בנתונים מה-webhook response בהמשך)
-═══════════════════════════════════════════════ */
-const DEFAULT_EVENTS = []; // מתמלא אך ורק מה-webhook response
+const WH_OTP        = 'https://hook.eu1.make.com/z4w11epzi7qcnjvy57csbmbch8l4q7kh';
+const WH_SUBMIT     = 'https://hook.eu1.make.com/wmms7nmdsip5u16sqnvhqhx5eb1rod3o';
+const WH_REG        = 'https://hook.eu1.make.com/fc3ookg7bg7brg6reg1a3r3eeaqww60n';
+const WH_EVENT      = 'https://hook.eu1.make.com/d6sa3isxfan73h5cmf6ldce2bn8qp1kc';
+const WH_COMPANIES  = 'https://hook.eu1.make.com/snlrtu95drfz2pp5m3brtsc6yxi4f5i0';
 
 /* ═══════════════════════════════════════════════
    STATE
@@ -962,9 +1098,45 @@ const DEFAULT_EVENTS = []; // מתמלא אך ורק מה-webhook response
 const S = {
   email:'', otpHash:'', verified:false, contact:null,
   companies:[], resendTimer:null,
+  exID:'',
   selectedCompany:null, selectedPurpose:'היכרות', selectedMT:'זום',
-  selectedEvent:null, events: DEFAULT_EVENTS,
+  selectedEvents:[], events:[],
 };
+
+/* ═══════════════════════════════════════════════
+   DATE / TIME HELPERS  (Israel timezone)
+═══════════════════════════════════════════════ */
+const TZ = 'Asia/Jerusalem';
+
+function fmtDay(iso) {
+  if (!iso) return '';
+  return new Date(iso).toLocaleDateString('he-IL', { day: 'numeric', timeZone: TZ });
+}
+
+function fmtMonth(iso) {
+  if (!iso) return '';
+  // Short 3-letter month in Hebrew
+  return new Date(iso).toLocaleDateString('he-IL', { month: 'short', timeZone: TZ });
+}
+
+function fmtWeekday(iso) {
+  if (!iso) return '';
+  return new Date(iso).toLocaleDateString('he-IL', { weekday: 'short', timeZone: TZ });
+}
+
+function fmtTime(iso) {
+  if (!iso) return '';
+  return new Date(iso).toLocaleTimeString('he-IL', {
+    hour: '2-digit', minute: '2-digit', hour12: false, timeZone: TZ
+  });
+}
+
+function fmtFullDate(iso) {
+  if (!iso) return '';
+  return new Date(iso).toLocaleDateString('he-IL', {
+    day: 'numeric', month: 'long', year: 'numeric', timeZone: TZ
+  });
+}
 
 /* ═══════════════════════════════════════════════
    THEME
@@ -985,11 +1157,11 @@ const isPhone = v => /^[\d\s\-+()]{7,15}$/.test(v);
 async function sha256(msg) {
   const buf  = new TextEncoder().encode(msg);
   const hash = await crypto.subtle.digest('SHA-256', buf);
-  return Array.from(new Uint8Array(hash)).map(b=>b.toString(16).padStart(2,'0')).join('');
+  return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2,'0')).join('');
 }
 
 let _tt;
-function showToast(msg, type='err') {
+function showToast(msg, type = 'err') {
   const el = document.getElementById('toast');
   const ti = document.getElementById('ti');
   ti.className   = `ti ti-${type}`;
@@ -1009,20 +1181,20 @@ function setNotif(id, type, msg) {
   el.innerHTML = msg ? `<div class="ntf ntf-${type}">${NICONS[type]||''}<span>${msg}</span></div>` : '';
 }
 
-function setBtnLoading(btn, loading, label='') {
-  if (loading) { btn._orig=btn.innerHTML; btn.disabled=true; btn.innerHTML='<div class="spin"></div>'; }
-  else { btn.disabled=false; btn.innerHTML=label?`<span>${label}</span>`:(btn._orig||btn.innerHTML); }
+function setBtnLoading(btn, loading, label = '') {
+  if (loading) { btn._orig = btn.innerHTML; btn.disabled = true; btn.innerHTML = '<div class="spin"></div>'; }
+  else { btn.disabled = false; btn.innerHTML = label ? `<span>${label}</span>` : (btn._orig || btn.innerHTML); }
 }
 
 function typeIn(id, text) {
   if (!text) return;
-  const el=document.getElementById(id); el.value='';
-  let i=0;
-  const iv=setInterval(()=>{el.value+=text[i++];if(i>=text.length)clearInterval(iv);},40);
+  const el = document.getElementById(id); el.value = '';
+  let i = 0;
+  const iv = setInterval(() => { el.value += text[i++]; if (i >= text.length) clearInterval(iv); }, 40);
 }
 
-function show(id)  { const el=document.getElementById(id); el.style.display='block'; el.style.animation='fadeUp 0.45s ease both'; }
-function hide(id)  { document.getElementById(id).style.display='none'; }
+function show(id) { const el = document.getElementById(id); el.style.display = 'block'; el.style.animation = 'fadeUp 0.45s ease both'; }
+function hide(id) { document.getElementById(id).style.display = 'none'; }
 
 /* ═══════════════════════════════════════════════
    STEP 1 – SEND OTP
@@ -1031,23 +1203,24 @@ async function sendOTP() {
   const val   = document.getElementById('email-input').value.trim();
   const errEl = document.getElementById('email-err');
   const btn   = document.getElementById('send-otp-btn');
-  if (!val)          { errEl.textContent='אנא הזינו כתובת אימייל.';   return; }
-  if (!isEmail(val)) { errEl.textContent='כתובת האימייל אינה תקינה.'; return; }
+  if (!val)          { errEl.textContent = 'אנא הזינו כתובת אימייל.';   return; }
+  if (!isEmail(val)) { errEl.textContent = 'כתובת האימייל אינה תקינה.'; return; }
   errEl.textContent = '';
   setBtnLoading(btn, true);
   try {
     const res = await fetch(WH_OTP, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({action:'send_otp',email:val}) });
     const raw = await res.text();
-    if (raw.trim().toLowerCase()==='not found') { showNotFoundModal(val); setBtnLoading(btn,false,'שלח קוד'); return; }
-    let j=null;
-    try { const p=JSON.parse(raw); j=(p.body&&typeof p.body==='string')?JSON.parse(p.body):p; } catch{}
+    if (raw.trim().toLowerCase() === 'not found') { showNotFoundModal(val); setBtnLoading(btn,false,'שלח קוד'); return; }
+    let j = null;
+    try { const p = JSON.parse(raw); j = (p.body && typeof p.body === 'string') ? JSON.parse(p.body) : p; } catch {}
     if (!j) { showNotFoundModal(val); setBtnLoading(btn,false,'שלח קוד'); return; }
-    const hash = j.hash||j.otp_hash||j.code_hash||'';
+    const hash = j.hash || j.otp_hash || j.code_hash || '';
     if (!hash) { showToast('שגיאה בתקשורת עם השרת.','err'); setBtnLoading(btn,false,'שלח קוד'); return; }
-    S.otpHash=hash; S.email=val; S.contact=j.contact||null; S.companies=Array.isArray(j.companies)?j.companies:[];
-    document.getElementById('email-input').disabled=true;
-    btn.disabled=true; btn.innerHTML='<span style="color:var(--success)">✓ נשלח</span>';
-    document.getElementById('otp-section').style.display='block';
+    S.otpHash = hash; S.email = val; S.contact = j.contact || null; S.companies = Array.isArray(j.companies) ? j.companies : [];
+    S.exID = j.contact?.exID || '';
+    document.getElementById('email-input').disabled = true;
+    btn.disabled = true; btn.innerHTML = '<span style="color:var(--success)">✓ נשלח</span>';
+    document.getElementById('otp-section').style.display = 'block';
     document.getElementById('otp0').focus();
     setNotif('otp-notif','info',`קוד אימות נשלח ל-${val}`);
     startResendTimer(); setupOTPCells();
@@ -1058,62 +1231,62 @@ async function sendOTP() {
    OTP CELLS
 ═══════════════════════════════════════════════ */
 function setupOTPCells() {
-  for (let i=0;i<6;i++) {
-    const c=document.getElementById('otp'+i);
-    c.addEventListener('input',()=>{
-      c.value=c.value.replace(/\D/g,'').slice(-1);
-      c.classList.toggle('filled',!!c.value);
-      if (c.value&&i<5) document.getElementById('otp'+(i+1)).focus();
-      const code=getOTP(); if(code.length===6) verifyOTP(code);
+  for (let i = 0; i < 6; i++) {
+    const c = document.getElementById('otp' + i);
+    c.addEventListener('input', () => {
+      c.value = c.value.replace(/\D/g,'').slice(-1);
+      c.classList.toggle('filled', !!c.value);
+      if (c.value && i < 5) document.getElementById('otp' + (i+1)).focus();
+      const code = getOTP(); if (code.length === 6) verifyOTP(code);
     });
-    c.addEventListener('keydown',e=>{ if(e.key==='Backspace'&&!c.value&&i>0) document.getElementById('otp'+(i-1)).focus(); });
-    c.addEventListener('paste',e=>{
+    c.addEventListener('keydown', e => { if (e.key === 'Backspace' && !c.value && i > 0) document.getElementById('otp' + (i-1)).focus(); });
+    c.addEventListener('paste', e => {
       e.preventDefault();
-      const p=(e.clipboardData||window.clipboardData).getData('text').replace(/\D/g,'').slice(0,6);
-      p.split('').forEach((ch,idx)=>{ const cell=document.getElementById('otp'+idx); if(cell){cell.value=ch;cell.classList.add('filled');} });
-      if(p.length===6) verifyOTP(p);
-      else document.getElementById('otp'+Math.min(p.length,5))?.focus();
+      const p = (e.clipboardData||window.clipboardData).getData('text').replace(/\D/g,'').slice(0,6);
+      p.split('').forEach((ch, idx) => { const cell = document.getElementById('otp' + idx); if (cell) { cell.value = ch; cell.classList.add('filled'); } });
+      if (p.length === 6) verifyOTP(p);
+      else document.getElementById('otp' + Math.min(p.length, 5))?.focus();
     });
   }
 }
-const getOTP = ()=>Array.from({length:6},(_,i)=>document.getElementById('otp'+i).value).join('');
+const getOTP = () => Array.from({length:6}, (_,i) => document.getElementById('otp'+i).value).join('');
 
 async function verifyOTP(code) {
   setNotif('otp-notif','info','מאמת...');
-  const h=await sha256(code);
-  if (h===S.otpHash) {
-    S.verified=true; setNotif('otp-notif','success','האימות הצליח!'); clearInterval(S.resendTimer);
+  const h = await sha256(code);
+  if (h === S.otpHash) {
+    S.verified = true; setNotif('otp-notif','success','האימות הצליח!'); clearInterval(S.resendTimer);
     setTimeout(goToStep2, 650);
   } else {
     setNotif('otp-notif','error','הקוד שגוי – נסו שנית.');
-    for(let i=0;i<6;i++){const c=document.getElementById('otp'+i);c.classList.add('err');c.value='';c.classList.remove('filled');setTimeout(()=>c.classList.remove('err'),650);}
+    for (let i = 0; i < 6; i++) { const c = document.getElementById('otp'+i); c.classList.add('err'); c.value=''; c.classList.remove('filled'); setTimeout(()=>c.classList.remove('err'),650); }
     document.getElementById('otp0').focus();
   }
 }
 
 function startResendTimer() {
-  let s=30;
-  document.getElementById('resend-count').textContent=s;
-  document.getElementById('resend-btn').disabled=true;
-  document.getElementById('resend-info').style.display='';
+  let s = 30;
+  document.getElementById('resend-count').textContent = s;
+  document.getElementById('resend-btn').disabled = true;
+  document.getElementById('resend-info').style.display = '';
   clearInterval(S.resendTimer);
-  S.resendTimer=setInterval(()=>{
-    const el=document.getElementById('resend-count'); if(el)el.textContent=--s;
-    if(s<=0){clearInterval(S.resendTimer);const rb=document.getElementById('resend-btn');if(rb)rb.disabled=false;const ri=document.getElementById('resend-info');if(ri)ri.style.display='none';}
-  },1000);
+  S.resendTimer = setInterval(() => {
+    const el = document.getElementById('resend-count'); if (el) el.textContent = --s;
+    if (s <= 0) { clearInterval(S.resendTimer); const rb = document.getElementById('resend-btn'); if (rb) rb.disabled = false; const ri = document.getElementById('resend-info'); if (ri) ri.style.display = 'none'; }
+  }, 1000);
 }
 
 async function resendOTP() {
-  for(let i=0;i<6;i++){const c=document.getElementById('otp'+i);c.value='';c.classList.remove('filled');}
-  document.getElementById('resend-btn').disabled=true;
+  for (let i = 0; i < 6; i++) { const c = document.getElementById('otp'+i); c.value=''; c.classList.remove('filled'); }
+  document.getElementById('resend-btn').disabled = true;
   setNotif('otp-notif','info','שולח קוד חדש...');
   try {
-    const res=await fetch(WH_OTP,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'resend_otp',email:S.email})});
-    const raw=await res.text();
-    let hash=''; try{hash=JSON.parse(raw).hash;}catch{hash=raw.trim();}
-    if(hash){S.otpHash=hash;setNotif('otp-notif','info','קוד חדש נשלח!');startResendTimer();document.getElementById('otp0').focus();}
-    else{showToast('שגיאה בשליחת קוד חדש.','err');document.getElementById('resend-btn').disabled=false;}
-  } catch{showToast('שגיאת רשת.','err');document.getElementById('resend-btn').disabled=false;}
+    const res = await fetch(WH_OTP, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'resend_otp',email:S.email})});
+    const raw = await res.text();
+    let hash = ''; try { hash = JSON.parse(raw).hash; } catch { hash = raw.trim(); }
+    if (hash) { S.otpHash = hash; setNotif('otp-notif','info','קוד חדש נשלח!'); startResendTimer(); document.getElementById('otp0').focus(); }
+    else { showToast('שגיאה בשליחת קוד חדש.','err'); document.getElementById('resend-btn').disabled = false; }
+  } catch { showToast('שגיאת רשת.','err'); document.getElementById('resend-btn').disabled = false; }
 }
 
 /* ═══════════════════════════════════════════════
@@ -1122,43 +1295,43 @@ async function resendOTP() {
 function goToStep2() {
   hide('step-verify'); show('step-details');
   renderCSList();
-  typeIn('f-first',   S.contact?.firstName||'');
-  typeIn('f-last',    S.contact?.lastName ||'');
-  typeIn('f-company', S.contact?.company  ||'');
-  if (S.contact?.phone) document.getElementById('f-phone').value=S.contact.phone;
-  // Pre-fill event form email
-  document.getElementById('ev-email').value=S.email;
+  typeIn('f-first',   S.contact?.firstName || '');
+  typeIn('f-last',    S.contact?.lastName  || '');
+  // FIX 1: company is now editable, typeIn works fine since readonly removed
+  typeIn('f-company', S.contact?.company   || '');
+  if (S.contact?.phone) document.getElementById('f-phone').value = S.contact.phone;
+  document.getElementById('ev-email').value = S.email;
 }
 
 /* Company dropdown */
 function renderCSList() {
-  const q=document.getElementById('cs-sh')?.value.trim()||'';
-  const list=document.getElementById('cs-list');
-  let names=(S.companies||[]).map(c=>c.accountname).filter(Boolean);
-  if(q) names=names.filter(n=>n.includes(q)||n.toLowerCase().includes(q.toLowerCase()));
-  if(!names.length){list.innerHTML='<div class="cs-empty">לא נמצאו חברות</div>';return;}
-  list.innerHTML=names.map(name=>{const e=name.replace(/'/g,"\\'");return`<div class="cs-item ${S.selectedCompany===name?'sel':''}" onclick="pickCompany('${e}')">${name}</div>`;}).join('');
+  const q = document.getElementById('cs-sh')?.value.trim() || '';
+  const list = document.getElementById('cs-list');
+  let names = (S.companies || []).map(c => c.accountname).filter(Boolean);
+  if (q) names = names.filter(n => n.includes(q) || n.toLowerCase().includes(q.toLowerCase()));
+  if (!names.length) { list.innerHTML = '<div class="cs-empty">לא נמצאו חברות</div>'; return; }
+  list.innerHTML = names.map(name => { const e = name.replace(/'/g,"\\'"); return `<div class="cs-item ${S.selectedCompany===name?'sel':''}" onclick="pickCompany('${e}')">${name}</div>`; }).join('');
 }
-function pickCompany(name){S.selectedCompany=name;const d=document.getElementById('cs-d');d.textContent=name;d.className='cs-v';closeCS();document.getElementById('cs-err').textContent='';}
-function toggleCS(){const t=document.getElementById('cs-t'),dd=document.getElementById('cs-dd');if(t.classList.contains('open')){closeCS();}else{t.classList.add('open');dd.style.display='flex';renderCSList();setTimeout(()=>document.getElementById('cs-sh')?.focus(),50);}}
-function closeCS(){document.getElementById('cs-t')?.classList.remove('open');const dd=document.getElementById('cs-dd');if(dd)dd.style.display='none';}
-document.addEventListener('click',e=>{const w=document.getElementById('cs-w');if(w&&!w.contains(e.target))closeCS();});
-function pickPurpose(el){document.querySelectorAll('.pp').forEach(p=>p.classList.remove('sel'));el.classList.add('sel');S.selectedPurpose=el.dataset.v;}
-function pickMT(el){document.querySelectorAll('.mt-card').forEach(c=>c.classList.remove('sel'));el.classList.add('sel');S.selectedMT=el.dataset.v;}
+function pickCompany(name) { S.selectedCompany = name; const d = document.getElementById('cs-d'); d.textContent = name; d.className = 'cs-v'; closeCS(); document.getElementById('cs-err').textContent = ''; }
+function toggleCS() { const t = document.getElementById('cs-t'), dd = document.getElementById('cs-dd'); if (t.classList.contains('open')) { closeCS(); } else { t.classList.add('open'); dd.style.display = 'flex'; renderCSList(); setTimeout(() => document.getElementById('cs-sh')?.focus(), 50); } }
+function closeCS() { document.getElementById('cs-t')?.classList.remove('open'); const dd = document.getElementById('cs-dd'); if (dd) dd.style.display = 'none'; }
+document.addEventListener('click', e => { const w = document.getElementById('cs-w'); if (w && !w.contains(e.target)) closeCS(); });
+function pickPurpose(el) { document.querySelectorAll('.pp').forEach(p => p.classList.remove('sel')); el.classList.add('sel'); S.selectedPurpose = el.dataset.v; }
+function pickMT(el) { document.querySelectorAll('.mt-card').forEach(c => c.classList.remove('sel')); el.classList.add('sel'); S.selectedMT = el.dataset.v; }
 
 /* ═══════════════════════════════════════════════
    STEP 2 → SUBMIT MEETING
-   After success → show events picker (Step 3)
 ═══════════════════════════════════════════════ */
 async function submitMeeting() {
   if (!S.selectedCompany && !document.getElementById('cs-custom').value.trim()) {
-    document.getElementById('cs-err').textContent='אנא בחרו חברה מהרשימה או הזינו שם חברה.'; return;
+    document.getElementById('cs-err').textContent = 'אנא בחרו חברה מהרשימה או הזינו שם חברה.'; return;
   }
-  const btn=document.getElementById('submit-btn');
-  setBtnLoading(btn,true);
+  const btn = document.getElementById('submit-btn');
+  setBtnLoading(btn, true);
 
-  const payload={
-    action:'meeting_request', email:S.email,
+  const payload = {
+    action:           'meeting_request',
+    email:            S.email,
     firstName:        document.getElementById('f-first').value,
     lastName:         document.getElementById('f-last').value,
     contactCompany:   document.getElementById('f-company').value,
@@ -1167,8 +1340,11 @@ async function submitMeeting() {
     meetingWithCustom:document.getElementById('cs-custom').value.trim(),
     purpose:          S.selectedPurpose,
     meetingType:      S.selectedMT,
+    // FIX 3: coordinator name + phone
+    coordinatorName:  document.getElementById('f-coord-name').value,
     coordinatorPhone: document.getElementById('f-coord').value,
     notes:            document.getElementById('f-notes').value,
+    exID:             S.exID,
     submittedAt:      new Date().toISOString(),
   };
 
@@ -1177,31 +1353,16 @@ async function submitMeeting() {
   try {
     const res = await fetch(WH_SUBMIT, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload) });
 
-    /* ── Parse webhook response for events ──
-       Expected shape (from Make):
-       [{ "body": [{subject, activityid, activitytypecode}, ...], "status": 200 }]
-    ── */
     try {
       const raw = await res.text();
       console.log('📥 Raw webhook response:', raw);
 
-      let eventsArray = null;
-
-      // פונקציה עזר: מנסה לחלץ את מערך האירועים מכל שייפ אפשרי
       const tryExtract = (val) => {
         if (Array.isArray(val)) {
-          // האם זה כבר מערך האירועים עצמו? (יש subject/activityid)
           if (val[0]?.activityid !== undefined) return val;
-          // האם זה ה-wrapper של Make? ([{ body:[...], status:200 }])
-          if (val[0]?.body !== undefined) {
-            const b = val[0].body;
-            return typeof b === 'string' ? JSON.parse(b) : b;
-          }
+          if (val[0]?.body !== undefined) { const b = val[0].body; return typeof b === 'string' ? JSON.parse(b) : b; }
         }
-        if (val && typeof val === 'object' && val.body !== undefined) {
-          const b = val.body;
-          return typeof b === 'string' ? JSON.parse(b) : b;
-        }
+        if (val && typeof val === 'object' && val.body !== undefined) { const b = val.body; return typeof b === 'string' ? JSON.parse(b) : b; }
         return null;
       };
 
@@ -1209,20 +1370,22 @@ async function submitMeeting() {
       try { parsed = JSON.parse(raw); } catch { parsed = raw; }
       console.log('📥 Parsed JSON:', parsed);
 
-      eventsArray = tryExtract(parsed);
+      const eventsArray = tryExtract(parsed);
       console.log('📅 Events array:', eventsArray);
 
       if (Array.isArray(eventsArray) && eventsArray.length > 0) {
         S.events = eventsArray.map(ev => ({
-          id:    ev.activityid,
-          name:  ev.subject,
-          type:  ev.activitytypecode,
-          emoji: ev.activitytypecode === 'וובינר' ? '💻' : '🏛️',
-          full:  false,
+          id:             ev.activityid,
+          name:           ev.subject,
+          type:           ev.activitytypecode,
+          emoji:          ev.activitytypecode === 'וובינר' ? '💻' : '🏛️',
+          scheduledstart: ev.scheduledstart || null,
+          scheduledend:   ev.scheduledend   || null,
+          full:           false,
         }));
         console.log('✅ Events loaded:', S.events);
       } else {
-        console.warn('⚠️ No events found in response – array will be empty');
+        console.warn('⚠️ No events found in response');
         S.events = [];
       }
     } catch(parseErr) {
@@ -1230,7 +1393,7 @@ async function submitMeeting() {
       S.events = [];
     }
 
-    // Pre-fill event form with contact data
+    // Pre-fill event form
     document.getElementById('ev-first').value = document.getElementById('f-first').value;
     document.getElementById('ev-last').value  = document.getElementById('f-last').value;
     document.getElementById('ev-org').value   = document.getElementById('f-company').value;
@@ -1242,12 +1405,12 @@ async function submitMeeting() {
   } catch(e) {
     console.error(e);
     showToast('שגיאה בשליחת הבקשה. נסו שוב.','err');
-    setBtnLoading(btn,false,'שלח בקשה');
+    setBtnLoading(btn, false, 'שלח בקשה');
   }
 }
 
 /* ═══════════════════════════════════════════════
-   RENDER EVENTS
+   RENDER EVENTS  –  with date + time
 ═══════════════════════════════════════════════ */
 function renderEvents() {
   const grid = document.getElementById('events-grid');
@@ -1261,188 +1424,479 @@ function renderEvents() {
     return;
   }
 
-  const typeIcon = t => t === 'וובינר'
-    ? `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><polyline points="8 21 12 17 16 21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>`
-    : `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M8 4v4M16 4v4M2 10h20"/></svg>`;
-
-  const typePillColor = t => t === 'וובינר'
+  const typePillStyle = t => t === 'וובינר'
     ? 'background:rgba(96,165,250,0.10);color:var(--info-text);border:1px solid var(--info-bdr);'
     : 'background:rgba(212,168,67,0.10);color:var(--gold-bright);border:1px solid rgba(212,168,67,0.28);';
 
-  grid.innerHTML = S.events.map(ev => `
-    <div class="ev-card ${ev.full?'ev-full':''} ${S.selectedEvent?.id===ev.id?'sel':''}"
+  const typeIcon = t => t === 'וובינר'
+    ? `<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><polyline points="8 21 12 17 16 21"/></svg>`
+    : `<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M8 4v4M16 4v4M2 10h20"/></svg>`;
+
+  const clockIcon = `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`;
+
+  const checkIcon = `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg>`;
+
+  grid.innerHTML = S.events.map(ev => {
+    const isSel   = S.selectedEvents.some(e => e.id === ev.id);
+    const hasDate = !!ev.scheduledstart;
+    const day     = hasDate ? fmtDay(ev.scheduledstart)     : '';
+    const month   = hasDate ? fmtMonth(ev.scheduledstart)   : '';
+    const weekday = hasDate ? fmtWeekday(ev.scheduledstart) : '';
+    const timeStart = hasDate ? fmtTime(ev.scheduledstart)  : '';
+    const timeEnd   = ev.scheduledend ? fmtTime(ev.scheduledend) : '';
+    const timeStr   = timeStart ? (timeEnd ? `${timeStart} – ${timeEnd}` : timeStart) : '';
+
+    return `
+    <div class="ev-card ${ev.full ? 'ev-full' : ''} ${isSel ? 'sel' : ''}"
          id="evc-${ev.id}"
          onclick="${ev.full ? '' : `selectEvent('${ev.id}')`}">
-      <div class="ev-info" style="padding:2px 0">
+
+      ${hasDate ? `
+      <div class="ev-date">
+        <div class="ev-day">${day}</div>
+        <div class="ev-mon">${month}</div>
+        ${weekday ? `<div class="ev-wd">${weekday}</div>` : ''}
+      </div>` : ''}
+
+      <div class="ev-info">
         <div class="ev-name">${ev.emoji} ${ev.name}</div>
-        <div class="ev-meta" style="margin-top:6px">
-          <span style="font-size:11px;font-weight:700;padding:3px 10px;border-radius:var(--r-pill);${typePillColor(ev.type)}">
+        ${timeStr ? `
+        <div class="ev-time-row">
+          ${clockIcon}
+          <span>${timeStr}</span>
+        </div>` : ''}
+        <div class="ev-meta">
+          <span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:var(--r-pill);display:inline-flex;align-items:center;gap:4px;${typePillStyle(ev.type)}">
             ${typeIcon(ev.type)} ${ev.type}
           </span>
         </div>
       </div>
-      ${ev.full
-        ? `<span class="ev-badge-full">מלא</span>`
-        : `<span class="ev-badge-open">פנוי ✓</span>`}
-      ${!ev.full ? `<div class="ev-check" id="evchk-${ev.id}">${S.selectedEvent?.id===ev.id?'<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg>':''}</div>`:``}
-    </div>
-  `).join('');
+
+      <div class="ev-right">
+        ${ev.full
+          ? `<span class="ev-badge-full">מלא</span>`
+          : `<span class="ev-badge-open">פנוי ✓</span>`}
+        ${!ev.full ? `
+        <div class="ev-check" id="evchk-${ev.id}">
+          ${isSel ? checkIcon : ''}
+        </div>` : ''}
+      </div>
+
+    </div>`;
+  }).join('');
 }
 
 function selectEvent(id) {
-  S.selectedEvent=S.events.find(e=>e.id===id)||null;
+  const ev = S.events.find(e => e.id === id);
+  if (!ev) return;
+  const idx = S.selectedEvents.findIndex(e => e.id === id);
+  if (idx === -1) {
+    S.selectedEvents.push(ev);
+  } else {
+    S.selectedEvents.splice(idx, 1);
+  }
   renderEvents();
-  const btn=document.getElementById('ev-proceed-btn');
-  btn.style.display='flex'; btn.style.animation='fadeUp 0.3s ease both';
+  const btn = document.getElementById('ev-proceed-btn');
+  const count = S.selectedEvents.length;
+  if (count > 0) {
+    btn.style.display = 'flex';
+    btn.style.animation = 'fadeUp 0.3s ease both';
+    btn.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> המשך לרישום ל-${count} אירוע${count > 1 ? 'ים' : ''}`;
+  } else {
+    btn.style.display = 'none';
+  }
 }
 
 /* ═══════════════════════════════════════════════
    STEP 3 → EVENT FORM  (Step 4)
 ═══════════════════════════════════════════════ */
 function goToEventForm() {
-  if (!S.selectedEvent) return;
-  const ev=S.selectedEvent;
-  document.getElementById('ev-activityid').value  = ev.id;   // ★ activityid → hidden
-  document.getElementById('ev-event-name').value = ev.name;
-  document.getElementById('seb-emoji').textContent = ev.emoji;
-  document.getElementById('seb-name').textContent  = ev.name;
-  document.getElementById('seb-meta').textContent  = `${ev.date} · ${ev.location}`;
+  if (!S.selectedEvents.length) return;
+
+  // Store array of activityids in hidden field (comma-separated)
+  document.getElementById('ev-activityid').value = S.selectedEvents.map(e => e.id).join(',');
+  document.getElementById('ev-event-name').value = S.selectedEvents.map(e => e.name).join(', ');
+
+  // Build banner – show all selected events as a list
+  const bannerEl = document.querySelector('.sel-ev-banner');
+  bannerEl.innerHTML = `
+    <div style="flex:1;min-width:0;">
+      <div style="font-size:12px;font-weight:700;color:var(--text-muted);letter-spacing:0.05em;margin-bottom:10px;display:flex;align-items:center;gap:6px;">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M8 4v4M16 4v4M2 10h20"/></svg>
+        אירועים שנבחרו (${S.selectedEvents.length})
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        ${S.selectedEvents.map(ev => {
+          const parts = [];
+          if (ev.scheduledstart) parts.push(fmtFullDate(ev.scheduledstart));
+          const ts = ev.scheduledstart ? fmtTime(ev.scheduledstart) : '';
+          const te = ev.scheduledend   ? fmtTime(ev.scheduledend)   : '';
+          if (ts) parts.push(te ? `${ts} – ${te}` : ts);
+          return `
+            <div style="display:flex;align-items:flex-start;gap:10px;padding:10px 12px;background:var(--bg-input);border-radius:var(--r-sm);border:1px solid var(--bdr);">
+              <span style="font-size:18px;line-height:1;flex-shrink:0;">${ev.emoji}</span>
+              <div style="flex:1;min-width:0;">
+                <div style="font-size:13px;font-weight:700;color:var(--text);line-height:1.3;">${ev.name}</div>
+                ${parts.length ? `<div style="font-size:11px;color:var(--text-muted);margin-top:3px;">${parts.join(' · ')}</div>` : ''}
+              </div>
+            </div>`;
+        }).join('')}
+      </div>
+    </div>
+    <button class="seb-change" onclick="backToEvents()" style="align-self:flex-start;">שנה</button>
+  `;
+
   hide('step-success'); show('step-event');
-  window.scrollTo({top:0,behavior:'smooth'});
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function backToEvents() {
   hide('step-event'); show('step-success');
-  window.scrollTo({top:0,behavior:'smooth'});
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ═══════════════════════════════════════════════
+   ROLE DROPDOWN  (rl-)
+═══════════════════════════════════════════════ */
+const RL = { value: '', index: 0 };
+
+function toggleRL() {
+  const t  = document.getElementById('rl-t');
+  const dd = document.getElementById('rl-dd');
+  if (t.classList.contains('open')) { closeRL(); return; }
+  t.classList.add('open');
+  dd.style.display = 'flex';
+  dd.style.flexDirection = 'column';
+  renderRLList();
+}
+function closeRL() {
+  document.getElementById('rl-t')?.classList.remove('open');
+  const dd = document.getElementById('rl-dd');
+  if (dd) dd.style.display = 'none';
+}
+document.addEventListener('click', e => {
+  const w = document.getElementById('rl-w');
+  if (w && !w.contains(e.target)) closeRL();
+});
+function renderRLList() {
+  const roles = [
+    { label:'אנליסט', idx:1 }, { label:'מנהל השקעות', idx:2 },
+    { label:'מנהל מחקר', idx:3 }, { label:'מנהל קרנות נאמנות', idx:4 },
+    { label:'מנהל קופות גמל', idx:5 }, { label:'סוחר', idx:6 },
+    { label:'מנהל נוסטרו', idx:7 },
+  ];
+  document.getElementById('rl-list').innerHTML = roles.map(r => {
+    const isSel = RL.value === r.label;
+    return `<div class="cs-item ${isSel ? 'sel' : ''}" onclick="pickRL('${r.label}',${r.idx})">
+      <span>${r.label}</span>
+      <span style="font-size:11px;color:${isSel ? 'var(--gold)' : 'var(--text-dim)'};">${isSel ? '✓' : r.idx}</span>
+    </div>`;
+  }).join('');
+}
+function pickRL(label, idx) {
+  RL.value = label; RL.index = idx;
+  const d = document.getElementById('rl-d');
+  d.textContent = label; d.className = 'cs-v';
+  document.getElementById('rl-t').classList.remove('is-err');
+  document.getElementById('ev-err-role').textContent = '';
+  closeRL();
 }
 
 /* ═══════════════════════════════════════════════
    STEP 4 → SUBMIT EVENT REGISTRATION
 ═══════════════════════════════════════════════ */
 async function submitEventForm() {
-  const FIELDS=[
-    {id:'ev-first',err:'ev-err-first',msg:'שם פרטי הוא שדה חובה.',          check:v=>v.length>0},
-    {id:'ev-last', err:'ev-err-last', msg:'שם משפחה הוא שדה חובה.',         check:v=>v.length>0},
-    {id:'ev-org',  err:'ev-err-org',  msg:'שם הארגון הוא שדה חובה.',        check:v=>v.length>0},
-    {id:'ev-role', err:'ev-err-role', msg:'תפקיד הוא שדה חובה.',            check:v=>v.length>0},
-    {id:'ev-email',err:'ev-err-email',msg:'אנא הזינו כתובת אימייל תקינה.',   check:isEmail},
-    {id:'ev-phone',err:'ev-err-phone',msg:'אנא הזינו מספר טלפון תקין.',     check:isPhone},
+  const FIELDS = [
+    {id:'ev-first', err:'ev-err-first', msg:'שם פרטי הוא שדה חובה.',         check: v => v.length > 0},
+    {id:'ev-last',  err:'ev-err-last',  msg:'שם משפחה הוא שדה חובה.',        check: v => v.length > 0},
+    {id:'ev-org',   err:'ev-err-org',   msg:'שם הארגון הוא שדה חובה.',       check: v => v.length > 0},
+    {id:'ev-email', err:'ev-err-email', msg:'אנא הזינו כתובת אימייל תקינה.', check: isEmail},
+    {id:'ev-phone', err:'ev-err-phone', msg:'אנא הזינו מספר טלפון תקין.',    check: isPhone},
   ];
-  let valid=true;
-  FIELDS.forEach(f=>{
-    const inp=document.getElementById(f.id), err=document.getElementById(f.err);
-    const ok=f.check(inp.value.trim());
-    if(!ok){err.textContent=f.msg;inp.classList.add('is-err');if(valid){inp.focus();valid=false;}}
-    else{err.textContent='';inp.classList.remove('is-err');}
-    inp.oninput=function(){this.classList.remove('is-err');document.getElementById(f.err).textContent='';};
+  let valid = true;
+  FIELDS.forEach(f => {
+    const inp = document.getElementById(f.id), err = document.getElementById(f.err);
+    const ok  = f.check(inp.value.trim());
+    if (!ok) { err.textContent = f.msg; inp.classList.add('is-err'); if (valid) { inp.focus(); valid = false; } }
+    else     { err.textContent = ''; inp.classList.remove('is-err'); }
+    const evtName = inp.tagName === 'SELECT' ? 'change' : 'input';
+    inp.addEventListener(evtName, function() { this.classList.remove('is-err'); document.getElementById(f.err).textContent = ''; }, { once: false });
   });
+  // Validate role separately (custom dropdown)
+  if (!RL.value) {
+    document.getElementById('ev-err-role').textContent = 'אנא בחרו תפקיד.';
+    document.getElementById('rl-t').classList.add('is-err');
+    if (valid) { document.getElementById('rl-t').scrollIntoView({ behavior:'smooth', block:'center' }); valid = false; }
+  } else {
+    document.getElementById('ev-err-role').textContent = '';
+    document.getElementById('rl-t').classList.remove('is-err');
+  }
   if (!valid) return;
 
-  const btn=document.getElementById('ev-submit-btn');
-  setBtnLoading(btn,true);
+  const btn = document.getElementById('ev-submit-btn');
+  setBtnLoading(btn, true);
 
-  const firstName=document.getElementById('ev-first').value.trim();
-  const lastName =document.getElementById('ev-last').value.trim();
+  const firstName = document.getElementById('ev-first').value.trim();
+  const lastName  = document.getElementById('ev-last').value.trim();
 
-  const payload={
-    action:       'event_registration',
+  const payload = {
+    action:           'event_registration',
     firstName, lastName,
-    fullName:     `${firstName} ${lastName}`,
-    organization: document.getElementById('ev-org').value.trim(),
-    role:         document.getElementById('ev-role').value.trim(),
-    email:        document.getElementById('ev-email').value.trim(),
-    phone:        document.getElementById('ev-phone').value.trim(),
-    activityid:         document.getElementById('ev-activityid').value,        // ★ Fireberry activity ID
-    activitytypecode:   S.selectedEvent?.type  || '',                           // "אירוע" | "וובינר"
-    eventName:          document.getElementById('ev-event-name').value,
-    meetingEmail: S.email, // קישור לבקשת הפגישה המקורית
-    submittedAt:  new Date().toISOString(),
+    fullName:         `${firstName} ${lastName}`,
+    organization:     document.getElementById('ev-org').value.trim(),
+    email:            document.getElementById('ev-email').value.trim(),
+    phone:            document.getElementById('ev-phone').value.trim(),
+    activityid:       document.getElementById('ev-activityid').value,
+    activitytypecode: S.selectedEvents.map(e => e.type).join(', '),
+    eventName:        document.getElementById('ev-event-name').value,
+    role:             RL.value,
+    roleIndex:        String(RL.index),
+    events:           S.selectedEvents.map(e => ({
+      activityid:       e.id,
+      eventName:        e.name,
+      activitytypecode: e.type,
+      scheduledstart:   e.scheduledstart || '',
+      scheduledend:     e.scheduledend   || '',
+    })),
+    scheduledstart:   S.selectedEvents[0]?.scheduledstart || '',
+    scheduledend:     S.selectedEvents[0]?.scheduledend   || '',
+    meetingEmail:     S.email,
+    exID:             S.exID,
+    submittedAt:      new Date().toISOString(),
   };
 
   console.log('📤 Event registration payload:', payload);
 
   try {
-    await fetch(WH_EVENT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+    await fetch(WH_EVENT, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload) });
     document.getElementById('fin-name').textContent  = payload.fullName;
     document.getElementById('fin-org').textContent   = payload.organization;
     document.getElementById('fin-event').innerHTML   =
-      `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M8 4v4M16 4v4M2 10h20"/></svg>${S.selectedEvent?.name||payload.eventName}`;
+      `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M8 4v4M16 4v4M2 10h20"/></svg>${S.selectedEvents.map(e => e.name).join(' · ')}`;
     hide('step-event'); show('step-event-success');
-    window.scrollTo({top:0,behavior:'smooth'});
-  } catch(e){
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  } catch(e) {
     console.error(e);
     showToast('שגיאה בשליחת הרישום. נסו שוב.','err');
-    setBtnLoading(btn,false,'אשר רישום לאירוע');
+    setBtnLoading(btn, false, 'אשר רישום לאירוע');
   }
 }
 
 /* ═══════════════════════════════════════════════
    NOT FOUND MODAL
 ═══════════════════════════════════════════════ */
-function showNotFoundModal(email) { document.getElementById('modal-email-display').textContent=email||''; document.getElementById('not-found-modal').classList.remove('hidden'); document.body.style.overflow='hidden'; }
-function closeNotFoundModal()     { document.getElementById('not-found-modal').classList.add('hidden'); document.body.style.overflow=''; }
+function showNotFoundModal(email) { document.getElementById('modal-email-display').textContent = email || ''; document.getElementById('not-found-modal').classList.remove('hidden'); document.body.style.overflow = 'hidden'; }
+function closeNotFoundModal()     { document.getElementById('not-found-modal').classList.add('hidden'); document.body.style.overflow = ''; }
 
 /* ═══════════════════════════════════════════════
    REGISTRATION OVERLAY
 ═══════════════════════════════════════════════ */
+const RC = { companies: [], selected: null, isManual: false };
+
 function openRegistration() {
   closeNotFoundModal();
-  const e=document.getElementById('email-input').value.trim();
-  if (e) document.getElementById('r-email').value=e;
+  const e = document.getElementById('email-input').value.trim();
+  if (e) document.getElementById('r-email').value = e;
   document.getElementById('reg-overlay').classList.remove('hidden');
-  document.body.style.overflow='hidden';
+  document.body.style.overflow = 'hidden';
   document.getElementById('r-first').focus();
+  // Reset RC state and load companies
+  RC.selected = null; RC.isManual = false; RC.companies = [];
+  const d = document.getElementById('rc-d'); d.textContent = 'בחרו גוף / חברה...'; d.className = 'cs-ph';
+  document.getElementById('rc-other-wrap').style.display = 'none';
+  loadRegCompanies();
 }
+
 function closeRegistration() {
   document.getElementById('reg-overlay').classList.add('hidden');
-  document.body.style.overflow='';
-  document.getElementById('reg-success').style.display='none';
-  document.getElementById('reg-form-wrap').style.display='block';
-  ['r-first','r-last','r-email','r-phone','r-company','r-interests'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
-  document.getElementById('r-err').style.display='none';
+  document.body.style.overflow = '';
+  document.getElementById('reg-success').style.display = 'none';
+  document.getElementById('reg-form-wrap').style.display = 'block';
+  ['r-first','r-last','r-email','r-phone','r-interests'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+  RC.selected = null; RC.isManual = false;
+  const rcd = document.getElementById('rc-d'); if (rcd) { rcd.textContent = 'בחרו גוף / חברה...'; rcd.className = 'cs-ph'; }
+  const rct = document.getElementById('rc-t'); if (rct) rct.classList.remove('open');
+  const rcdd = document.getElementById('rc-dd'); if (rcdd) rcdd.style.display = 'none';
+  const rcow = document.getElementById('rc-other-wrap'); if (rcow) rcow.style.display = 'none';
+  document.getElementById('r-company-err').textContent = '';
+  document.getElementById('r-company-text').value = '';
+  document.getElementById('r-err').style.display = 'none';
 }
-async function submitRegistration() {
-  const first=document.getElementById('r-first').value.trim(),last=document.getElementById('r-last').value.trim(),
-        email=document.getElementById('r-email').value.trim(),phone=document.getElementById('r-phone').value.trim(),
-        company=document.getElementById('r-company').value.trim(),interests=document.getElementById('r-interests').value.trim();
-  const errEl=document.getElementById('r-err');
-  if(!first||!last||!email||!phone){errEl.textContent='אנא מלאו את כל השדות המסומנים בכוכבית.';errEl.style.display='flex';return;}
-  if(!isEmail(email)){errEl.textContent='כתובת האימייל שהזנתם אינה תקינה.';errEl.style.display='flex';return;}
-  errEl.style.display='none';
-  const btn=document.getElementById('reg-submit-btn');
-  setBtnLoading(btn,true);
+/* ═══════════════════════════════════════════════
+   REGISTRATION OVERLAY – COMPANY DROPDOWN (rc-)
+═══════════════════════════════════════════════ */
+function toggleRC() {
+  const t  = document.getElementById('rc-t');
+  const dd = document.getElementById('rc-dd');
+  if (t.classList.contains('open')) { closeRC(); return; }
+  t.classList.add('open');
+  dd.style.display = 'flex';
+  dd.style.flexDirection = 'column';
+  setTimeout(() => document.getElementById('rc-sh')?.focus(), 60);
+}
+function closeRC() {
+  document.getElementById('rc-t')?.classList.remove('open');
+  const dd = document.getElementById('rc-dd');
+  if (dd) dd.style.display = 'none';
+}
+document.addEventListener('click', e => {
+  const w = document.getElementById('rc-w');
+  if (w && !w.contains(e.target)) closeRC();
+});
+
+function renderRCList() {
+  const q    = (document.getElementById('rc-sh')?.value || '').trim();
+  const list = document.getElementById('rc-list');
+  let items  = RC.companies;
+  if (q) items = items.filter(c => c.name.includes(q) || c.name.toLowerCase().includes(q.toLowerCase()));
+  if (!items.length) { list.innerHTML = '<div class="cs-empty">לא נמצאו תוצאות</div>'; return; }
+  list.innerHTML = items.map(c => {
+    const esc   = c.name.replace(/'/g, "\\'");
+    const isSel = RC.selected?.id === c.customobject1001id;
+    return `<div class="cs-item ${isSel ? 'sel' : ''}" onclick="pickRCCompany('${esc}','${c.customobject1001id}')">
+      <span>${c.name}</span>
+      ${isSel ? '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>' : ''}
+    </div>`;
+  }).join('');
+}
+
+function pickRCCompany(name, id) {
+  RC.selected = { name, id }; RC.isManual = false;
+  const d = document.getElementById('rc-d'); d.textContent = name; d.className = 'cs-v';
+  document.getElementById('rc-other-wrap').style.display = 'none';
+  document.getElementById('r-company-text').value = '';
+  document.getElementById('r-company-err').textContent = '';
+  closeRC();
+}
+
+function pickRCOther() {
+  RC.selected = null; RC.isManual = true;
+  const d = document.getElementById('rc-d'); d.textContent = 'אחר (הזנה ידנית)'; d.className = 'cs-v';
+  document.getElementById('rc-other-wrap').style.display = 'block';
+  document.getElementById('r-company-err').textContent = '';
+  closeRC();
+  setTimeout(() => document.getElementById('r-company-text').focus(), 60);
+}
+
+// kept for reset compatibility
+function clearRCSelection() { _rcReset(); }
+function clearRCManual()    { _rcReset(); }
+function _rcReset() {
+  RC.selected = null; RC.isManual = false;
+  const d = document.getElementById('rc-d'); d.textContent = 'בחרו גוף / חברה...'; d.className = 'cs-ph';
+  document.getElementById('rc-other-wrap').style.display = 'none';
+  document.getElementById('r-company-text').value = '';
+  document.getElementById('r-company-err').textContent = '';
+}
+
+function onRegCompanyChange() {} // no-op
+
+async function loadRegCompanies() {
+  const dd      = document.getElementById('rc-dd');
+  const loading = document.getElementById('rc-loading');
+  const errDiv  = document.getElementById('rc-fetch-err');
+  const content = document.getElementById('rc-content');
+  const t       = document.getElementById('rc-t');
+
+  t.classList.add('open');
+  dd.style.display = 'flex'; dd.style.flexDirection = 'column';
+  loading.style.display = 'flex';
+  errDiv.style.display  = 'none';
+  content.style.display = 'none';
+  document.getElementById('r-company-err').textContent = '';
+
   try {
-    await fetch(WH_REG,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'register_investor',firstName:first,lastName:last,email,phone,company,interests})});
-    setBtnLoading(btn,false,'שלח בקשת הרשמה');
-    document.getElementById('reg-form-wrap').style.display='none';
-    document.getElementById('reg-success').style.display='flex';
-  } catch(e){console.error(e);errEl.textContent='שגיאת רשת – בדקו את החיבור ונסו שוב.';errEl.style.display='flex';setBtnLoading(btn,false,'שלח בקשת הרשמה');}
+    const res  = await fetch(WH_COMPANIES, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({action:'get_companies'}) });
+    const raw  = await res.text();
+    let list   = [];
+    try {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed.companies))      list = parsed.companies;
+      else if (Array.isArray(parsed))           list = parsed;
+      else if (Array.isArray(parsed.body))      list = parsed.body;
+      else if (typeof parsed.body === 'string') list = JSON.parse(parsed.body);
+    } catch {}
+
+    RC.companies = list;
+    loading.style.display = 'none';
+
+    if (!list.length) {
+      errDiv.style.display = 'flex'; errDiv.innerHTML = '<div style="padding:16px;text-align:center;color:var(--text-dim);font-size:13px;">לא נמצאו חברות</div>';
+      return;
+    }
+    content.style.display = 'flex'; content.style.flexDirection = 'column';
+    renderRCList();
+    setTimeout(() => document.getElementById('rc-sh')?.focus(), 50);
+  } catch(err) {
+    console.error(err);
+    loading.style.display = 'none'; errDiv.style.display = 'flex';
+  }
+}
+
+async function submitRegistration() {
+  const first    = document.getElementById('r-first').value.trim();
+  const last     = document.getElementById('r-last').value.trim();
+  const email    = document.getElementById('r-email').value.trim();
+  const phone    = document.getElementById('r-phone').value.trim();
+  const interests= document.getElementById('r-interests').value.trim();
+  const errEl    = document.getElementById('r-err');
+
+  const compName = RC.isManual
+    ? document.getElementById('r-company-text').value.trim()
+    : (RC.selected?.name || '');
+  const compId   = RC.isManual ? '' : (RC.selected?.id || '');
+
+  if (!first || !last || !email || !phone) { errEl.textContent = 'אנא מלאו את כל השדות המסומנים בכוכבית.'; errEl.style.display = 'flex'; return; }
+  if (!isEmail(email)) { errEl.textContent = 'כתובת האימייל שהזנתם אינה תקינה.'; errEl.style.display = 'flex'; return; }
+  errEl.style.display = 'none';
+  const btn = document.getElementById('reg-submit-btn');
+  setBtnLoading(btn, true);
+  try {
+    await fetch(WH_REG, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({
+      action:      'register_investor',
+      firstName:   first,
+      lastName:    last,
+      email,
+      phone,
+      companyName: compName,
+      companyId:   compId,
+      interests,
+    }) });
+    setBtnLoading(btn, false, 'שלח בקשת הרשמה');
+    document.getElementById('reg-form-wrap').style.display = 'none';
+    document.getElementById('reg-success').style.display = 'flex';
+  } catch(e) { console.error(e); errEl.textContent = 'שגיאת רשת – בדקו את החיבור ונסו שוב.'; errEl.style.display = 'flex'; setBtnLoading(btn, false, 'שלח בקשת הרשמה'); }
 }
 
 /* ═══════════════════════════════════════════════
    RESET
 ═══════════════════════════════════════════════ */
 function resetForm() {
-  Object.assign(S,{email:'',otpHash:'',verified:false,contact:null,companies:[],selectedCompany:null,selectedPurpose:'היכרות',selectedMT:'זום',selectedEvent:null,events:DEFAULT_EVENTS});
+  Object.assign(S, { email:'', otpHash:'', verified:false, contact:null, companies:[], exID:'', selectedCompany:null, selectedPurpose:'היכרות', selectedMT:'זום', selectedEvents:[], events:[] });
   clearInterval(S.resendTimer);
 
-  const ei=document.getElementById('email-input'); ei.value=''; ei.disabled=false;
-  document.getElementById('email-err').textContent='';
-  const sb=document.getElementById('send-otp-btn'); sb.innerHTML='שלח קוד'; sb.disabled=false;
-  document.getElementById('otp-section').style.display='none';
-  for(let i=0;i<6;i++){const c=document.getElementById('otp'+i);c.value='';c.classList.remove('filled','err');}
+  const ei = document.getElementById('email-input'); ei.value = ''; ei.disabled = false;
+  document.getElementById('email-err').textContent = '';
+  const sb = document.getElementById('send-otp-btn'); sb.innerHTML = 'שלח קוד'; sb.disabled = false;
+  document.getElementById('otp-section').style.display = 'none';
+  for (let i = 0; i < 6; i++) { const c = document.getElementById('otp'+i); c.value = ''; c.classList.remove('filled','err'); }
   setNotif('otp-notif','info','');
 
-  document.querySelectorAll('.pp').forEach(p=>p.classList.remove('sel'));
+  document.querySelectorAll('.pp').forEach(p => p.classList.remove('sel'));
   document.querySelector('[data-v="היכרות"]').classList.add('sel');
-  document.querySelectorAll('.mt-card').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.mt-card').forEach(c => c.classList.remove('sel'));
   document.querySelector('[data-v="זום"]').classList.add('sel');
 
-  const pb=document.getElementById('ev-proceed-btn'); pb.style.display='none';
+  const pb = document.getElementById('ev-proceed-btn'); pb.style.display = 'none'; pb.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> המשך לרישום לאירוע`;
+
+  RL.value = ''; RL.index = 0;
+  const rld = document.getElementById('rl-d'); if (rld) { rld.textContent = 'בחרו תפקיד...'; rld.className = 'cs-ph'; }
+  const rlt = document.getElementById('rl-t'); if (rlt) { rlt.classList.remove('open','is-err'); }
+  const rldd = document.getElementById('rl-dd'); if (rldd) rldd.style.display = 'none';
 
   ['step-success','step-details','step-event','step-event-success'].forEach(hide);
   show('step-verify');
-  window.scrollTo({top:0,behavior:'smooth'});
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 </script>
 </body>
