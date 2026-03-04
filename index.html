@@ -240,7 +240,7 @@ html.light .otp-cell { border-color:rgba(0,0,0,0.10); }
 /* ════════════════════════════════════════════════════
    MEETING TYPE + PURPOSE PILLS
 ════════════════════════════════════════════════════ */
-.mt-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(8px,2vw,12px); }
+.mt-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:clamp(8px,2vw,12px); }
 .mt-card { padding:clamp(14px,3vw,20px) clamp(8px,2vw,14px); border-radius:var(--r-md); background:var(--bg-elevated); border:2px solid rgba(255,255,255,0.07); cursor:pointer; transition:var(--t-base); display:flex; flex-direction:column; align-items:center; gap:8px; text-align:center; user-select:none; min-height:80px; }
 html.light .mt-card { border-color:rgba(0,0,0,0.08); }
 .mt-card:hover { border-color:rgba(212,168,67,0.28); background:rgba(212,168,67,0.04); }
@@ -846,9 +846,10 @@ html.light .role-sel:hover { border-color:rgba(0,0,0,0.18); }
           <div class="field">
             <label>סוג פגישה מועדף <span class="req">*</span></label>
             <div class="mt-grid">
-              <div class="mt-card"     data-v="פרונטלי" onclick="pickMT(this)"><div class="mt-icon">🤝</div><div class="mt-lbl">פרונטלי</div></div>
-              <div class="mt-card sel" data-v="זום"      onclick="pickMT(this)"><div class="mt-icon">💻</div><div class="mt-lbl">זום</div></div>
-              <div class="mt-card"     data-v="טלפון"   onclick="pickMT(this)"><div class="mt-icon">📞</div><div class="mt-lbl">שיחת טלפון</div></div>
+              <div class="mt-card"     data-v="פרונטלי אצל המשקיע"      onclick="pickMT(this)"><div class="mt-icon">🏢</div><div class="mt-lbl">פרונטלי אצל<br>המשקיע</div></div>
+              <div class="mt-card"     data-v="פרונטלי במשרדי החברה"    onclick="pickMT(this)"><div class="mt-icon">🤝</div><div class="mt-lbl">פרונטלי במשרדי<br>החברה</div></div>
+              <div class="mt-card sel" data-v="זום"                      onclick="pickMT(this)"><div class="mt-icon">💻</div><div class="mt-lbl">זום</div></div>
+              <div class="mt-card"     data-v="טלפון"                    onclick="pickMT(this)"><div class="mt-icon">📞</div><div class="mt-lbl">שיחת טלפון</div></div>
             </div>
           </div>
 
@@ -1886,6 +1887,7 @@ function resetForm() {
   document.querySelector('[data-v="היכרות"]').classList.add('sel');
   document.querySelectorAll('.mt-card').forEach(c => c.classList.remove('sel'));
   document.querySelector('[data-v="זום"]').classList.add('sel');
+  S.selectedMT = 'זום';
 
   const pb = document.getElementById('ev-proceed-btn'); pb.style.display = 'none'; pb.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> המשך לרישום לאירוע`;
 
